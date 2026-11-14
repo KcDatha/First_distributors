@@ -15,6 +15,7 @@ Rules that do not depend on dev strings. Use these to write the prompt and the c
 9. A revision outputs the complete order as now intended, and the earlier email keeps its own original lines. A duplicate gets the same classification as the original, duplicate_of set to the original, and zero line items.
 10. An attachment or image that opens but cannot be read (blurry photo, illegible scan) goes to needs_review (rfq, rfq_revision, purchase_order only), with whatever lines could be read still returned.
 11. A revision whose parent email is not in the inbox gets revises null.
+12. When the model has doubt, it says why in a structured reason, and code turns that into needs_review. If the doubt is request vs non-request, classify as the request and flag it, since needs_review only exists for rfq, rfq_revision and purchase_order. Still return whatever lines were readable.
 
 ## Per-email notes (dev evidence only)
 
