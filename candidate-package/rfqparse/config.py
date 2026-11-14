@@ -7,3 +7,10 @@ RIDGELINE_DOMAIN = "ridgeline-supply.example"
 PDF_MAX_PAGES = 15        # pages read per PDF; more than this returns the first pages, flagged truncated
 PDF_SCAN_MIN_CHARS = 25   # a page with fewer non-space text characters than this is treated as scanned
 PDF_RASTER_DPI = 150      # resolution of the PNG made for pages that need vision
+PDF_MIXED_IMAGE_RATIO = 0.5  # a page whose images cover at least this share of its area is rasterized too ("mixed")
+
+# Image preparation (rfqparse/render/image.py)
+IMAGE_MAX_EDGE = 2000     # longest side after downscaling, in pixels
+IMAGE_MIN_EDGE = 16       # an image with a side shorter than this is skipped (tracking pixel, spacer)
+IMAGE_JPEG_QUALITY = 90
+IMAGE_MAX_PIXELS = 100_000_000  # refuse to decode anything with more pixels than this

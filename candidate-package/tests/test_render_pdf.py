@@ -181,6 +181,43 @@ class ScanTests(unittest.TestCase):
         self.assertEqual((r.text_pages, r.scanned_pages), ([1], []))
 
 
+class MixedPageTests(unittest.TestCase):
+    BIG = "q 612 0 0 700 0 50 cm /Im0 Do Q\n"       # image covers about 90% of the page
+    SMALL = "q 40 0 0 40 520 700 cm /Im0 Do Q\n"    # a logo-sized image
+
+    def test_text_over_a_big_image_is_mixed_and_rasterized_with_its_text_kept(self):
+        page = {"content": self.BIG + text_content(["FAX HEADER 10/08/2026 page 1 of 1 for RFQ"]), "image": True}
+        r = P.render_pdf(build_pdf([page]))
+        pg = r.pages[0]
+        self.assertEqual(pg.kind, "mixed")
+        self.assertGreater(pg.image_ratio, 0.8)
+        self.assertGreaterEqual(pg.chars, config.PDF_SCAN_MIN_CHARS)      # it does have a text layer
+        self.assertIsNotNone(pg.png)                                       # ...and we send the picture too
+        self.assertEqual((r.text_pages, r.scanned_pages, r.mixed_pages, r.vision_pages), ([], [], [1], [1]))
+        self.assertIn("MIXED", r.text)
+        self.assertIn("FAX HEADER", r.text)                                # the text is still in the output
+
+    def test_small_image_on_a_text_page_stays_text(self):
+        page = {"content": self.SMALL + text_content(LONG), "image": True}
+        pg = P.render_pdf(build_pdf([page])).pages[0]
+        self.assertEqual(pg.kind, "text")
+        self.assertLess(pg.image_ratio, 0.05)
+        self.assertIsNone(pg.png)
+
+    def test_ratio_is_configurable(self):
+        page = {"content": "q 300 0 0 300 50 300 cm /Im0 Do Q\n" + text_content(LONG), "image": True}   # ~19%
+        self.assertEqual(P.render_pdf(build_pdf([page])).pages[0].kind, "text")
+        with mock.patch.object(config, "PDF_MIXED_IMAGE_RATIO", 0.1):
+            self.assertEqual(P.render_pdf(build_pdf([page])).pages[0].kind, "mixed")
+
+    def test_page_kinds_in_a_mixed_document(self):
+        pages = [{"content": text_content(LONG)},
+                 {"content": IMAGE_CONTENT, "image": True},
+                 {"content": self.BIG + text_content(LONG), "image": True}]
+        r = P.render_pdf(build_pdf(pages))
+        self.assertEqual((r.text_pages, r.scanned_pages, r.mixed_pages, r.vision_pages), ([1], [2], [3], [2, 3]))
+
+
 class CapAndUnreadableTests(unittest.TestCase):
     def test_page_cap_returns_first_pages_with_reason(self):
         pdf = build_pdf([{"content": text_content([f"page {i} with enough ordinary text on it"])} for i in range(1, 6)])

@@ -21,7 +21,8 @@ MAX_TOTAL_CHARS = 60_000
 @dataclass
 class PageInfo:
     number: int                      # 1-based
-    kind: str                        # "text", "scanned" (needs vision) or "error"
+    kind: str                        # "text", "scanned" (no text layer), "mixed" (text + big image) or "error"
+    image_ratio: float = 0.0         # share of the page area covered by images (0..1)
     chars: int = 0                   # non-space text characters found on the page
     images: int = 0                  # embedded images on the page
     tables: int = 0
@@ -42,6 +43,15 @@ class PdfResult(RenderResult):
     @property
     def scanned_pages(self) -> list[int]:
         return [p.number for p in self.pages if p.kind == "scanned"]
+
+    @property
+    def mixed_pages(self) -> list[int]:
+        return [p.number for p in self.pages if p.kind == "mixed"]
+
+    @property
+    def vision_pages(self) -> list[int]:
+        """Pages that carry a PNG for the model: scanned and mixed."""
+        return [p.number for p in self.pages if p.png is not None]
 
 
 def _unreadable(reason: str) -> PdfResult:
@@ -111,6 +121,20 @@ def _page_blocks(page) -> tuple[list[str], int, int]:
     return [l for _, ls in blocks for l in ls], len(tables), chars
 
 
+def _image_ratio(page) -> float:
+    """Share of the page covered by images (each clipped to the page; overlaps counted twice, capped at 1)."""
+    area = float(page.width) * float(page.height)
+    if area <= 0:
+        return 0.0
+    covered = 0.0
+    for im in page.images:
+        w = min(im["x1"], page.width) - max(im["x0"], 0)
+        h = min(im["bottom"], page.height) - max(im["top"], 0)
+        if w > 0 and h > 0:
+            covered += w * h
+    return min(1.0, covered / area)
+
+
 def _rasterize(page) -> bytes:
     img = page.to_image(resolution=config.PDF_RASTER_DPI)
     buf = io.BytesIO()
@@ -157,21 +181,29 @@ def _render(data: bytes) -> PdfResult:
             try:
                 page = pdf.pages[idx]
                 lines, ntables, chars = _page_blocks(page)
-                info = PageInfo(n, "text", chars=chars, images=len(page.images), tables=ntables)
+                ratio = _image_ratio(page)
+                info = PageInfo(n, "text", chars=chars, images=len(page.images), tables=ntables, image_ratio=ratio)
                 if chars < config.PDF_SCAN_MIN_CHARS:
                     info.kind = "scanned"
+                elif ratio >= config.PDF_MIXED_IMAGE_RATIO:
+                    info.kind = "mixed"
+                if info.kind != "text":
                     try:
                         info.png = _rasterize(page)
                     except Exception as exc:
-                        info.kind = "error"
                         info.error = f"needs vision but could not be rasterized: {type(exc).__name__}: {exc}"
                         warnings.append(f"page {n}: {info.error}")
-                    out.append(f"--- Page {n} of {total}: SCANNED, almost no text layer ({chars} chars); "
-                               f"{'image attached for vision' if info.png else 'NO IMAGE AVAILABLE'} ---")
-                    out.extend(lines)  # whatever little text there was
+                        if info.kind == "scanned":
+                            info.kind = "error"
+                attached = "image attached for vision" if info.png else "NO IMAGE AVAILABLE"
+                if info.kind in ("scanned", "error"):
+                    out.append(f"--- Page {n} of {total}: SCANNED, almost no text layer ({chars} chars); {attached} ---")
+                elif info.kind == "mixed":
+                    out.append(f"--- Page {n} of {total}: MIXED, text layer ({chars} chars) plus images covering "
+                               f"{ratio:.0%} of the page; {attached}; the text below may be only part of the page ---")
                 else:
                     out.append(f"--- Page {n} of {total} ---")
-                    out.extend(lines)
+                out.extend(lines)
             except Exception as exc:
                 info = PageInfo(n, "error", error=f"{type(exc).__name__}: {exc}")
                 warnings.append(f"page {n} unreadable: {info.error}")
