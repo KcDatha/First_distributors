@@ -20,14 +20,27 @@ MAX_CELL_CHARS = 500
 RESERVE_FOR_EDGES = 3_000        # room kept for footers/footnotes when the body is cut
 
 W = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+MC = "http://schemas.openxmlformats.org/markup-compatibility/2006"
 
 LEGEND = ("[docx legend] [HEADING n] = heading style. '- ' = list item (indented by level). "
           "[TABLE] rows are 'Rn: cell | cell'. [merged] = value carried down from a merged cell. "
-          "[STRUCK: x] = struck-through text or a tracked deletion. Tracked insertions appear as normal text.")
+          "[TEXT BOX] = text inside a text box. [STRUCK: x] = struck-through text or a tracked deletion. Tracked insertions appear as normal text.")
 
 
 def q(tag: str) -> str:
     return f"{{{W}}}{tag}"
+
+
+def _textboxes(el):
+    """w:txbxContent elements under el. Word stores each text box twice (mc:Choice and an
+    mc:Fallback copy for old readers); only the Choice copy is read, so nothing prints twice."""
+    for ch in el:
+        if ch.tag == f"{{{MC}}}Fallback":
+            continue
+        if ch.tag == q("txbxContent"):
+            yield ch
+        else:
+            yield from _textboxes(ch)
 
 
 def _val(el, default=None):
@@ -204,13 +217,16 @@ def _render_blocks(parent, styles, lines: list[str], counter: list[int]) -> None
     for ch in parent:
         if ch.tag == q("p"):
             text = _paragraph_text(ch)
-            if not text:
-                continue
-            label = _heading_label(ch, styles)
-            if label:
-                lines.append(f"[{label}] {text}")
-            else:
-                lines.append((_list_prefix(ch) or "") + text)
+            if text:
+                label = _heading_label(ch, styles)
+                if label:
+                    lines.append(f"[{label}] {text}")
+                else:
+                    lines.append((_list_prefix(ch) or "") + text)
+            for box in _textboxes(ch):
+                inner: list[str] = []
+                _render_blocks(box, styles, inner, counter)
+                lines.extend(f"[TEXT BOX] {l}" for l in inner)
         elif ch.tag == q("tbl"):
             counter[0] += 1
             lines.append(f"[TABLE {counter[0]}]")

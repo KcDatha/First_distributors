@@ -151,6 +151,62 @@ class MergeTests(unittest.TestCase):
         self.assertIn("R1: WIDE HEADING |  |  | end", t)
 
 
+class TextBoxTests(unittest.TestCase):
+    CHOICE = ('<w:p><w:r><mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">'
+              '<mc:Choice><w:drawing><w:txbxContent>{inner}</w:txbxContent></w:drawing></mc:Choice>'
+              '<mc:Fallback><w:pict><w:txbxContent>{inner}</w:txbxContent></w:pict></mc:Fallback>'
+              '</mc:AlternateContent></w:r></w:p>')
+
+    def test_text_box_read_labelled_and_not_duplicated(self):
+        body = p("before") + self.CHOICE.format(inner=p("ALL FLANGES 150# RF")) + p("after")
+        t = D.render_docx(make(body)).text
+        self.assertEqual(t.count("ALL FLANGES 150# RF"), 1)       # Choice copy only, Fallback ignored
+        self.assertIn("[TEXT BOX] ALL FLANGES 150# RF", t)
+        self.assertLess(t.index("\nbefore"), t.index("\n[TEXT BOX]"))   # (the legend also names [TEXT BOX])
+        self.assertLess(t.index("\n[TEXT BOX]"), t.index("\nafter"))
+
+    def test_text_box_with_table_and_struck_text(self):
+        inner = p("note", rpr="<w:strike/>") + tbl(tr(tc(p("a")), tc(p("b"))))
+        t = D.render_docx(make(self.CHOICE.format(inner=inner))).text
+        self.assertIn("[TEXT BOX] [STRUCK: note]", t)
+        self.assertIn("[TEXT BOX] R1: a | b", t)
+
+    def test_text_box_in_header(self):
+        t = D.render_docx(make(p("body"), extra={"word/header1.xml": self.CHOICE.format(inner=p("HDR BOX"))})).text
+        self.assertIn("[TEXT BOX] HDR BOX", t)
+
+
+class RealFileRegression(unittest.TestCase):
+    """Renders the real dev E019 attachment (not a file built here)."""
+
+    EML = Path(__file__).resolve().parent.parent / "data" / "dev" / "emails" / "E019.eml"
+
+    def test_e019_headings_in_order_and_table_row_counts(self):
+        from rfqparse.ingest import ingest_eml
+        mail = ingest_eml(self.EML)
+        docs = [a for a in mail.attachments if (a.filename or "").lower().endswith(".docx")]
+        self.assertEqual(len(docs), 1)
+        r = D.render_docx(docs[0].data)
+        self.assertTrue(r.ok, r.reason)
+        lines = r.text.splitlines()
+        headings = [i for i, l in enumerate(lines) if l.startswith("[HEADING")]
+        self.assertEqual(len(headings), 2)
+        self.assertIn("SCH 80", lines[headings[0]])
+        self.assertIn("3000#", lines[headings[1]])
+        tables = [i for i, l in enumerate(lines) if l.startswith("[TABLE")]
+        self.assertEqual(len(tables), 2)
+        # heading, then its table, then the next heading, then its table: strict order
+        self.assertLess(headings[0], tables[0])
+        self.assertLess(tables[0], headings[1])
+        self.assertLess(headings[1], tables[1])
+        bounds = [tables[0], headings[1], tables[1], len(lines)]
+        data_rows = []
+        for start, end in ((bounds[0], bounds[1]), (bounds[2], bounds[3])):
+            rows = [l for l in lines[start + 1:end] if l.startswith("R") and ": " in l]
+            data_rows.append(len(rows) - 1)  # minus the header row R1
+        self.assertEqual(data_rows, [4, 5])
+
+
 class EdgeTests(unittest.TestCase):
     def test_headers_footers_footnotes_included_and_labelled(self):
         t = D.render_docx(make(p("body text"), extra={
