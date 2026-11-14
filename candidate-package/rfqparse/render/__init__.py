@@ -20,3 +20,9 @@ class RenderResult:
 
 def unreadable(reason: str) -> RenderResult:
     return RenderResult(status="unreadable", reason=reason)
+
+
+def clean_cell(s: str, limit: int = 500) -> str:
+    """One line per cell: newlines become ' / ', and very long cells are cut and marked."""
+    s = " / ".join(p.strip() for p in str(s).replace("\r", "").split("\n") if p.strip())
+    return s if len(s) <= limit else s[:limit] + "...[cell cut]"
