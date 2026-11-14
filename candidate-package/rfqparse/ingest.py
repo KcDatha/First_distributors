@@ -47,6 +47,7 @@ class Email:
     hints: dict[str, str | None] = field(default_factory=dict)  # list_unsubscribe, precedence, auto_submitted
     is_ridgeline_sender: bool = False
     text: str = ""
+    html: str = ""                     # raw html part(s), kept so inline images can be matched by cid
     current_text: str = ""
     quoted_text: str = ""
     quote_marker: str | None = None    # which rule split the text, and where
@@ -285,6 +286,7 @@ def ingest_eml(path: Path | str) -> Email:
         plain: list[str] = []
         html: list[str] = []
         _walk(msg, mail, plain, html)
+        mail.html = "\n\n".join(html)
         if plain:
             mail.text = "\n\n".join(plain)
         elif html:

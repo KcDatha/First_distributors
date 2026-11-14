@@ -1,4 +1,5 @@
 """Prepare an image (bytes) for a vision model: EXIF-rotate, flatten to RGB, downscale, re-encode.
+An image that is already RGB (JPEG or PNG), upright and within the size cap is returned as the original bytes.
 
 Needs Pillow (already pinned: pdfplumber depends on it). Never raises. Judges nothing about what the
 picture is: no filename or inline-flag logic, and logos are the model's call. The only thing skipped is
@@ -30,6 +31,7 @@ class ImageResult(RenderResult):
     orig_format: str | None = None
     rotated: bool = False        # an EXIF orientation was applied
     downscaled: bool = False
+    reencoded: bool = True       # False when the original bytes came back untouched
 
     @property
     def skipped(self) -> bool:
@@ -111,6 +113,7 @@ def _prepare(data: bytes) -> ImageResult:
     try:
         img.seek(0)               # animated/multi-page: first frame only
         img.load()                # decode now so truncation surfaces here
+        src_mode, frames = img.mode, getattr(img, "n_frames", 1)   # before any conversion
         try:
             rotated = img.getexif().get(0x0112, 1) not in (0, 1)   # EXIF orientation tag
         except Exception:
@@ -119,6 +122,12 @@ def _prepare(data: bytes) -> ImageResult:
         img = _flatten(img)
     except Exception as exc:
         return _unreadable(f"corrupt or truncated image ({type(exc).__name__}: {exc})", **base)
+
+    if (fmt in ("JPEG", "PNG") and src_mode == "RGB" and not rotated and max(img.size) <= config.IMAGE_MAX_EDGE
+            and frames == 1):
+        mime = "image/jpeg" if fmt == "JPEG" else "image/png"   # already RGB, upright, small enough: send as is
+        return ImageResult(status="ok", text=f"[image {w0}x{h0} {fmt.lower()}; unchanged]", data=data, mime=mime,
+                           width=w0, height=h0, rotated=False, downscaled=False, reencoded=False, **base)
 
     downscaled = False
     longest = max(img.size)

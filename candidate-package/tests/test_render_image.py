@@ -42,15 +42,37 @@ def photo_like(w=400, h=300) -> Image.Image:
 
 
 class PrepareTests(unittest.TestCase):
-    def test_plain_png_passes_through_with_sizes(self):
-        data = encode(screenshot())
-        r = I.prepare_image(data)
-        self.assertTrue(r.ok)
-        self.assertEqual((r.width, r.height, r.orig_width, r.orig_height), (300, 200, 300, 200))
-        self.assertEqual(r.orig_bytes, len(data))
-        self.assertEqual(opened(r.data).size, (300, 200))
-        self.assertEqual(opened(r.data).mode, "RGB")
-        self.assertFalse(r.rotated or r.downscaled)
+    def test_rgb_upright_small_image_is_returned_unchanged(self):
+        for fmt, mime, img in (("PNG", "image/png", screenshot()), ("JPEG", "image/jpeg", photo_like())):
+            with self.subTest(fmt):
+                data = encode(img, fmt)
+                r = I.prepare_image(data)
+                self.assertTrue(r.ok)
+                self.assertIs(r.data, data)                       # the very same bytes, no re-encode
+                self.assertEqual(r.mime, mime)
+                self.assertFalse(r.reencoded)
+                self.assertEqual((r.width, r.height, r.orig_width, r.orig_height), (*img.size, *img.size))
+                self.assertEqual(r.orig_bytes, len(data))
+                self.assertIn("unchanged", r.text)
+
+    def test_anything_that_needs_changing_is_reencoded(self):
+        exif = Image.Exif()
+        exif[0x0112] = 3
+        cases = {
+            "rotated by EXIF": encode(photo_like(), "JPEG", exif=exif),
+            "too big": encode(Image.new("RGB", (2400, 100), "white")),
+            "not RGB (RGBA)": encode(Image.new("RGBA", (50, 50), "white")),
+            "not RGB (palette)": encode(Image.new("P", (50, 50))),
+            "other format (GIF)": encode(Image.new("RGB", (50, 50), "white"), "GIF"),
+            "other format (BMP)": encode(Image.new("RGB", (50, 50), "white"), "BMP"),
+        }
+        for name, data in cases.items():
+            with self.subTest(name):
+                r = I.prepare_image(data)
+                self.assertTrue(r.ok, r.reason)
+                self.assertTrue(r.reencoded)
+                self.assertIsNot(r.data, data)
+                self.assertEqual(opened(r.data).mode, "RGB")
 
     def test_exif_rotation_applied(self):
         img = Image.new("RGB", (300, 200), "white")
@@ -108,8 +130,9 @@ class PrepareTests(unittest.TestCase):
                 self.assertEqual(opened(r.data).mode, "RGB")
 
     def test_png_for_screenshots_jpeg_for_photos(self):
-        self.assertEqual(I.prepare_image(encode(screenshot())).mime, "image/png")
-        self.assertEqual(I.prepare_image(encode(photo_like(), "PNG")).mime, "image/jpeg")
+        # (RGBA forces a re-encode, so the PNG-vs-JPEG choice is actually made)
+        self.assertEqual(I.prepare_image(encode(screenshot().convert("RGBA"))).mime, "image/png")
+        self.assertEqual(I.prepare_image(encode(photo_like().convert("RGBA"))).mime, "image/jpeg")
 
     def test_multi_frame_uses_first_frame(self):
         frames = [Image.new("RGB", (60, 40), c) for c in ("red", "blue")]
