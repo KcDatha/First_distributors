@@ -13,6 +13,8 @@ Rules that do not depend on dev strings. Use these to write the prompt and the c
 7. Source is body or the exact attachment or image filename.
 8. needs_review is only for rfq, rfq_revision, and purchase_order. Use it when the pointed attachment is missing or cannot be opened, or when the item is identified only by something outside the email. Still return whatever lines can be read.
 9. A revision outputs the complete order as now intended, and the earlier email keeps its own original lines. A duplicate gets the same classification as the original, duplicate_of set to the original, and zero line items.
+10. An attachment or image that opens but cannot be read (blurry photo, illegible scan) goes to needs_review (rfq, rfq_revision, purchase_order only), with whatever lines could be read still returned.
+11. A revision whose parent email is not in the inbox gets revises null.
 
 ## Per-email notes (dev evidence only)
 
