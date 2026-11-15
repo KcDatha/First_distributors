@@ -1,6 +1,6 @@
 """The system prompt (version in config.PROMPT_VERSION).
 
-Written from docs/EDGE_CASES.md ("General properties"), and the classification table and field rules in
+Written from an audit of the dev emails (general rules only), and the classification table and field rules in
 data/README.md. It is embedded here, not read from those files at run time, so the text a cache key was made
 from can never change under it. It contains no strings, ids or examples taken from the dev emails.
 """
