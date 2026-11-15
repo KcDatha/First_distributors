@@ -208,7 +208,8 @@ class SecondPassTests(Base):
 
     def test_second_pass_answers_are_validated_like_the_first(self):
         self.write()
-        bad = [dict(item_line(it), source="nowhere.pdf") for it in ITEMS[5:]]
+        # a bad source AND a raw that appears nowhere in the email: the source repair cannot help, so validation fails
+        bad = [dict(item_line(it), source="nowhere.pdf", raw=row_text(it) + " zzz paraphrase") for it in ITEMS[5:]]
         def second(p):
             return answer(lines=bad if p["model"] == MINI else [item_line(it) for it in ITEMS[5:]])
         client = FakeClient(responder_factory(lambda p: answer(lines=[item_line(it) for it in ITEMS[:5]]), second))
@@ -264,6 +265,20 @@ class SecondPassTests(Base):
         self.assertEqual(len(e["line_items"]), 3)
         self.assertTrue(e["needs_review"])
         self.assertIn("5 of 8 table rows could not be accounted for", e["review_reason"])
+
+
+class SecondPassSourceRepairTests(Base):
+    def test_second_pass_lines_get_the_same_source_repair(self):
+        self.write()
+        bad = [dict(item_line(it), source="the spreadsheet") for it in ITEMS[5:]]        # right text, invented source name
+        client = FakeClient(responder_factory(lambda p: answer(lines=[item_line(it) for it in ITEMS[:5]]),
+                                              lambda p: answer(lines=bad)))
+        notes = []
+        e = self.run_one(client, notes=notes)
+        self.assertEqual(client.models, [MINI, MINI])                                  # repaired, so no escalation
+        self.assertEqual(len(e["line_items"]), 8)
+        self.assertTrue(all(l["source"] == "list.xlsx" for l in e["line_items"]))
+        self.assertEqual(sum("source repaired" in n for n in notes), 3)
 
 
 class CandidateRowTests(Base):

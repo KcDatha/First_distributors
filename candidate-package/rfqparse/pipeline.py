@@ -148,6 +148,29 @@ def phrase_in_text(phrase: str, norm_corpus: str) -> bool:
     return n.strip() != "" and n in norm_corpus
 
 
+_LEADING_QTY_RE = re.compile(r"^\s*(\d+(?:\.\d+)?)\s*([A-Za-z]+)\b\.?\s*(?:of\s+)?", re.I)
+
+
+def strip_restated_quantity(description: str, qty, uom) -> str:
+    """Remove a leading "<qty> <unit> [of]" from a description, but ONLY when that number equals the line's own qty and the
+    unit word stands for the line's own uom (null uom counts as EA). "7 EA 1/2 weld neck" -> "1/2 weld neck"."""
+    if qty is None or isinstance(qty, bool):
+        return description
+    m = _LEADING_QTY_RE.match(description or "")
+    if not m:
+        return description
+    try:
+        same_qty = abs(float(m.group(1)) - float(qty)) < 1e-9
+    except (TypeError, ValueError):
+        return description
+    word = m.group(2).lower()
+    codes = {code for code, words in config.UNIT_WORDS.items() if word in words}
+    if not same_qty or (uom or "EA") not in codes:
+        return description
+    rest = description[m.end():].strip()
+    return rest if rest else description
+
+
 def phrase_in_text_tokens(phrase: str) -> bool:
     return bool(re.search(r"[a-z0-9]", phrase or "", re.I))
 
@@ -173,6 +196,10 @@ def apply_line_guards(parsed_lines: list[dict], pkg: EmailPackage, notes: list[s
         if ln.get("qty") is not None and not has_quantity_evidence(ln.get("raw", "")):
             notes.append(f"{tag}: qty {ln['qty']} set to null (the line has no digit or number word)")
             ln["qty"] = None
+        stripped = strip_restated_quantity(ln["description"], ln.get("qty"), ln.get("uom"))
+        if stripped != ln["description"]:
+            notes.append(f"{tag}: removed the restated quantity and unit from the start of the description")
+            ln["description"] = stripped
         desc_norm = _norm(ln["description"])
         add = []
         for ph in dict.fromkeys(p.strip() for p in ln.get("applies_context", []) if p.strip()):
@@ -198,6 +225,50 @@ def apply_line_guards(parsed_lines: list[dict], pkg: EmailPackage, notes: list[s
             notes.append(f"{tag}: appended context {add}")
         out.append(ln)
     return out
+
+
+def make_source_repair(pkg: EmailPackage, notes: list[str] | None = None):
+    """A repair step for call_routed: a line whose source is not 'body' or a real attachment/picture name gets one if its raw
+    text can be found. Found in the current body or the quoted text: source is 'body'. Found in the text of exactly one
+    attachment: that attachment. Found nowhere, or in several attachments, or the raw is too short to mean anything: left
+    alone, so validation fails exactly as it would have. A valid source is never touched."""
+    notes = notes if notes is not None else []
+    valid = {"body"} | {a.source for a in pkg.attachments}
+    body = _norm(pkg.current_text + "\n" + pkg.quoted_text)
+    att: dict[str, str] = {}
+    for a in pkg.attachments:
+        if a.text and a.detected != "image":
+            att[a.source] = att.get(a.source, " ") + _norm(a.text)
+
+    def repair(parsed: dict) -> dict:
+        lines = parsed.get("lines")
+        if not isinstance(lines, list):
+            return parsed
+        out, changed = [], False
+        for i, ln in enumerate(lines):
+            src = ln.get("source") if isinstance(ln, dict) else None
+            if not isinstance(ln, dict) or src in valid:
+                out.append(ln)
+                continue
+            raw = _norm(str(ln.get("raw", "")))
+            new = None
+            if len(raw.strip()) >= 6 and len(raw.split()) >= 2:
+                if raw in body:
+                    new, where = "body", "the message text or its quoted text"
+                else:
+                    hits = [name for name, text in att.items() if raw in text]
+                    if len(hits) == 1:
+                        new, where = hits[0], f"the text of attachment '{hits[0]}'"
+            if new is None:
+                out.append(ln)
+                continue
+            notes.append(f"source repaired on line {i + 1} ({str(ln.get('raw', ''))[:40]!r}): {src!r} -> {new!r} "
+                         f"(the line's text was found in {where})")
+            out.append({**ln, "source": new})
+            changed = True
+        return {**parsed, "lines": out} if changed else parsed
+
+    return repair
 
 
 def _num(q):
@@ -246,7 +317,8 @@ def second_pass(parsed: dict, pkg: EmailPackage, user: list[dict], sources: set[
         res = call_routed(system=CP_system(), user=list(user) + [{"type": "text", "text": CP.second_pass_text(asked, parsed["classification"])}],
                           schema=EXTRACTION_SCHEMA, schema_name=SCHEMA_NAME + "_second_pass", client=client, email_id=mail.id,
                           prompt_version=config.COMPLETENESS_PROMPT_VERSION, schema_version=config.SCHEMA_VERSION,
-                          validate=make_validator(sources), cache=cache, ledger=ledger, stats=stats)
+                          validate=make_validator(sources), repair=make_source_repair(pkg, notes),
+                          cache=cache, ledger=ledger, stats=stats)
         kept, dropped = CP.accept_second_pass(asked, res.parsed["lines"])
         merged["lines"] = list(parsed["lines"]) + kept
         merged["doubts"] = list(parsed["doubts"]) + list(res.parsed["doubts"])
@@ -280,12 +352,12 @@ def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallSta
         if not (mail.sender or mail.subject or mail.to or mail.message_id or mail.date):
             return safe_entry("email could not be read: the file has no email headers (not a valid .eml)")
         user, sources = build_user_parts(pkg, mail)
+        notes = notes if notes is not None else []
         result = call_routed(system=system_prompt(), user=user, schema=EXTRACTION_SCHEMA, schema_name=SCHEMA_NAME,
                              client=client, email_id=mail.id, prompt_version=config.PROMPT_VERSION,
                              schema_version=config.SCHEMA_VERSION, validate=make_validator(sources),
-                             cache=cache, ledger=ledger, stats=stats)
+                             repair=make_source_repair(pkg, notes), cache=cache, ledger=ledger, stats=stats)
         parsed, extra = result.parsed, []
-        notes = notes if notes is not None else []
         if parsed["classification"] in REQUEST_CLASSES:
             parsed, extra = second_pass(parsed, pkg, user, sources, client=client, mail=mail, cache=cache, ledger=ledger,
                                         stats=stats, notes=notes)

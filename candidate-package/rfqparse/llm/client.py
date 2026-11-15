@@ -57,12 +57,14 @@ def _try_json(text: str):
         return None
 
 
-def check_reply(response: dict, schema: dict, extra_validator=None) -> tuple[object | None, Exception | None]:
+def check_reply(response: dict, schema: dict, extra_validator=None, repair=None) -> tuple[object | None, Exception | None]:
     """Judge a model reply (the dict get_or_call returns/caches). Returns (parsed, None) when it is good, else
     (None, a typed error: ModelRefusal, OutputTruncated or SchemaMismatch). This runs OUTSIDE the cache layer,
     so a bad reply can be cached and a replay with no key reaches the same verdict.
 
     extra_validator(parsed) may return a list of problem strings for checks the schema cannot express.
+    repair(parsed) may return a corrected copy of the parsed reply; it runs first, so validation judges the repaired reply.
+    The cached response is never changed, so a replay repairs it the same way.
     """
     refusal = response.get("refusal")
     finish = response.get("finish_reason") or ""
@@ -72,6 +74,8 @@ def check_reply(response: dict, schema: dict, extra_validator=None) -> tuple[obj
     if finish == "length":
         return None, OutputTruncated("output cut off at the length limit")
     parsed, text = response.get("parsed"), response.get("raw_text") or ""
+    if repair is not None and isinstance(parsed, dict):
+        parsed = repair(parsed)       # deterministic fix-ups of known-harmless slips, before anything is validated
     if parsed is None:
         return None, SchemaMismatch(f"reply is not valid JSON: {redact(text, 120)!r}" if text.strip() else "reply was empty")
     problems = validate(parsed, schema)

@@ -1,0 +1,512 @@
+{
+  "created_at": "2026-11-15T06:47:27+00:00",
+  "email_id": "E006",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "da0a27073b7d125ffd6fa110de4ddd02cdd410dd330c81d2fa0fee4fa0842811",
+  "latency_s": 20.958,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 1/2\", ASTM A105, 150# RF",
+          "qty": 7,
+          "raw": "7 EA 1/2\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 3/4\", ASTM A105, 150# RF",
+          "qty": 3,
+          "raw": "3 EA 3/4\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 1\", ASTM A105, 150# RF",
+          "qty": 8,
+          "raw": "8 EA 1\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 1-1/4\", ASTM A105, 150# RF",
+          "qty": 4,
+          "raw": "4 EA 1-1/4\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 1-1/2\", ASTM A105, 150# RF",
+          "qty": 9,
+          "raw": "9 EA 1-1/2\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 2\", ASTM A105, 150# RF",
+          "qty": 5,
+          "raw": "5 EA 2\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 2-1/2\", ASTM A105, 150# RF",
+          "qty": 10,
+          "raw": "10 EA 2-1/2\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 3\", ASTM A105, 150# RF",
+          "qty": 6,
+          "raw": "6 EA 3\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 4\", ASTM A105, 150# RF",
+          "qty": 2,
+          "raw": "2 EA 4\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 6\", ASTM A105, 150# RF",
+          "qty": 7,
+          "raw": "7 EA 6\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 8\", ASTM A105, 150# RF",
+          "qty": 3,
+          "raw": "3 EA 8\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 10\", ASTM A105, 150# RF",
+          "qty": 8,
+          "raw": "8 EA 10\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 12\", ASTM A105, 150# RF",
+          "qty": 4,
+          "raw": "4 EA 12\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Weld neck flange, standard bore, size 14\", ASTM A105, 150# RF",
+          "qty": 9,
+          "raw": "9 EA 14\" WELD NECK FLANGE, STD BORE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 1/2\", ASTM A105, 150# RF",
+          "qty": 5,
+          "raw": "5 EA 1/2\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 3/4\", ASTM A105, 150# RF",
+          "qty": 10,
+          "raw": "10 EA 3/4\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 1\", ASTM A105, 150# RF",
+          "qty": 6,
+          "raw": "6 EA 1\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 1-1/4\", ASTM A105, 150# RF",
+          "qty": 2,
+          "raw": "2 EA 1-1/4\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 1-1/2\", ASTM A105, 150# RF",
+          "qty": 7,
+          "raw": "7 EA 1-1/2\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 2\", ASTM A105, 150# RF",
+          "qty": 3,
+          "raw": "3 EA 2\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 2-1/2\", ASTM A105, 150# RF",
+          "qty": 8,
+          "raw": "8 EA 2-1/2\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 3\", ASTM A105, 150# RF",
+          "qty": 4,
+          "raw": "4 EA 3\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 4\", ASTM A105, 150# RF",
+          "qty": 9,
+          "raw": "9 EA 4\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 6\", ASTM A105, 150# RF",
+          "qty": 5,
+          "raw": "5 EA 6\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 8\", ASTM A105, 150# RF",
+          "qty": 10,
+          "raw": "10 EA 8\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 10\", ASTM A105, 150# RF",
+          "qty": 6,
+          "raw": "6 EA 10\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 12\", ASTM A105, 150# RF",
+          "qty": 2,
+          "raw": "2 EA 12\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Slip-on flange, size 14\", ASTM A105, 150# RF",
+          "qty": 7,
+          "raw": "7 EA 14\" SLIP-ON FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 1/2\", ASTM A105, 150# RF",
+          "qty": 3,
+          "raw": "3 EA 1/2\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 3/4\", ASTM A105, 150# RF",
+          "qty": 8,
+          "raw": "8 EA 3/4\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 1\", ASTM A105, 150# RF",
+          "qty": 4,
+          "raw": "4 EA 1\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 1-1/4\", ASTM A105, 150# RF",
+          "qty": 9,
+          "raw": "9 EA 1-1/4\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 1-1/2\", ASTM A105, 150# RF",
+          "qty": 5,
+          "raw": "5 EA 1-1/2\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 2\", ASTM A105, 150# RF",
+          "qty": 10,
+          "raw": "10 EA 2\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 2-1/2\", ASTM A105, 150# RF",
+          "qty": 6,
+          "raw": "6 EA 2-1/2\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 3\", ASTM A105, 150# RF",
+          "qty": 2,
+          "raw": "2 EA 3\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 4\", ASTM A105, 150# RF",
+          "qty": 7,
+          "raw": "7 EA 4\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 6\", ASTM A105, 150# RF",
+          "qty": 3,
+          "raw": "3 EA 6\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 8\", ASTM A105, 150# RF",
+          "qty": 8,
+          "raw": "8 EA 8\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 10\", ASTM A105, 150# RF",
+          "qty": 4,
+          "raw": "4 EA 10\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 12\", ASTM A105, 150# RF",
+          "qty": 9,
+          "raw": "9 EA 12\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "ASTM A105",
+            "150# RF"
+          ],
+          "description": "Blind flange, size 14\", ASTM A105, 150# RF",
+          "qty": 5,
+          "raw": "5 EA 14\" BLIND FLANGE",
+          "source": "RFQ_PF-26-3091.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "150#"
+          ],
+          "description": "Spiral wound gasket, 4\", 150#, 304 stainless steel/graphite",
+          "qty": 2,
+          "raw": "2 SET 4\" 150# SPIRAL WOUND GASKETS, 304 SS/GRAPHITE",
+          "source": "body",
+          "uom": "SET"
+        },
+        {
+          "applies_context": [
+            "150#"
+          ],
+          "description": "Spiral wound gasket, 6\", 150#, 304 stainless steel/graphite",
+          "qty": 6,
+          "raw": "6 SET 6\" 150# SPIRAL WOUND GASKETS, 304 SS/GRAPHITE",
+          "source": "body",
+          "uom": "SET"
+        }
+      ],
+      "note": "Includes flanges from attached RFQ and additional gasket sets requested in email body.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"7 EA 1/2\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 1/2\\\", ASTM A105, 150# RF\",\"qty\":7,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"3 EA 3/4\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 3/4\\\", ASTM A105, 150# RF\",\"qty\":3,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"8 EA 1\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 1\\\", ASTM A105, 150# RF\",\"qty\":8,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"4 EA 1-1/4\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 1-1/4\\\", ASTM A105, 150# RF\",\"qty\":4,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"9 EA 1-1/2\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 1-1/2\\\", ASTM A105, 150# RF\",\"qty\":9,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"5 EA 2\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 2\\\", ASTM A105, 150# RF\",\"qty\":5,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"10 EA 2-1/2\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 2-1/2\\\", ASTM A105, 150# RF\",\"qty\":10,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"6 EA 3\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 3\\\", ASTM A105, 150# RF\",\"qty\":6,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"2 EA 4\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 4\\\", ASTM A105, 150# RF\",\"qty\":2,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"7 EA 6\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 6\\\", ASTM A105, 150# RF\",\"qty\":7,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"3 EA 8\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 8\\\", ASTM A105, 150# RF\",\"qty\":3,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"8 EA 10\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 10\\\", ASTM A105, 150# RF\",\"qty\":8,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"4 EA 12\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 12\\\", ASTM A105, 150# RF\",\"qty\":4,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"9 EA 14\\\" WELD NECK FLANGE, STD BORE\",\"description\":\"Weld neck flange, standard bore, size 14\\\", ASTM A105, 150# RF\",\"qty\":9,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"5 EA 1/2\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 1/2\\\", ASTM A105, 150# RF\",\"qty\":5,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"10 EA 3/4\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 3/4\\\", ASTM A105, 150# RF\",\"qty\":10,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"6 EA 1\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 1\\\", ASTM A105, 150# RF\",\"qty\":6,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"2 EA 1-1/4\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 1-1/4\\\", ASTM A105, 150# RF\",\"qty\":2,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"7 EA 1-1/2\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 1-1/2\\\", ASTM A105, 150# RF\",\"qty\":7,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"3 EA 2\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 2\\\", ASTM A105, 150# RF\",\"qty\":3,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"8 EA 2-1/2\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 2-1/2\\\", ASTM A105, 150# RF\",\"qty\":8,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"4 EA 3\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 3\\\", ASTM A105, 150# RF\",\"qty\":4,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"9 EA 4\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 4\\\", ASTM A105, 150# RF\",\"qty\":9,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"5 EA 6\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 6\\\", ASTM A105, 150# RF\",\"qty\":5,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"10 EA 8\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 8\\\", ASTM A105, 150# RF\",\"qty\":10,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"6 EA 10\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 10\\\", ASTM A105, 150# RF\",\"qty\":6,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"2 EA 12\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 12\\\", ASTM A105, 150# RF\",\"qty\":2,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"7 EA 14\\\" SLIP-ON FLANGE\",\"description\":\"Slip-on flange, size 14\\\", ASTM A105, 150# RF\",\"qty\":7,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"3 EA 1/2\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 1/2\\\", ASTM A105, 150# RF\",\"qty\":3,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"8 EA 3/4\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 3/4\\\", ASTM A105, 150# RF\",\"qty\":8,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"4 EA 1\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 1\\\", ASTM A105, 150# RF\",\"qty\":4,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"9 EA 1-1/4\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 1-1/4\\\", ASTM A105, 150# RF\",\"qty\":9,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"5 EA 1-1/2\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 1-1/2\\\", ASTM A105, 150# RF\",\"qty\":5,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"10 EA 2\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 2\\\", ASTM A105, 150# RF\",\"qty\":10,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"6 EA 2-1/2\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 2-1/2\\\", ASTM A105, 150# RF\",\"qty\":6,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"2 EA 3\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 3\\\", ASTM A105, 150# RF\",\"qty\":2,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"7 EA 4\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 4\\\", ASTM A105, 150# RF\",\"qty\":7,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"3 EA 6\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 6\\\", ASTM A105, 150# RF\",\"qty\":3,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"8 EA 8\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 8\\\", ASTM A105, 150# RF\",\"qty\":8,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"4 EA 10\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 10\\\", ASTM A105, 150# RF\",\"qty\":4,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"9 EA 12\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 12\\\", ASTM A105, 150# RF\",\"qty\":9,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"5 EA 14\\\" BLIND FLANGE\",\"description\":\"Blind flange, size 14\\\", ASTM A105, 150# RF\",\"qty\":5,\"uom\":\"EA\",\"source\":\"RFQ_PF-26-3091.pdf\",\"applies_context\":[\"ASTM A105\",\"150# RF\"]},{\"raw\":\"2 SET 4\\\" 150# SPIRAL WOUND GASKETS, 304 SS/GRAPHITE\",\"description\":\"Spiral wound gasket, 4\\\", 150#, 304 stainless steel/graphite\",\"qty\":2,\"uom\":\"SET\",\"source\":\"body\",\"applies_context\":[\"150#\"]},{\"raw\":\"6 SET 6\\\" 150# SPIRAL WOUND GASKETS, 304 SS/GRAPHITE\",\"description\":\"Spiral wound gasket, 6\\\", 150#, 304 stainless steel/graphite\",\"qty\":6,\"uom\":\"SET\",\"source\":\"body\",\"applies_context\":[\"150#\"]}],\"doubts\":[],\"note\":\"Includes flanges from attached RFQ and additional gasket sets requested in email body.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 3255,
+    "prompt_tokens": 4270
+  }
+}

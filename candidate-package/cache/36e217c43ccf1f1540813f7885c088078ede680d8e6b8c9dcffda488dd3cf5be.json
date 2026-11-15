@@ -1,0 +1,90 @@
+{
+  "created_at": "2026-11-15T06:48:33+00:00",
+  "email_id": "E024",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "36e217c43ccf1f1540813f7885c088078ede680d8e6b8c9dcffda488dd3cf5be",
+  "latency_s": 3.224,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "90 degree elbow fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch",
+          "qty": 10,
+          "raw": "10   90° elbow   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "45 degree elbow fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch",
+          "qty": 6,
+          "raw": "6   45° elbow   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Tee fitting, threaded, 316 stainless steel, 3000# rating, size 3/4 inch",
+          "qty": 8,
+          "raw": "8   Tee   3/4″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Full coupling fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch",
+          "qty": 12,
+          "raw": "12   Coupling, full   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Union fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch",
+          "qty": 4,
+          "raw": "4   Union   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Hex head plug fitting, threaded, 316 stainless steel, 3000# rating, size 3/4 inch",
+          "qty": 6,
+          "raw": "6   Hex head plug   3/4″",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer requests quote for fittings for new glycol line, all 316 SS threaded 3000#.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"10   90° elbow   1/2″\",\"description\":\"90 degree elbow fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"6   45° elbow   1/2″\",\"description\":\"45 degree elbow fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"8   Tee   3/4″\",\"description\":\"Tee fitting, threaded, 316 stainless steel, 3000# rating, size 3/4 inch\",\"qty\":8,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"12   Coupling, full   1/2″\",\"description\":\"Full coupling fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"4   Union   1/2″\",\"description\":\"Union fitting, threaded, 316 stainless steel, 3000# rating, size 1/2 inch\",\"qty\":4,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"6   Hex head plug   3/4″\",\"description\":\"Hex head plug fitting, threaded, 316 stainless steel, 3000# rating, size 3/4 inch\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]}],\"doubts\":[],\"note\":\"Customer requests quote for fittings for new glycol line, all 316 SS threaded 3000#.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 466,
+    "prompt_tokens": 3053
+  }
+}

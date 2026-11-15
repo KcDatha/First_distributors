@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-11-15T06:47:43+00:00",
+  "email_id": "E012",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "b33aed69d90f3a7432c9fb9746ef1bb28c2f08d765ff394600727c6a1919554f",
+  "latency_s": 1.102,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "status_inquiry",
+      "doubts": [],
+      "lines": [],
+      "note": "Customer is asking for an update on an existing quote Q-26-04417, no new items requested.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"status_inquiry\",\"revises_hint\":null,\"lines\":[],\"doubts\":[],\"note\":\"Customer is asking for an update on an existing quote Q-26-04417, no new items requested.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 47,
+    "prompt_tokens": 3229
+  }
+}

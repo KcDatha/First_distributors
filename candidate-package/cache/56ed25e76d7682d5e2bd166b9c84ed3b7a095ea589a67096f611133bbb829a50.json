@@ -1,0 +1,78 @@
+{
+  "created_at": "2026-11-15T06:47:41+00:00",
+  "email_id": "E010",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "56ed25e76d7682d5e2bd166b9c84ed3b7a095ea589a67096f611133bbb829a50",
+  "latency_s": 2.125,
+  "model": "gpt-4.1",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [],
+          "description": "1/2\"-13 x 2\" hex cap screw, Grade 5, zinc plated",
+          "qty": 40,
+          "raw": "1/2\"-13 x 2\" hex cap screw, Gr 5 zinc",
+          "source": "image002.png",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "1/2\"-13 hex nut, zinc plated",
+          "qty": 40,
+          "raw": "1/2\"-13 hex nut, zinc",
+          "source": "image002.png",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "1-5/8\" strut channel, 12 gauge, pre-galvanized",
+          "qty": 200,
+          "raw": "1-5/8\" strut channel, 12 ga, pre-galv",
+          "source": "image002.png",
+          "uom": "FT"
+        },
+        {
+          "applies_context": [],
+          "description": "1/2\" channel spring nuts, galvanized",
+          "qty": 3,
+          "raw": "1/2\" channel spring nuts, galv",
+          "source": "image002.png",
+          "uom": "BX"
+        },
+        {
+          "applies_context": [],
+          "description": "2\" pipe clamp, galvanized",
+          "qty": 24,
+          "raw": "2\" pipe clamp, galv",
+          "source": "image002.png",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "3/4\"-10 all-thread rod, 6 foot length",
+          "qty": 12,
+          "raw": "3/4\"-10 all-thread rod, 6 ft",
+          "source": "image002.png",
+          "uom": "EA"
+        }
+      ],
+      "note": "All items clearly listed on attached image; logo image ignored.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"1/2\\\"-13 x 2\\\" hex cap screw, Gr 5 zinc\",\"description\":\"1/2\\\"-13 x 2\\\" hex cap screw, Grade 5, zinc plated\",\"qty\":40,\"uom\":\"EA\",\"source\":\"image002.png\",\"applies_context\":[]},{\"raw\":\"1/2\\\"-13 hex nut, zinc\",\"description\":\"1/2\\\"-13 hex nut, zinc plated\",\"qty\":40,\"uom\":\"EA\",\"source\":\"image002.png\",\"applies_context\":[]},{\"raw\":\"1-5/8\\\" strut channel, 12 ga, pre-galv\",\"description\":\"1-5/8\\\" strut channel, 12 gauge, pre-galvanized\",\"qty\":200,\"uom\":\"FT\",\"source\":\"image002.png\",\"applies_context\":[]},{\"raw\":\"1/2\\\" channel spring nuts, galv\",\"description\":\"1/2\\\" channel spring nuts, galvanized\",\"qty\":3,\"uom\":\"BX\",\"source\":\"image002.png\",\"applies_context\":[]},{\"raw\":\"2\\\" pipe clamp, galv\",\"description\":\"2\\\" pipe clamp, galvanized\",\"qty\":24,\"uom\":\"EA\",\"source\":\"image002.png\",\"applies_context\":[]},{\"raw\":\"3/4\\\"-10 all-thread rod, 6 ft\",\"description\":\"3/4\\\"-10 all-thread rod, 6 foot length\",\"qty\":12,\"uom\":\"EA\",\"source\":\"image002.png\",\"applies_context\":[]}],\"doubts\":[],\"note\":\"All items clearly listed on attached image; logo image ignored.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 348,
+    "prompt_tokens": 3587
+  }
+}

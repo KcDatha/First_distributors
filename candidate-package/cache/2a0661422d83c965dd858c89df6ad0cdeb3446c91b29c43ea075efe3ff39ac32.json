@@ -1,0 +1,90 @@
+{
+  "created_at": "2026-11-15T06:04:33+00:00",
+  "email_id": "E024",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "2a0661422d83c965dd858c89df6ad0cdeb3446c91b29c43ea075efe3ff39ac32",
+  "latency_s": 3.23,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v4",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "90 degree elbow fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating",
+          "qty": 10,
+          "raw": "10   90° elbow   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "45 degree elbow fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating",
+          "qty": 6,
+          "raw": "6   45° elbow   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Tee fitting, 3/4 inch, 316 stainless steel, threaded, 3000# rating",
+          "qty": 8,
+          "raw": "8   Tee   3/4″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Full coupling fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating",
+          "qty": 12,
+          "raw": "12   Coupling, full   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Union fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating",
+          "qty": 4,
+          "raw": "4   Union   1/2″",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS - THREADED - 3000#"
+          ],
+          "description": "Hex head plug fitting, 3/4 inch, 316 stainless steel, threaded, 3000# rating",
+          "qty": 6,
+          "raw": "6   Hex head plug   3/4″",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"10   90° elbow   1/2″\",\"description\":\"90 degree elbow fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"6   45° elbow   1/2″\",\"description\":\"45 degree elbow fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"8   Tee   3/4″\",\"description\":\"Tee fitting, 3/4 inch, 316 stainless steel, threaded, 3000# rating\",\"qty\":8,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"12   Coupling, full   1/2″\",\"description\":\"Full coupling fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"4   Union   1/2″\",\"description\":\"Union fitting, 1/2 inch, 316 stainless steel, threaded, 3000# rating\",\"qty\":4,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]},{\"raw\":\"6   Hex head plug   3/4″\",\"description\":\"Hex head plug fitting, 3/4 inch, 316 stainless steel, threaded, 3000# rating\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS - THREADED - 3000#\"]}],\"doubts\":[],\"note\":\"\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 441,
+    "prompt_tokens": 2904
+  }
+}

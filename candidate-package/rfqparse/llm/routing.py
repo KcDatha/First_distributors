@@ -42,7 +42,7 @@ class RoutedResult:
 
 
 def call_routed(*, system: str, user: list[dict], schema: dict, schema_name: str = "rfq_output", client,
-                email_id: str, prompt_version: str, schema_version: str, validate=None,
+                email_id: str, prompt_version: str, schema_version: str, validate=None, repair=None,
                 cache: Cache | None = None, ledger: Ledger | None = None, stats: CallStats | None = None) -> RoutedResult:
     """Route, call through the cache, validate OUTSIDE the cache, and escalate once if the text model's answer fails.
 
@@ -58,7 +58,7 @@ def call_routed(*, system: str, user: list[dict], schema: dict, schema_name: str
         res = get_or_call(payload, client, model=model, prompt_version=prompt_version, schema_version=schema_version,
                           email_id=email_id, cache=cache, ledger=ledger, stats=stats)
         attempts.append((model, res))
-        parsed, err = check_reply(res.response, schema, validate)
+        parsed, err = check_reply(res.response, schema, validate, repair)
         if err is None:
             return RoutedResult(parsed=parsed, model=model, escalated=len(attempts) > 1, results=attempts)
         nxt = escalation_model(model) if len(attempts) == 1 else None

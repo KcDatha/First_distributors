@@ -1,0 +1,80 @@
+{
+  "created_at": "2026-11-15T06:46:53+00:00",
+  "email_id": "E002",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "2c68e31e0e5e64a26f1069c1b1d3f17deff72b75386722b5d757cea310653ad2",
+  "latency_s": 2.499,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "1/2 inch 90 degree threaded elbow, 316 stainless steel",
+          "qty": 10,
+          "raw": "10 of the 1/2 90s",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "1/2 inch threaded tee, 316 stainless steel",
+          "qty": 6,
+          "raw": "6 tees same size",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "1/2 inch threaded cap, 316 stainless steel",
+          "qty": 2,
+          "raw": "a couple caps",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "3/4 inch threaded coupling, 316 stainless steel",
+          "qty": 12,
+          "raw": "12 of the 3/4 couplings",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "3/4 inch close nipple, 316 stainless steel",
+          "qty": 20,
+          "raw": "20 of the 3/4 close nipples",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer requests 316 stainless steel threaded fittings by Friday.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"10 of the 1/2 90s\",\"description\":\"1/2 inch 90 degree threaded elbow, 316 stainless steel\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"6 tees same size\",\"description\":\"1/2 inch threaded tee, 316 stainless steel\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"a couple caps\",\"description\":\"1/2 inch threaded cap, 316 stainless steel\",\"qty\":2,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"12 of the 3/4 couplings\",\"description\":\"3/4 inch threaded coupling, 316 stainless steel\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"20 of the 3/4 close nipples\",\"description\":\"3/4 inch close nipple, 316 stainless steel\",\"qty\":20,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]}],\"doubts\":[],\"note\":\"Customer requests 316 stainless steel threaded fittings by Friday.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 274,
+    "prompt_tokens": 2996
+  }
+}

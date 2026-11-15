@@ -1,0 +1,73 @@
+{
+  "created_at": "2026-11-15T06:03:50+00:00",
+  "email_id": "E020",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "c1a56b3af2b4a3b67a95d524cd23e37a1c4fddf03c1c60580a8f54012df8b4f7",
+  "latency_s": 2.384,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v4",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "purchase_order",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "3\"",
+            "150#",
+            "RF",
+            "weld neck flange",
+            "A105",
+            "STD bore"
+          ],
+          "description": "3 inch 150# RF weld neck flange, A105, STD bore",
+          "qty": 8,
+          "raw": "1. 8 EA - 3\" 150# RF weld neck flange, A105, STD bore",
+          "source": "quoted earlier text",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "3\"",
+            "SCH 40",
+            "A53B",
+            "ERW pipe",
+            "PE"
+          ],
+          "description": "3 inch SCH 40 A53B ERW pipe, PE",
+          "qty": 120,
+          "raw": "2. 120 FT - 3\" SCH 40 A53B ERW pipe, PE",
+          "source": "quoted earlier text",
+          "uom": "FT"
+        },
+        {
+          "applies_context": [
+            "3\"",
+            "90 deg LR elbow",
+            "BW",
+            "SCH 40",
+            "A234 WPB"
+          ],
+          "description": "3 inch 90 degree LR elbow, BW, SCH 40, A234 WPB",
+          "qty": 16,
+          "raw": "4. 16 EA - 3\" 90 deg LR elbow, BW, SCH 40, A234 WPB",
+          "source": "quoted earlier text",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer authorizes purchase of items 1, 2, and 4 from quote Q-26-04418; rest are on hold.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"purchase_order\",\"revises_hint\":null,\"lines\":[{\"raw\":\"1. 8 EA - 3\\\" 150# RF weld neck flange, A105, STD bore\",\"description\":\"3 inch 150# RF weld neck flange, A105, STD bore\",\"qty\":8,\"uom\":\"EA\",\"source\":\"quoted earlier text\",\"applies_context\":[\"3\\\"\",\"150#\",\"RF\",\"weld neck flange\",\"A105\",\"STD bore\"]},{\"raw\":\"2. 120 FT - 3\\\" SCH 40 A53B ERW pipe, PE\",\"description\":\"3 inch SCH 40 A53B ERW pipe, PE\",\"qty\":120,\"uom\":\"FT\",\"source\":\"quoted earlier text\",\"applies_context\":[\"3\\\"\",\"SCH 40\",\"A53B\",\"ERW pipe\",\"PE\"]},{\"raw\":\"4. 16 EA - 3\\\" 90 deg LR elbow, BW, SCH 40, A234 WPB\",\"description\":\"3 inch 90 degree LR elbow, BW, SCH 40, A234 WPB\",\"qty\":16,\"uom\":\"EA\",\"source\":\"quoted earlier text\",\"applies_context\":[\"3\\\"\",\"90 deg LR elbow\",\"BW\",\"SCH 40\",\"A234 WPB\"]}],\"doubts\":[],\"note\":\"Customer authorizes purchase of items 1, 2, and 4 from quote Q-26-04418; rest are on hold.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 300,
+    "prompt_tokens": 3181
+  }
+}

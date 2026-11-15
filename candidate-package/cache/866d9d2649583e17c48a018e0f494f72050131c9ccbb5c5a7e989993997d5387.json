@@ -1,0 +1,120 @@
+{
+  "created_at": "2026-11-15T06:48:03+00:00",
+  "email_id": "E019",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "866d9d2649583e17c48a018e0f494f72050131c9ccbb5c5a7e989993997d5387",
+  "latency_s": 4.876,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "Carbon Steel Pipe \t6 SCH 80 SMLS A106B"
+          ],
+          "description": "Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 2 inch, Plain Ends",
+          "qty": 10,
+          "raw": "10 jts | 2\" | PE",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Carbon Steel Pipe \t6 SCH 80 SMLS A106B"
+          ],
+          "description": "Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 3 inch, Plain Ends",
+          "qty": 6,
+          "raw": "6 jts | 3\" | PE",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Carbon Steel Pipe \t6 SCH 80 SMLS A106B"
+          ],
+          "description": "Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 4 inch, Beveled Ends",
+          "qty": 4,
+          "raw": "4 jts | 4\" | BE",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Carbon Steel Pipe \t6 SCH 80 SMLS A106B"
+          ],
+          "description": "Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 1 inch, Plain Ends",
+          "qty": 8,
+          "raw": "8 jts | 1\" | PE",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Socket Weld Fittings \t6 3000# A105"
+          ],
+          "description": "Socket Weld Fitting, ASTM A105, 3000# rating, 1 inch, 90 degree elbow",
+          "qty": 24,
+          "raw": "24 | 1\" | 90 elbow",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Socket Weld Fittings \t6 3000# A105"
+          ],
+          "description": "Socket Weld Fitting, ASTM A105, 3000# rating, 1 inch, tee",
+          "qty": 12,
+          "raw": "12 | 1\" | Tee",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Socket Weld Fittings \t6 3000# A105"
+          ],
+          "description": "Socket Weld Fitting, ASTM A105, 3000# rating, 3/4 inch, full coupling",
+          "qty": 30,
+          "raw": "30 | 3/4\" | Coupling, full",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Socket Weld Fittings \t6 3000# A105"
+          ],
+          "description": "Socket Weld Fitting, ASTM A105, 3000# rating, 1/2 inch, union",
+          "qty": 16,
+          "raw": "16 | 1/2\" | Union",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Socket Weld Fittings \t6 3000# A105"
+          ],
+          "description": "Socket Weld Fitting, ASTM A105, 3000# rating, 2 inch, half coupling",
+          "qty": 20,
+          "raw": "20 | 2\" | Half coupling",
+          "source": "TankFarm_Ph2_Materials.docx",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer requests quote for all items in attached material list document.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"10 jts | 2\\\" | PE\",\"description\":\"Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 2 inch, Plain Ends\",\"qty\":10,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Carbon Steel Pipe \\u00096 SCH 80 SMLS A106B\"]},{\"raw\":\"6 jts | 3\\\" | PE\",\"description\":\"Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 3 inch, Plain Ends\",\"qty\":6,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Carbon Steel Pipe \\u00096 SCH 80 SMLS A106B\"]},{\"raw\":\"4 jts | 4\\\" | BE\",\"description\":\"Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 4 inch, Beveled Ends\",\"qty\":4,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Carbon Steel Pipe \\u00096 SCH 80 SMLS A106B\"]},{\"raw\":\"8 jts | 1\\\" | PE\",\"description\":\"Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 1 inch, Plain Ends\",\"qty\":8,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Carbon Steel Pipe \\u00096 SCH 80 SMLS A106B\"]},{\"raw\":\"24 | 1\\\" | 90 elbow\",\"description\":\"Socket Weld Fitting, ASTM A105, 3000# rating, 1 inch, 90 degree elbow\",\"qty\":24,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Socket Weld Fittings \\u00096 3000# A105\"]},{\"raw\":\"12 | 1\\\" | Tee\",\"description\":\"Socket Weld Fitting, ASTM A105, 3000# rating, 1 inch, tee\",\"qty\":12,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Socket Weld Fittings \\u00096 3000# A105\"]},{\"raw\":\"30 | 3/4\\\" | Coupling, full\",\"description\":\"Socket Weld Fitting, ASTM A105, 3000# rating, 3/4 inch, full coupling\",\"qty\":30,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Socket Weld Fittings \\u00096 3000# A105\"]},{\"raw\":\"16 | 1/2\\\" | Union\",\"description\":\"Socket Weld Fitting, ASTM A105, 3000# rating, 1/2 inch, union\",\"qty\":16,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Socket Weld Fittings \\u00096 3000# A105\"]},{\"raw\":\"20 | 2\\\" | Half coupling\",\"description\":\"Socket Weld Fitting, ASTM A105, 3000# rating, 2 inch, half coupling\",\"qty\":20,\"uom\":\"EA\",\"source\":\"TankFarm_Ph2_Materials.docx\",\"applies_context\":[\"Socket Weld Fittings \\u00096 3000# A105\"]}],\"doubts\":[],\"note\":\"Customer requests quote for all items in attached material list document.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 739,
+    "prompt_tokens": 3297
+  }
+}

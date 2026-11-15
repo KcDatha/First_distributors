@@ -1,0 +1,90 @@
+{
+  "created_at": "2026-11-15T06:47:49+00:00",
+  "email_id": "E015",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "3746dee213662e9a0bd0a993889caa0e1262bc51f93fc5219e366a0eecbb22bf",
+  "latency_s": 4.047,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "purchase_order",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "2\" SCH 80 SMLS A106B pipe, PE, random lengths"
+          ],
+          "description": "2 inch Schedule 80 seamless A106B pipe, plain end, random lengths",
+          "qty": 210,
+          "raw": "210 | FT | 2\" SCH 80 SMLS A106B pipe, PE, random lengths",
+          "source": "PO_TPS-88213.pdf",
+          "uom": "FT"
+        },
+        {
+          "applies_context": [
+            "2\" 90 deg elbow, LR, BW, SCH 80, A234 WPB"
+          ],
+          "description": "2 inch 90 degree elbow, long radius, butt weld, Schedule 80, A234 WPB",
+          "qty": 24,
+          "raw": "24 | EA | 2\" 90 deg elbow, LR, BW, SCH 80, A234 WPB",
+          "source": "PO_TPS-88213.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "2\" WN flange, 300# RF, A105, SCH 80 bore"
+          ],
+          "description": "2 inch weld neck flange, 300 pound raised face, A105, Schedule 80 bore",
+          "qty": 16,
+          "raw": "16 | EA | 2\" WN flange, 300# RF, A105, SCH 80 bore",
+          "source": "PO_TPS-88213.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "2\" spiral wound gasket, 316/graphite, 300#, w/ inner ring"
+          ],
+          "description": "2 inch spiral wound gasket, 316 stainless steel/graphite, 300 pound rating, with inner ring",
+          "qty": 16,
+          "raw": "16 | EA | 2\" spiral wound gasket, 316/graphite, 300#, w/ inner ring",
+          "source": "PO_TPS-88213.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Stud bolt B7, 5/8\"-11 x 3-3/4\", w/ 2 heavy hex nuts"
+          ],
+          "description": "Stud bolt grade B7, 5/8 inch-11 thread x 3-3/4 inch length, with 2 heavy hex nuts",
+          "qty": 64,
+          "raw": "64 | EA | Stud bolt B7, 5/8\"-11 x 3-3/4\", w/ 2 heavy hex nuts",
+          "source": "PO_TPS-88213.pdf",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "2\" gate valve, 300# RF, A216 WCB, bolted bonnet"
+          ],
+          "description": "2 inch gate valve, 300 pound raised face, A216 WCB, bolted bonnet",
+          "qty": 6,
+          "raw": "6 | EA | 2\" gate valve, 300# RF, A216 WCB, bolted bonnet",
+          "source": "PO_TPS-88213.pdf",
+          "uom": "EA"
+        }
+      ],
+      "note": "Purchase order received with full item details from attached PDF.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"purchase_order\",\"revises_hint\":null,\"lines\":[{\"raw\":\"210 | FT | 2\\\" SCH 80 SMLS A106B pipe, PE, random lengths\",\"description\":\"2 inch Schedule 80 seamless A106B pipe, plain end, random lengths\",\"qty\":210,\"uom\":\"FT\",\"source\":\"PO_TPS-88213.pdf\",\"applies_context\":[\"2\\\" SCH 80 SMLS A106B pipe, PE, random lengths\"]},{\"raw\":\"24 | EA | 2\\\" 90 deg elbow, LR, BW, SCH 80, A234 WPB\",\"description\":\"2 inch 90 degree elbow, long radius, butt weld, Schedule 80, A234 WPB\",\"qty\":24,\"uom\":\"EA\",\"source\":\"PO_TPS-88213.pdf\",\"applies_context\":[\"2\\\" 90 deg elbow, LR, BW, SCH 80, A234 WPB\"]},{\"raw\":\"16 | EA | 2\\\" WN flange, 300# RF, A105, SCH 80 bore\",\"description\":\"2 inch weld neck flange, 300 pound raised face, A105, Schedule 80 bore\",\"qty\":16,\"uom\":\"EA\",\"source\":\"PO_TPS-88213.pdf\",\"applies_context\":[\"2\\\" WN flange, 300# RF, A105, SCH 80 bore\"]},{\"raw\":\"16 | EA | 2\\\" spiral wound gasket, 316/graphite, 300#, w/ inner ring\",\"description\":\"2 inch spiral wound gasket, 316 stainless steel/graphite, 300 pound rating, with inner ring\",\"qty\":16,\"uom\":\"EA\",\"source\":\"PO_TPS-88213.pdf\",\"applies_context\":[\"2\\\" spiral wound gasket, 316/graphite, 300#, w/ inner ring\"]},{\"raw\":\"64 | EA | Stud bolt B7, 5/8\\\"-11 x 3-3/4\\\", w/ 2 heavy hex nuts\",\"description\":\"Stud bolt grade B7, 5/8 inch-11 thread x 3-3/4 inch length, with 2 heavy hex nuts\",\"qty\":64,\"uom\":\"EA\",\"source\":\"PO_TPS-88213.pdf\",\"applies_context\":[\"Stud bolt B7, 5/8\\\"-11 x 3-3/4\\\", w/ 2 heavy hex nuts\"]},{\"raw\":\"6 | EA | 2\\\" gate valve, 300# RF, A216 WCB, bolted bonnet\",\"description\":\"2 inch gate valve, 300 pound raised face, A216 WCB, bolted bonnet\",\"qty\":6,\"uom\":\"EA\",\"source\":\"PO_TPS-88213.pdf\",\"applies_context\":[\"2\\\" gate valve, 300# RF, A216 WCB, bolted bonnet\"]}],\"doubts\":[],\"note\":\"Purchase order received with full item details from attached PDF.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 612,
+    "prompt_tokens": 3469
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-11-15T06:47:45+00:00",
+  "email_id": "E014",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "47851d371268df1a21ec2928a9f9a62a51a0d10a6f756857d9a08783b476758e",
+  "latency_s": 0.963,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "other",
+      "doubts": [],
+      "lines": [],
+      "note": "This is a marketing email from a supplier advertising a sale, not a request for pricing or order.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"other\",\"revises_hint\":null,\"lines\":[],\"doubts\":[],\"note\":\"This is a marketing email from a supplier advertising a sale, not a request for pricing or order.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 43,
+    "prompt_tokens": 3199
+  }
+}

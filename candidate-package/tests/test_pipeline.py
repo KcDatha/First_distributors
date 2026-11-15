@@ -139,12 +139,23 @@ class PromptAndSchemaTests(unittest.TestCase):
         for phrase in ("applies_context", "copied word for word", "applies to every line in that list", "same size",
                        "overrides a blanket spec", "another section", "never paraphrase", "guessed number",
                        "a few", "enough for the job", "visible only inside a picture",
-                       "do not restate the quantity", "labels, not specs"):
+                       "do not restate the quantity", "labels, not specs",
+                       "after an x or", "both sides of the x are sizes", "set or sets = set", "box or boxes = bx",
+                       "pack or packs = pk", "pair or pairs = pr", "dozen = dz", "roll or rolls = rl",
+                       "pound or pounds = lb", "gallon or gallons = gal", "bag or bags = bag", "case or cases = cs",
+                       "foot or feet = ft", "meter or meters = m", "inch or inches = in", "use null only when no unit",
+                       "plain pieces, each, joints or lengths are ea", "identified only by an attached photo",
+                       "not the sentence in the message", "picture's source name, not body", "specs only",
+                       "never list chatter",
+                       "explicitly commits to buy selected items of an earlier quote", "by number or by description",
+                       "items the message holds, defers", "the source of these lines is body",
+                       "the single line that holds the model or part number as printed", "model: xyz-100", "p/n 4471-b",
+                       "not the whole nameplate", "only allowed values", "never write a description such as"):
             self.assertIn(phrase, low, phrase)
 
     def test_prompt_is_deterministic_and_versioned(self):
         self.assertEqual(PR.system_prompt(), PR.system_prompt())
-        self.assertEqual((config.PROMPT_VERSION, config.SCHEMA_VERSION), ("v3", "v2"))
+        self.assertEqual((config.PROMPT_VERSION, config.SCHEMA_VERSION), ("v5", "v2"))
 
     def test_schema_is_strict_and_matches_the_official_lists(self):
         check_strict(SC.EXTRACTION_SCHEMA)
@@ -406,6 +417,145 @@ class QuantityGuardTests(GuardBase):
         client = FakeClient(lambda p: answer(lines=[line("a couple caps", "caps", 2)]))
         e = PL.process_email(self.emails / "Q1.eml", client=client, cache=self.cache, ledger=self.ledger, stats=self.stats)
         self.assertIsNone(e["line_items"][0]["qty"])
+
+
+class RestatedQuantityTests(GuardBase):
+    def strip(self, desc, qty, uom):
+        return PL.strip_restated_quantity(desc, qty, uom)
+
+    def test_a_leading_quantity_and_unit_equal_to_the_lines_own_is_removed(self):
+        self.assertEqual(self.strip('7 EA 1/2" weld neck flange, A105', 7, "EA"), '1/2" weld neck flange, A105')
+        self.assertEqual(self.strip("12 ft of 2in pipe", 12, "FT"), "2in pipe")
+        self.assertEqual(self.strip("2 sets of 4in gaskets, 304", 2, "SET"), "4in gaskets, 304")
+        self.assertEqual(self.strip("10 pieces of 2in elbow", 10, "EA"), "2in elbow")
+        self.assertEqual(self.strip("10 pieces of 2in elbow", 10, None), "2in elbow")           # a null unit is EA
+        self.assertEqual(self.strip("1.5 gal 3in thing", 1.5, "GAL"), "3in thing")
+        self.assertEqual(self.strip("6 JTS 2in pipe", 6.0, "EA"), "2in pipe")
+
+    def test_only_then_never_when_the_number_or_the_unit_differs_or_is_missing(self):
+        self.assertEqual(self.strip("7 EA 1/2 elbow", 8, "EA"), "7 EA 1/2 elbow")             # a different number
+        self.assertEqual(self.strip("7 EA 1/2 elbow", 7, "FT"), "7 EA 1/2 elbow")             # a different unit
+        self.assertEqual(self.strip("2 sets of gaskets", 2, None), "2 sets of gaskets")      # sets is SET, the line says EA
+        self.assertEqual(self.strip("7 EA 1/2 elbow", None, "EA"), "7 EA 1/2 elbow")          # no qty on the line
+        self.assertEqual(self.strip("2 elbow", 2, "EA"), "2 elbow")                             # a number but no unit word
+        self.assertEqual(self.strip("2in 90 elbow", 2, "EA"), "2in 90 elbow")                  # "2in" is a size, not "2 in"
+        self.assertEqual(self.strip('4" 150# flange', 4, "EA"), '4" 150# flange')              # a size, not a quantity
+        self.assertEqual(self.strip("flange, A105 x 6", 6, "EA"), "flange, A105 x 6")          # only a LEADING restatement
+        self.assertEqual(self.strip("7 EA", 7, "EA"), "7 EA")                                   # never leave an empty description
+        self.assertEqual(self.strip("", 7, "EA"), "")
+
+    def test_it_runs_in_the_guards_and_is_noted(self):
+        pkg = self.pkg_for(make_mail(body="7 ea 1/2 weld neck flange"))
+        notes = []
+        out = PL.apply_line_guards([line("7 ea 1/2 weld neck flange", "7 EA 1/2 weld neck flange", 7, "EA")], pkg, notes)
+        self.assertEqual(out[0]["description"], "1/2 weld neck flange")
+        self.assertTrue(any("restated quantity" in n for n in notes))
+
+    def test_the_unit_table_covers_every_allowed_code(self):
+        self.assertEqual(sorted(config.UNIT_WORDS), sorted(SC.UOMS))
+
+
+class SourceRepairTests(GuardBase):
+    QUOTED = 'Go ahead with item 1.\n\nOn Mon, Nov 2, 2026 at 9:00 AM Sam <s@x.test> wrote:\n> 1. 8 EA - 3" 150# RF flange, A105 - $38.60 ea\n> 2. 4 EA - 3" butterfly valve, CF8M'
+    ROW = '1. 8 EA - 3" 150# RF flange, A105'
+
+    def xl(self, name, text):
+        return (xlsx_bytes(text), "application", "octet-stream", name, {})
+
+    def run_mail(self, msg, ln, eid="R1", client=None, notes=None, cls="purchase_order"):
+        self.cache = C.Cache(self.root / f"c-{len(list(self.root.glob('c-*')))}")
+        self.write(eid, msg)
+        client = client or FakeClient(lambda p: answer(cls=cls, lines=[ln]))
+        e = PL.process_email(self.emails / f"{eid}.eml", client=client, cache=self.cache, ledger=self.ledger,
+                             stats=self.stats, notes=notes)
+        return e, client
+
+    def test_raw_found_in_the_quoted_text_gets_source_body_with_no_escalation(self):
+        notes = []
+        e, client = self.run_mail(make_mail(body=self.QUOTED), line(self.ROW, "3in flange", 8, "EA", source="quoted earlier text"),
+                                  notes=notes)
+        self.assertEqual(e["line_items"][0]["source"], "body")
+        self.assertEqual(client.models, [MINI])                                    # repaired before validation: no retry
+        self.assertFalse(e["needs_review"])
+        self.assertTrue(any("source repaired on line 1" in n and "'quoted earlier text' -> 'body'" in n for n in notes))
+
+    def test_raw_found_in_the_current_body_gets_source_body(self):
+        e, _ = self.run_mail(make_mail(body="please quote 12 ft of 2in galvanized pipe today"),
+                             line("12 ft of 2in galvanized pipe", "pipe", 12, "FT", source="email text"))
+        self.assertEqual(e["line_items"][0]["source"], "body")
+
+    def test_raw_found_in_exactly_one_attachment_gets_that_attachment(self):
+        row = "7 | 5 | EA | 6in | alpha widget"
+        notes = []
+        msg = make_mail([self.xl("list.xlsx", row), self.xl("other.xlsx", "something else entirely")])
+        e, client = self.run_mail(msg, line(row, "widget", 5, "EA", source="the spreadsheet"), notes=notes, cls="rfq")
+        self.assertEqual(e["line_items"][0]["source"], "list.xlsx")
+        self.assertEqual(client.models, [MINI])
+        self.assertTrue(any("-> 'list.xlsx'" in n and "attachment 'list.xlsx'" in n for n in notes))
+
+    def test_raw_found_in_two_attachments_is_not_repaired_and_validation_fails_as_before(self):
+        row = "7 | 5 | EA | 6in | alpha widget"
+        msg = make_mail([self.xl("a.xlsx", row), self.xl("b.xlsx", row)])
+        e, client = self.run_mail(msg, line(row, "widget", 5, "EA", source="the spreadsheet"), cls="rfq")
+        self.assertEqual(client.models, [MINI, FULL])                               # escalated, and still invalid
+        self.assertTrue(e["needs_review"])
+        self.assertEqual(e["line_items"], [])
+        self.assertIn("neither 'body' nor an attachment name", e["review_reason"])
+
+    def test_raw_found_nowhere_still_fails_validation(self):
+        e, client = self.run_mail(make_mail(body="please quote some pipe"),
+                                  line("a line that is not in the email at all", "x", 1, "EA", source="quoted earlier text"), cls="rfq")
+        self.assertEqual(client.models, [MINI, FULL])
+        self.assertTrue(e["needs_review"])
+        self.assertIn("SchemaMismatch", e["review_reason"])
+
+    def test_a_valid_source_is_never_touched(self):
+        row = "7 | 5 | EA | 6in | alpha widget"
+        msg = make_mail([self.xl("list.xlsx", row)], body="and also please quote 12 ft of 2in galvanized pipe")
+        for ln, want in ((line("12 ft of 2in galvanized pipe", "pipe", 12, "FT", source="list.xlsx"), "list.xlsx"),   # text is in the body
+                         (line(row, "widget", 5, "EA", source="body"), "body")):                                       # text is in the attachment
+            with self.subTest(want):
+                notes = []
+                e, client = self.run_mail(msg, ln, notes=notes, eid=f"V{want[:2]}", cls="rfq")
+                self.assertEqual(e["line_items"][0]["source"], want)
+                self.assertFalse(any("source repaired" in n for n in notes))
+
+    def test_a_picture_name_is_a_valid_source_and_is_left_alone(self):
+        msg = make_mail([(png(300, 120, "blue"), "image", "png", "pic.png", {})], body="quote 3 of the one in the photo")
+        e, client = self.run_mail(msg, line("MODEL: XYZ-100", "valve", 3, "EA", source="pic.png"), cls="rfq")
+        self.assertEqual(e["line_items"][0]["source"], "pic.png")
+        self.assertEqual(client.models, [FULL])                                      # an image email goes to the big model
+
+    def test_too_short_a_raw_is_never_repaired(self):
+        e, client = self.run_mail(make_mail(body="we need 2 of them, 2 more later"), line("2", "x", 2, "EA", source="bogus"), cls="rfq")
+        self.assertEqual(client.models, [MINI, FULL])
+        self.assertTrue(e["needs_review"])
+
+    def test_the_cached_reply_is_not_changed_and_a_replay_with_no_key_repairs_it_the_same_way(self):
+        self.cache = C.Cache(self.root / "cache-replay")
+        self.write("RP", make_mail(body=self.QUOTED))
+        client = FakeClient(lambda p: answer(cls="purchase_order", lines=[line(self.ROW, "3in flange", 8, "EA", source="quoted earlier text")]))
+        first = PL.process_email(self.emails / "RP.eml", client=client, cache=self.cache, ledger=self.ledger, stats=self.stats)
+        entry = self.cache.entries()[0][0]
+        self.assertEqual(entry.response["parsed"]["lines"][0]["source"], "quoted earlier text")   # stored as the model said it
+        calls = len(client.models)
+        replay = PL.process_email(self.emails / "RP.eml", client=None, cache=self.cache, ledger=self.ledger, stats=self.stats)
+        self.assertEqual(replay, first)
+        self.assertEqual(len(client.models), calls)
+        self.assertEqual(replay["line_items"][0]["source"], "body")
+
+    def test_the_repair_function_directly(self):
+        pkg = self.pkg_for(make_mail([self.xl("list.xlsx", "7 | 5 | EA | 6in | alpha widget")], body=self.QUOTED))
+        notes = []
+        repair = PL.make_source_repair(pkg, notes)
+        parsed = {"lines": [dict(line(self.ROW, "a", 1), source="x"), dict(line("7 | 5 | EA | 6in | alpha widget", "b", 5), source="y"),
+                            dict(line("not anywhere in this email", "c", 1), source="z"), line("1 | 2", "d", 1)]}
+        out = repair(parsed)
+        self.assertEqual([l["source"] for l in out["lines"]], ["body", "list.xlsx", "z", "body"])
+        self.assertEqual(parsed["lines"][0]["source"], "x")                          # the input is not mutated
+        self.assertEqual(len(notes), 2)
+        self.assertIs(repair({"lines": [line("a b c d e f", "x", 1)]})["lines"][0]["source"], "body")   # untouched valid one
+        self.assertEqual(repair({"classification": "rfq"}), {"classification": "rfq"})                   # no lines key: unchanged
 
 
 class ConflictGuardTests(GuardBase):

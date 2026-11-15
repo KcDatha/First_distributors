@@ -52,7 +52,7 @@ MODEL_SETTINGS = {
 }
 
 # Extraction (rfqparse/llm/prompts.py, schema.py, pipeline.py)
-PROMPT_VERSION = "v3"             # bump when the prompt text changes: it is part of every cache key
+PROMPT_VERSION = "v5"             # bump when the prompt text changes: it is part of every cache key
 SCHEMA_VERSION = "v2"             # bump when the extraction schema changes
 
 # Attributes whose value, when stated on a line itself, overrides a blanket phrase. A blanket phrase that states a
@@ -79,3 +79,13 @@ COMPLETENESS_MIN_CELLS = 2              # a table row needs at least this many n
 COMPLETENESS_MAX_ROWS_ASKED = 150       # rows listed in the second-pass request (more are flagged for review instead)
 # A row containing any of these whole words is a total / footer row, not an item.
 COMPLETENESS_TOTAL_WORDS = ["total", "subtotal", "sub-total", "grand total", "sum", "tax", "freight", "shipping", "balance"]
+
+# Unit words and the code each stands for (rfqparse/pipeline.py uses it to recognise a quantity and unit that the model
+# repeated at the start of a description). Keys are the allowed uom codes.
+UNIT_WORDS = {
+    "EA": ["ea", "each", "pc", "pcs", "piece", "pieces", "jt", "jts", "joint", "joints", "length", "lengths", "unit", "units"],
+    "FT": ["ft", "foot", "feet"], "M": ["m", "meter", "meters", "metre", "metres"], "IN": ["in", "inch", "inches"],
+    "BX": ["bx", "box", "boxes"], "PK": ["pk", "pkg", "pack", "packs", "package", "packages"], "PR": ["pr", "pair", "pairs"],
+    "DZ": ["dz", "doz", "dozen"], "RL": ["rl", "roll", "rolls"], "LB": ["lb", "lbs", "pound", "pounds"],
+    "SET": ["set", "sets"], "GAL": ["gal", "gallon", "gallons"], "BAG": ["bag", "bags"], "CS": ["cs", "case", "cases"],
+}

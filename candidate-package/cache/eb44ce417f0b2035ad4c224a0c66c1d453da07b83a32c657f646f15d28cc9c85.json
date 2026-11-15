@@ -1,0 +1,86 @@
+{
+  "created_at": "2026-11-15T06:47:29+00:00",
+  "email_id": "E007",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "eb44ce417f0b2035ad4c224a0c66c1d453da07b83a32c657f646f15d28cc9c85",
+  "latency_s": 2.343,
+  "model": "gpt-4.1",
+  "prompt_version": "v5",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [],
+          "description": "2 inch galvanized 90 degree elbow",
+          "qty": 8,
+          "raw": "8 - 2\" galv 90 elbow",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "2 inch galvanized tee",
+          "qty": 4,
+          "raw": "4 - ,, tee",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "1 inch x 3 inch galvanized nipple",
+          "qty": 6,
+          "raw": "6 - 1\" x 3\" galv nipple",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "1 inch x 4 inch galvanized nipple",
+          "qty": 6,
+          "raw": "6 - 1\" x 4\" ,,",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "2 inch galvanized coupling",
+          "qty": 12,
+          "raw": "12 - 2\" galv coupling",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "2 inch galvanized union",
+          "qty": 2,
+          "raw": "2 - 2\" galv union",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [],
+          "description": "2 inch galvanized pipe",
+          "qty": 5,
+          "raw": "5 jts - 2\" galv pipe",
+          "source": "IMG_4172.jpeg",
+          "uom": "EA"
+        }
+      ],
+      "note": "One line (3/4\" bronze ball valve) is struck out and not included.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"8 - 2\\\" galv 90 elbow\",\"description\":\"2 inch galvanized 90 degree elbow\",\"qty\":8,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]},{\"raw\":\"4 - ,, tee\",\"description\":\"2 inch galvanized tee\",\"qty\":4,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]},{\"raw\":\"6 - 1\\\" x 3\\\" galv nipple\",\"description\":\"1 inch x 3 inch galvanized nipple\",\"qty\":6,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]},{\"raw\":\"6 - 1\\\" x 4\\\" ,,\",\"description\":\"1 inch x 4 inch galvanized nipple\",\"qty\":6,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]},{\"raw\":\"12 - 2\\\" galv coupling\",\"description\":\"2 inch galvanized coupling\",\"qty\":12,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]},{\"raw\":\"2 - 2\\\" galv union\",\"description\":\"2 inch galvanized union\",\"qty\":2,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]},{\"raw\":\"5 jts - 2\\\" galv pipe\",\"description\":\"2 inch galvanized pipe\",\"qty\":5,\"uom\":\"EA\",\"source\":\"IMG_4172.jpeg\",\"applies_context\":[]}],\"doubts\":[],\"note\":\"One line (3/4\\\" bronze ball valve) is struck out and not included.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 340,
+    "prompt_tokens": 3764
+  }
+}
