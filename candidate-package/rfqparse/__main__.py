@@ -30,7 +30,8 @@ def parse_cmd(emails: Path, out: Path, only: list[str] | None) -> int:
     notes_path = out.with_name(out.stem + ".notes.json")   # what the code guards changed, for review (not part of parsed.json)
     notes_path.write_text(json.dumps(notes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     spent = f"${client.guard.spent:.4f}" if client is not None else "n/a"
-    print(f"{len(result)} emails written to {out}. model calls: {stats.real_calls} real, {stats.cache_hits} from cache, "
+    dup_n = sum(1 for v in result.values() if v.get("duplicate_of"))
+    print(f"{len(result)} emails written to {out} ({dup_n} duplicates, no model call). model calls: {stats.real_calls} real, {stats.cache_hits} from cache, "
           f"{stats.failed_attempts} failed attempts; spent this run {spent}. guard notes: {notes_path}")
     return 0
 

@@ -67,3 +67,7 @@ CONTEXT_CONFLICT_FAMILIES = [
 # "skip": leave the whole conflicting phrase off the line.  "trim": remove only the conflicting value from the
 # phrase and add what is left (so the other specs in a blanket note still reach the line).
 CONTEXT_CONFLICT_ACTION = "skip"
+
+# Duplicate detection (rfqparse/postprocess/dupes.py)
+DUP_SUBJECT_PREFIXES = ["re", "fw", "fwd", "resend", "re-send", "resent"]   # leading "X:" tags ignored when comparing subjects
+DUP_MIN_BODY_CHARS = 40       # a body shorter than this (after normalizing) is too thin to call two emails the same

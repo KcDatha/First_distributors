@@ -19,6 +19,7 @@ from .llm.ledger import Ledger
 from .llm.prompts import build_user_parts, system_prompt
 from .llm.routing import call_routed
 from .llm.schema import EXTRACTION_SCHEMA, REQUEST_CLASSES, SCHEMA_NAME, UOMS
+from .postprocess.dupes import find_duplicates
 from .render.registry import EmailPackage, render_email
 
 
@@ -28,17 +29,34 @@ def safe_entry(reason: str) -> dict:
             "review_reason": reason, "line_items": []}
 
 
-def message_id_index(emails_dir: Path) -> dict[str, str]:
-    """Message-ID -> email id for every email in the folder (used to resolve what a revision revises)."""
-    idx: dict[str, str] = {}
+def _ingest_all(emails_dir: Path) -> list[Email]:
+    mails = []
     for p in sorted(emails_dir.glob("*.eml")):
         try:
-            mid = (ingest_eml(p).message_id or "").strip()
+            mails.append(ingest_eml(p))
         except Exception:
             continue
+    return mails
+
+
+def _index_of(mails: list[Email]) -> dict[str, str]:
+    idx: dict[str, str] = {}
+    for m in mails:
+        mid = (m.message_id or "").strip()
         if mid:
-            idx.setdefault(mid, p.stem)
+            idx.setdefault(mid, m.id)
     return idx
+
+
+def message_id_index(emails_dir: Path) -> dict[str, str]:
+    """Message-ID -> email id for every email in the folder (used to resolve what a revision revises)."""
+    return _index_of(_ingest_all(emails_dir))
+
+
+def duplicate_entry(original: dict, original_id: str) -> dict:
+    """A duplicate takes the original's classification, points at it, and carries no lines."""
+    return {"classification": original["classification"], "revises": original.get("revises"),
+            "duplicate_of": original_id, "needs_review": False, "review_reason": None, "line_items": []}
 
 
 def resolve_revises(mail: Email, index: dict[str, str]) -> str | None:
@@ -239,17 +257,34 @@ def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallSta
 def run_parse(emails_dir: Path, client, only: list[str] | None = None, cache=None, ledger=None,
               stats: CallStats | None = None, notes: dict[str, list[str]] | None = None) -> dict:
     """Every .eml in the folder (or just `only`) to {id: entry}. Never raises for one bad email.
-    `notes` (if given) is filled with {id: [what the code guards changed]}."""
+    Duplicates are found in code first and get no model call. `notes` (if given) is filled with
+    {id: [what the code guards changed]}."""
     stats = stats if stats is not None else CallStats()
-    index = message_id_index(emails_dir)
-    out = {}
-    for p in sorted(emails_dir.glob("*.eml")):
-        if only is not None and p.stem not in only:
+    mails = _ingest_all(emails_dir)
+    index = _index_of(mails)
+    try:
+        dupes = find_duplicates(mails)
+    except Exception:
+        dupes = {}                       # detection must never take the run down; without it every email is just processed
+    paths = {p.stem: p for p in sorted(emails_dir.glob("*.eml"))}
+    wanted = [i for i in paths if only is None or i in only]
+    need = {i for i in wanted if i not in dupes} | {dupes[i].original for i in wanted if i in dupes}
+    entries: dict[str, dict] = {}
+    for i in sorted(need):
+        if i not in paths:
             continue
         n: list[str] = []
-        out[p.stem] = process_email(p, client=client, cache=cache, ledger=ledger, stats=stats, index=index, notes=n)
-        if notes is not None and n:
-            notes[p.stem] = n
+        entries[i] = process_email(paths[i], client=client, cache=cache, ledger=ledger, stats=stats, index=index, notes=n)
+        if notes is not None and n and i in wanted:
+            notes[i] = n
+    out = {}
+    for i in wanted:
+        if i in dupes and dupes[i].original in entries:
+            out[i] = duplicate_entry(entries[dupes[i].original], dupes[i].original)
+            if notes is not None:
+                notes.setdefault(i, []).insert(0, f"duplicate of {dupes[i].original}: {dupes[i].reason}; no model call")
+        elif i in entries:
+            out[i] = entries[i]
     return out
 
 
