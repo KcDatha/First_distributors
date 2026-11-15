@@ -276,12 +276,22 @@ def main(argv=None) -> int:
     ap.add_argument("parsed", type=Path)
     ap.add_argument("--key", type=Path, required=True)
     ap.add_argument("--per-email", action="store_true", help="add a per-email breakdown")
+    ap.add_argument("--only", default=None, help="comma-separated email ids: score only those")
     a = ap.parse_args(argv)
     try:
         out, key = load(a.parsed), load(a.key)
     except Exception as exc:
         print(f"cannot load inputs: {exc}", file=sys.stderr)
         return 1
+    if a.only:
+        ids = {x.strip() for x in a.only.split(",") if x.strip()}
+        unknown = sorted(ids - set(key))
+        if unknown:
+            print(f"--only names ids not in the key: {unknown}", file=sys.stderr)
+            return 1
+        key = {k: v for k, v in key.items() if k in ids}
+        out = {k: v for k, v in out.items() if k in ids}
+        print(f"(scoring only {', '.join(sorted(ids))})")
     report(compute(key, out), a.per_email)
     return 0
 

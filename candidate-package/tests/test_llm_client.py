@@ -22,7 +22,7 @@ from rfqparse.llm import call as K  # noqa: E402
 from rfqparse.llm import client as CL  # noqa: E402
 from rfqparse.llm import errors as E  # noqa: E402
 from rfqparse.llm import ledger as L  # noqa: E402
-from rfqparse.llm import schema as S  # noqa: E402
+from rfqparse.llm import jsonvalidate as S  # noqa: E402
 
 KEY = "sk-test-FAKEKEY-1234567890abcdef"
 MODEL = "fake-model"

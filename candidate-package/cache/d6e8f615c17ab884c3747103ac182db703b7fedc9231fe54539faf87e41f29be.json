@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-11-15T01:56:13+00:00",
+  "email_id": "E001",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "d6e8f615c17ab884c3747103ac182db703b7fedc9231fe54539faf87e41f29be",
+  "latency_s": 3.562,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v1",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "description": "2 inch Schedule 40 A53B ERW black pipe, PE, 12 joints",
+          "qty": 12,
+          "raw": "12 jts - 2\" SCH 40 A53B ERW black pipe, PE",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "2 inch 3000# forged threaded 90 degree elbow, A105",
+          "qty": 30,
+          "raw": "(30) 2\" 3000# forged threaded 90 elbow, A105",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "2 inch 3000# forged threaded coupling, A105",
+          "qty": 30,
+          "raw": "(30) 2\" 3000# forged threaded coupling, A105",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "3/4 inch Schedule 40 galvanized pipe, TBE, 200 feet",
+          "qty": 200,
+          "raw": "200 ft - 3/4\" SCH 40 galvanized pipe, TBE",
+          "source": "body",
+          "uom": "FT"
+        },
+        {
+          "description": "4 inch 150# RF slip-on flange, A105, quantity 6",
+          "qty": 6,
+          "raw": "4\" 150# RF slip-on flange, A105 x 6",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer requests pricing and lead time by Wednesday; Ref# 7/16-2211 to be included on quote.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 jts - 2\\\" SCH 40 A53B ERW black pipe, PE\",\"description\":\"2 inch Schedule 40 A53B ERW black pipe, PE, 12 joints\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"(30) 2\\\" 3000# forged threaded 90 elbow, A105\",\"description\":\"2 inch 3000# forged threaded 90 degree elbow, A105\",\"qty\":30,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"(30) 2\\\" 3000# forged threaded coupling, A105\",\"description\":\"2 inch 3000# forged threaded coupling, A105\",\"qty\":30,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"200 ft - 3/4\\\" SCH 40 galvanized pipe, TBE\",\"description\":\"3/4 inch Schedule 40 galvanized pipe, TBE, 200 feet\",\"qty\":200,\"uom\":\"FT\",\"source\":\"body\"},{\"raw\":\"4\\\" 150# RF slip-on flange, A105 x 6\",\"description\":\"4 inch 150# RF slip-on flange, A105, quantity 6\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\"}],\"doubts\":[],\"note\":\"Customer requests pricing and lead time by Wednesday; Ref# 7/16-2211 to be included on quote.\"}",
+    "refusal": null
+  },
+  "schema_version": "v1",
+  "usage": {
+    "completion_tokens": 305,
+    "prompt_tokens": 2309
+  }
+}

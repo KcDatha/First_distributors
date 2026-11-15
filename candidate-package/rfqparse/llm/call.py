@@ -10,7 +10,7 @@ import json
 import time
 from dataclasses import dataclass, field
 
-from .cache import Cache, CacheMiss, make_key
+from .cache import Cache, CacheMiss, generation_settings, make_key
 from .errors import LLMCallError, redact
 from .ledger import Ledger, usd_for
 
@@ -57,7 +57,8 @@ def get_or_call(payload, client, *, model: str, prompt_version: str, schema_vers
     cache = cache or Cache()
     ledger = ledger or Ledger()
     stats = stats if stats is not None else STATS
-    key = make_key(model, prompt_version, schema_version, payload)
+    settings = generation_settings(model)   # temperature and output limit are part of the key
+    key = make_key(model, prompt_version, schema_version, payload, settings)
 
     t0 = time.perf_counter()
     entry = cache.get(key)
@@ -103,7 +104,7 @@ def get_or_call(payload, client, *, model: str, prompt_version: str, schema_vers
 
     try:
         cache.put(key, model=model, prompt_version=prompt_version, schema_version=schema_version, response=response,
-                  usage=usage, latency_s=lat, email_id=email_id)
+                  usage=usage, latency_s=lat, email_id=email_id, generation=settings)
     except Exception:
         stats.cache_write_errors += 1   # still return the answer we paid for
     ledger.record(email_id=email_id, model=model, prompt_tokens=pt, completion_tokens=ct, latency_s=lat,

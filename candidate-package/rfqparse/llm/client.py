@@ -20,7 +20,7 @@ from .. import config
 from .errors import (ApiFailure, BudgetExceeded, MissingKey, ModelNotPriced, ModelRefusal, OutputTruncated,
                      SchemaMismatch, redact)
 from .ledger import price_for, usd_for
-from .schema import check_strict, validate
+from .jsonvalidate import check_strict, validate
 
 
 @dataclass

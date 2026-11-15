@@ -1,0 +1,86 @@
+{
+  "created_at": "2026-11-15T01:56:19+00:00",
+  "email_id": "E005",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "9810663dbb171026a821f433d0bd0828a6d66ca26bfdc8f44e2f722e2b68408a",
+  "latency_s": 3.277,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v1",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "description": "90 degree long radius elbow, 6 inch",
+          "qty": 12,
+          "raw": "12 | EA | 6\" | 90 LR elbow",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "45 degree elbow, 6 inch",
+          "qty": 6,
+          "raw": "6 | EA | 6\" | 45 elbow",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "90 degree long radius elbow, 8 inch",
+          "qty": 4,
+          "raw": "4 | EA | 8\" | 90 LR elbow",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "Straight tee, 6 inch",
+          "qty": 4,
+          "raw": "4 | EA | 6\" | Tee, straight",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "Concentric reducer, 8 inch by 6 inch",
+          "qty": 3,
+          "raw": "3 | EA | 8\" x 6\" | Reducer, concentric",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "Concentric reducer, 6 inch by 4 inch, schedule 80",
+          "qty": 2,
+          "raw": "2 | EA | 6\" x 4\" | Reducer, concentric, SCH 80",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "Cap, 8 inch",
+          "qty": 2,
+          "raw": "2 | EA | 8\" | Cap",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "description": "Cap, 6 inch",
+          "qty": 2,
+          "raw": "2 | EA | 6\" | Cap",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        }
+      ],
+      "note": "Request for quote with detailed piping fittings list in attached spreadsheet Rev B.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 | EA | 6\\\" | 90 LR elbow\",\"description\":\"90 degree long radius elbow, 6 inch\",\"qty\":12,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"6 | EA | 6\\\" | 45 elbow\",\"description\":\"45 degree elbow, 6 inch\",\"qty\":6,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"4 | EA | 8\\\" | 90 LR elbow\",\"description\":\"90 degree long radius elbow, 8 inch\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"4 | EA | 6\\\" | Tee, straight\",\"description\":\"Straight tee, 6 inch\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"3 | EA | 8\\\" x 6\\\" | Reducer, concentric\",\"description\":\"Concentric reducer, 8 inch by 6 inch\",\"qty\":3,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"2 | EA | 6\\\" x 4\\\" | Reducer, concentric, SCH 80\",\"description\":\"Concentric reducer, 6 inch by 4 inch, schedule 80\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"2 | EA | 8\\\" | Cap\",\"description\":\"Cap, 8 inch\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"},{\"raw\":\"2 | EA | 6\\\" | Cap\",\"description\":\"Cap, 6 inch\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\"}],\"doubts\":[],\"note\":\"Request for quote with detailed piping fittings list in attached spreadsheet Rev B.\"}",
+    "refusal": null
+  },
+  "schema_version": "v1",
+  "usage": {
+    "completion_tokens": 416,
+    "prompt_tokens": 2694
+  }
+}

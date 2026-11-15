@@ -170,6 +170,36 @@ class KeyTests(unittest.TestCase):
                 C.make_key(MODEL, PV, SV, bad)
 
 
+class GenerationSettingsKeyTests(Base):
+    def test_settings_are_part_of_the_key(self):
+        base = C.make_key(MODEL, PV, SV, {"a": 1})
+        with mock.patch.object(config, "MODEL_SETTINGS", {MODEL: {"temperature": 0, "max_completion_tokens": 123}}):
+            smaller = C.make_key(MODEL, PV, SV, {"a": 1})
+            same_again = C.make_key(MODEL, PV, SV, {"a": 1})
+        with mock.patch.object(config, "MODEL_SETTINGS", {MODEL: {"temperature": 1, "max_completion_tokens": 123}}):
+            warmer = C.make_key(MODEL, PV, SV, {"a": 1})
+        with mock.patch.object(config, "MODEL_SETTINGS", {MODEL: {"temperature": None, "max_completion_tokens": 123}}):
+            no_temp = C.make_key(MODEL, PV, SV, {"a": 1})
+        self.assertEqual(smaller, same_again)
+        self.assertEqual(len({base, smaller, warmer, no_temp}), 4)
+
+    def test_a_changed_output_limit_misses_instead_of_serving_the_old_reply(self):
+        client = FakeClient()
+        self.run_all(client, PAYLOADS[:2])
+        self.run_all(client, PAYLOADS[:2])
+        self.assertEqual((client.calls, self.stats.cache_hits), (2, 2))
+        with mock.patch.object(config, "MODEL_SETTINGS", {MODEL: {"temperature": 0, "max_completion_tokens": 99999}}):
+            self.run_all(client, PAYLOADS[:2])
+        self.assertEqual(client.calls, 4)                                         # new limit, new calls
+        entries, _ = self.cache.entries()
+        self.assertEqual({e.generation["max_output_tokens"] for e in entries}, {config.DEFAULT_MODEL_SETTINGS["max_completion_tokens"], 99999})
+
+    def test_explicit_settings_override_and_appear_in_the_canonical_json(self):
+        text = C.canonical_json(MODEL, PV, SV, {"a": 1}, {"temperature": 0, "max_output_tokens": 77})
+        self.assertIn('"max_output_tokens":77', text)
+        self.assertIn('"temperature":0', text)
+
+
 class EntryTests(Base):
     def test_entry_file_has_only_the_expected_fields_and_no_secrets(self):
         class Leaky(FakeClient):
@@ -182,8 +212,9 @@ class EntryTests(Base):
         r = self.run_all(Leaky(), PAYLOADS[:1])[0]
         text = self.cache.path_for(r.key).read_text(encoding="utf-8")
         d = json.loads(text)
-        self.assertEqual(sorted(d), ["created_at", "email_id", "key", "latency_s", "model", "prompt_version",
-                                     "response", "schema_version", "usage"])
+        self.assertEqual(sorted(d), ["created_at", "email_id", "generation", "key", "latency_s", "model",
+                                     "prompt_version", "response", "schema_version", "usage"])
+        self.assertEqual(d["generation"], C.generation_settings(MODEL))
         self.assertNotIn("sk-secret", text)
         self.assertNotIn("Authorization", text)
         self.assertNotIn(str(self.root), text)                      # no absolute paths

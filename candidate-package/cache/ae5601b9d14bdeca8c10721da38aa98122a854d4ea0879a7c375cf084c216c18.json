@@ -1,0 +1,65 @@
+{
+  "created_at": "2026-11-15T01:56:15+00:00",
+  "email_id": "E002",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "ae5601b9d14bdeca8c10721da38aa98122a854d4ea0879a7c375cf084c216c18",
+  "latency_s": 2.142,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v1",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "description": "1/2 inch 90 degree threaded elbow fitting",
+          "qty": 10,
+          "raw": "10 of the 1/2 90s",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "1/2 inch threaded tee fitting",
+          "qty": 6,
+          "raw": "6 tees same size",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "threaded caps 1/2 inch",
+          "qty": 2,
+          "raw": "a couple caps",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "3/4 inch threaded coupling fitting",
+          "qty": 12,
+          "raw": "12 of the 3/4 couplings",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "description": "3/4 inch close nipple fitting",
+          "qty": 20,
+          "raw": "20 of the 3/4 close nipples",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer requests 316 SS threaded fittings for skid at plant, delivery by Friday if possible.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"10 of the 1/2 90s\",\"description\":\"1/2 inch 90 degree threaded elbow fitting\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"6 tees same size\",\"description\":\"1/2 inch threaded tee fitting\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"a couple caps\",\"description\":\"threaded caps 1/2 inch\",\"qty\":2,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"12 of the 3/4 couplings\",\"description\":\"3/4 inch threaded coupling fitting\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\"},{\"raw\":\"20 of the 3/4 close nipples\",\"description\":\"3/4 inch close nipple fitting\",\"qty\":20,\"uom\":\"EA\",\"source\":\"body\"}],\"doubts\":[],\"note\":\"Customer requests 316 SS threaded fittings for skid at plant, delivery by Friday if possible.\"}",
+    "refusal": null
+  },
+  "schema_version": "v1",
+  "usage": {
+    "completion_tokens": 212,
+    "prompt_tokens": 2124
+  }
+}

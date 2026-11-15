@@ -59,15 +59,23 @@ def canonical(obj):
     raise TypeError(f"{type(obj).__name__} cannot be part of a cache key (convert it to str/number/bytes first)")
 
 
-def canonical_json(model: str, prompt_version: str, schema_version: str, payload) -> str:
+def generation_settings(model: str) -> dict:
+    """The settings that shape a reply (they come from config, per model). They are part of the cache key, so a
+    changed temperature or output limit never serves an old reply (for example one cut off by a smaller limit)."""
+    st = {**config.DEFAULT_MODEL_SETTINGS, **config.MODEL_SETTINGS.get(model, {})}
+    return {"temperature": st.get("temperature"), "max_output_tokens": st.get("max_completion_tokens")}
+
+
+def canonical_json(model: str, prompt_version: str, schema_version: str, payload, settings: dict | None = None) -> str:
+    settings = generation_settings(model) if settings is None else settings
     return json.dumps(
         {"model": model, "prompt_version": prompt_version, "schema_version": schema_version,
-         "payload": canonical(payload)},
+         "settings": canonical(settings), "payload": canonical(payload)},
         sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
 
 
-def make_key(model: str, prompt_version: str, schema_version: str, payload) -> str:
-    return hashlib.sha256(canonical_json(model, prompt_version, schema_version, payload).encode("utf-8")).hexdigest()
+def make_key(model: str, prompt_version: str, schema_version: str, payload, settings: dict | None = None) -> str:
+    return hashlib.sha256(canonical_json(model, prompt_version, schema_version, payload, settings).encode("utf-8")).hexdigest()
 
 
 # ------------------------------------------------------------------ entries
@@ -84,6 +92,7 @@ class Entry:
     created_at: str
     latency_s: float | None = None
     email_id: str | None = None
+    generation: dict | None = None
 
 
 def _strip_secrets(obj):
@@ -120,18 +129,19 @@ class Cache:
                 raise ValueError("malformed entry")
             return Entry(key=key, model=d["model"], prompt_version=d["prompt_version"],
                          schema_version=str(d.get("schema_version", "")), response=d["response"], usage=d["usage"],
-                         created_at=str(d.get("created_at", "")), latency_s=d.get("latency_s"), email_id=d.get("email_id"))
+                         created_at=str(d.get("created_at", "")), latency_s=d.get("latency_s"), email_id=d.get("email_id"),
+                         generation=d.get("generation"))
         except Exception:
             self.corrupt_seen += 1
             return None
 
     def put(self, key: str, *, model: str, prompt_version: str, schema_version: str, response, usage: dict,
-            latency_s: float | None = None, email_id: str | None = None) -> Path:
+            latency_s: float | None = None, email_id: str | None = None, generation: dict | None = None) -> Path:
         """Write the entry atomically: temp file in the same folder, then rename over the final name."""
         entry = {
             "key": key, "model": model, "prompt_version": prompt_version, "schema_version": schema_version,
             "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "email_id": email_id, "latency_s": None if latency_s is None else round(latency_s, 3),
+            "email_id": email_id, "generation": generation, "latency_s": None if latency_s is None else round(latency_s, 3),
             "usage": _strip_secrets(usage), "response": _strip_secrets(response),
         }
         text = json.dumps(entry, indent=2, ensure_ascii=False, allow_nan=False, sort_keys=True) + "\n"

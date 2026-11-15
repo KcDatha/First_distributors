@@ -50,3 +50,7 @@ MODEL_SETTINGS = {
     "gpt-4.1-mini": {"temperature": 0, "max_completion_tokens": 8192},
     "gpt-4.1":      {"temperature": 0, "max_completion_tokens": 8192},
 }
+
+# Extraction (rfqparse/llm/prompts.py, schema.py, pipeline.py)
+PROMPT_VERSION = "v1"             # bump when the prompt text changes: it is part of every cache key
+SCHEMA_VERSION = "v1"             # bump when the extraction schema changes
