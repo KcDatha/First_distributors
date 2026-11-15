@@ -54,9 +54,10 @@ class Base(unittest.TestCase):
         self.cache = C.Cache(self.root / "cache")
         self.ledger = L.Ledger(self.root / "ledger.jsonl")
         self.stats = K.CallStats()
-        p = mock.patch.object(config, "MODEL_PRICES", PRICES)
-        p.start()
-        self.addCleanup(p.stop)
+        for p in (mock.patch.object(config, "MODEL_PRICES", PRICES),
+                  mock.patch.object(config, "PRICES_ARE_PLACEHOLDER", True)):
+            p.start()
+            self.addCleanup(p.stop)
 
     def run_all(self, client, payloads=PAYLOADS, pv=PV, model=MODEL):
         return [K.get_or_call(p, client, model=model, prompt_version=pv, schema_version=SV, email_id=p["email"],
@@ -238,8 +239,9 @@ class LedgerTests(Base):
         self.assertEqual((len(rows), bad), (10, 0))
         self.assertEqual([r["cache_hit"] for r in rows], [False] * 5 + [True] * 5)
         r = rows[0]
-        self.assertEqual(sorted(r), ["cache_hit", "completion_tokens", "email_id", "key", "latency_s", "model",
-                                     "prompt_tokens", "prompt_version", "usd"])
+        self.assertEqual(sorted(r), ["cache_hit", "completion_tokens", "email_id", "error", "key", "latency_s", "model",
+                                     "prompt_tokens", "prompt_version", "status", "usd"])
+        self.assertEqual((r["status"], r["error"]), ("ok", None))
         self.assertEqual(r["usd"], round((r["prompt_tokens"] * 10 + r["completion_tokens"] * 20) / 1e6, 6))
         self.assertEqual(rows[5]["prompt_tokens"], rows[0]["prompt_tokens"])    # hits keep the original token counts
 
@@ -295,6 +297,13 @@ class CostReportTests(Base):
         self.assertEqual(e0[1:4], ["2", "1", "1"])
         spent, priced = total[-1], total[-2]
         self.assertNotEqual(spent, priced)                              # hits are not charged again
+
+    def test_placeholder_banner_only_while_prices_are_placeholders(self):
+        self.run_all(FakeClient(), PAYLOADS[:1])
+        self.assertIn("PLACEHOLDER", L.cost_from_cache(self.cache))
+        with mock.patch.object(config, "PRICES_ARE_PLACEHOLDER", False):
+            self.assertNotIn("PLACEHOLDER", L.cost_from_cache(self.cache))
+            self.assertNotIn("PLACEHOLDER", L.cost_from_ledger(self.ledger))
 
     def test_cost_report_ignores_corrupt_entries_and_handles_empty(self):
         self.run_all(FakeClient(), PAYLOADS[:2])

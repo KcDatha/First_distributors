@@ -33,12 +33,18 @@ class Ledger:
         self.write_errors = 0
 
     def record(self, *, email_id: str, model: str, prompt_tokens: int, completion_tokens: int, latency_s: float,
-               cache_hit: bool, prompt_version: str = "", key: str = "") -> dict:
-        """Append one line. Never raises: a ledger that cannot be written must not stop the run."""
+               cache_hit: bool, prompt_version: str = "", key: str = "", status: str = "ok",
+               error: str | None = None) -> dict:
+        """Append one line. Never raises: a ledger that cannot be written must not stop the run.
+
+        status "error" lines (failed attempts) have usd null. `error` is a short label only (class and HTTP
+        status), never a provider message.
+        """
         row = {"email_id": email_id, "model": model, "prompt_version": prompt_version, "key": key[:16],
                "prompt_tokens": prompt_tokens, "completion_tokens": completion_tokens,
-               "latency_s": round(latency_s, 3), "usd": usd_for(model, prompt_tokens, completion_tokens),
-               "cache_hit": bool(cache_hit)}
+               "latency_s": round(latency_s, 3),
+               "usd": None if status == "error" else usd_for(model, prompt_tokens, completion_tokens),
+               "cache_hit": bool(cache_hit), "status": status, "error": error}
         try:
             self.path.parent.mkdir(parents=True, exist_ok=True)
             with open(self.path, "a", encoding="utf-8", newline="") as f:
@@ -107,7 +113,7 @@ def _add(g: dict, pt: int, ct: int, usd, lat) -> None:
 
 def _new() -> dict:
     return {"calls": 0, "real": 0, "hits": 0, "tokens_in": 0, "tokens_out": 0, "usd": 0.0, "usd_spent": 0.0,
-            "latency": 0.0, "unpriced": False}
+            "latency": 0.0, "unpriced": False, "errors": 0}
 
 
 def _finish(groups: dict) -> None:
@@ -149,6 +155,10 @@ def cost_from_ledger(ledger: Ledger) -> str:
     models: set[str] = set()
     for r in sorted(rows, key=lambda r: str(r.get("email_id"))):  # stable regardless of file order
         g = groups.setdefault(str(r.get("email_id")), _new())
+        if r.get("status") == "error":     # a failed attempt: counted, but it has no priced result
+            g["errors"] += 1
+            models.add(str(r.get("model")))
+            continue
         hit = bool(r.get("cache_hit"))
         g["calls"] += 1
         g["hits" if hit else "real"] += 1
@@ -161,12 +171,12 @@ def cost_from_ledger(ledger: Ledger) -> str:
     _finish(groups)
     total = _new()
     for g in groups.values():
-        for k in ("calls", "real", "hits", "tokens_in", "tokens_out"):
+        for k in ("calls", "real", "hits", "tokens_in", "tokens_out", "errors"):
             total[k] += g[k]
         total["usd"] = None if (total["usd"] is None or g["usd"] is None) else round(total["usd"] + g["usd"], 6)
         total["usd_spent"] = round(total["usd_spent"] + g["usd_spent"], 6)
     cols = [("calls", "lookups"), ("real", "real calls"), ("hits", "cache hits"), ("tokens_in", "prompt tok"),
-            ("tokens_out", "compl. tok"), ("usd", "usd (priced)"), ("usd_spent", "usd spent")]
+            ("tokens_out", "compl. tok"), ("errors", "failed tries"), ("usd", "usd (priced)"), ("usd_spent", "usd spent")]
     lines = [f"COST FROM LEDGER {ledger.path}", f"{len(rows)} lookups ({bad} unreadable lines, ignored)",
              "usd (priced) = what the tokens cost at table prices; usd spent = only the real calls"]
     lines += _banners(models)

@@ -11,11 +11,8 @@ import time
 from dataclasses import dataclass, field
 
 from .cache import Cache, CacheMiss, make_key
+from .errors import LLMCallError, redact
 from .ledger import Ledger, usd_for
-
-
-class LLMCallError(Exception):
-    """The client failed or returned something unusable. Nothing is cached for a failed call."""
 
 
 @dataclass
@@ -24,6 +21,7 @@ class CallStats:
     cache_hits: int = 0
     misses_without_client: int = 0
     cache_write_errors: int = 0
+    failed_attempts: int = 0
     by_email: dict = field(default_factory=dict)   # email id -> {"real": n, "hits": n}
 
     def _bump(self, email_id: str, field_name: str) -> None:
@@ -41,6 +39,12 @@ class CallResult:
 
 
 STATS = CallStats()   # default counters; pass your own `stats=` to keep a separate tally
+
+
+def _label(err: Exception) -> str:
+    """A short, key-free description of a failure for the ledger."""
+    status = getattr(err, "status_code", None)
+    return type(err).__name__ + (f" status={status}" if status else "")
 
 
 def get_or_call(payload, client, *, model: str, prompt_version: str, schema_version: str, email_id: str,
@@ -70,11 +74,25 @@ def get_or_call(payload, client, *, model: str, prompt_version: str, schema_vers
         stats.misses_without_client += 1
         raise CacheMiss(key, model)
 
+    def on_attempt(info: dict) -> None:   # a failed attempt inside the client's retry loop: one ledger line each
+        stats.failed_attempts += 1
+        err = info["error"]
+        ledger.record(email_id=email_id, model=model, prompt_tokens=info.get("prompt_tokens", 0),
+                      completion_tokens=info.get("completion_tokens", 0), latency_s=info["latency_s"], cache_hit=False,
+                      prompt_version=prompt_version, key=key, status="error", error=_label(err))
+
+    reports = bool(getattr(client, "reports_attempts", False))
     t1 = time.perf_counter()
     try:
-        out = client.complete(payload)
+        out = client.complete(payload, on_attempt=on_attempt) if reports else client.complete(payload)
+    except CacheMiss:
+        raise                                    # e.g. BudgetExceeded: the pipeline treats it as a miss
     except Exception as exc:
-        raise LLMCallError(f"{type(exc).__name__}: {exc}") from exc
+        if not reports:                          # clients that do not report attempts still leave a failure line
+            on_attempt({"error": exc, "latency_s": time.perf_counter() - t1})
+        if isinstance(exc, LLMCallError):
+            raise
+        raise LLMCallError(f"{type(exc).__name__}: {redact(exc)}") from exc
     lat = time.perf_counter() - t1
     try:
         response, usage = out["response"], dict(out["usage"])

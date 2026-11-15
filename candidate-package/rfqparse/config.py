@@ -19,9 +19,34 @@ IMAGE_MAX_PIXELS = 100_000_000  # refuse to decode anything with more pixels tha
 CACHE_DIR = None                  # None = cache/ at the repo root (found relative to the package, never the cwd)
 LEDGER_PATH = None                # None = cost_ledger.jsonl at the repo root
 
-# USD per 1,000,000 tokens, keyed by model name. PLACEHOLDER NUMBERS, NOT REAL PRICES: fill this in
-# when the model is chosen. A model that is missing here gets usd = null and the cost report says so.
-PRICES_ARE_PLACEHOLDER = True
+# USD per 1,000,000 tokens, keyed by model name. A model missing here gets usd = null in the ledger and
+# the client refuses to call it (the spend guard could not count it).
+PRICES_ARE_PLACEHOLDER = False
 MODEL_PRICES = {
-    "placeholder-model": {"input_per_1m": 1.00, "output_per_1m": 2.00},
+    "gpt-4.1-mini": {"input_per_1m": 0.40, "output_per_1m": 1.60},   # text only
+    "gpt-4.1":      {"input_per_1m": 2.00, "output_per_1m": 8.00},   # anything with an image in the payload
+}
+
+# Which model handles which email (rfqparse/llm/routing.py). Routed by what is actually in the payload.
+ROUTING = {
+    "text_model": "gpt-4.1-mini",     # no image part in the payload
+    "image_model": "gpt-4.1",         # at least one image part in the payload
+    "escalate_text_model_to": "gpt-4.1",   # one retry here when the text model's answer fails validation
+}
+
+# OpenAI client (rfqparse/llm/client.py)
+LLM_TIMEOUT_S = 60.0              # read/total timeout per request
+LLM_CONNECT_TIMEOUT_S = 10.0
+LLM_MAX_ATTEMPTS = 3              # our own retries (the SDK's are off); counts the first try
+LLM_BACKOFF_BASE_S = 1.0          # delay before retry n is about base * 2**(n-1), capped, with jitter
+LLM_BACKOFF_MAX_S = 20.0
+LLM_IMAGE_DETAIL = "high"         # detail setting for images sent to the model (it is part of the cache key)
+MAX_USD_PER_RUN = 2.00            # real calls stop (BudgetExceeded) once THIS RUN's spend reaches it (no cap across runs)
+
+# Per-model request settings. temperature None = do not send one (models that reject it).
+# Both models take temperature 0; the output limit is generous because one reply can list 40+ items.
+DEFAULT_MODEL_SETTINGS = {"temperature": 0, "max_completion_tokens": 8192}
+MODEL_SETTINGS = {
+    "gpt-4.1-mini": {"temperature": 0, "max_completion_tokens": 8192},
+    "gpt-4.1":      {"temperature": 0, "max_completion_tokens": 8192},
 }
