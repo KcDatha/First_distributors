@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-11-15T06:47:06+00:00",
+  "created_at": "2026-11-15T12:46:29+00:00",
   "email_id": "E005",
   "generation": {
     "max_output_tokens": 8192,
     "temperature": 0
   },
   "key": "dcfaecf9f504cb33b08a8297b605badd099b02a7f6b2f3ba26daf2cd66b2c2e0",
-  "latency_s": 4.682,
+  "latency_s": 5.886,
   "model": "gpt-4.1-mini",
   "prompt_version": "v5",
   "response": {
@@ -19,7 +19,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "90 long radius elbow, butt welded, schedule 40, ASTM A234 WPB, 6 inch",
+          "description": "90 long radius elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 12,
           "raw": "12 | EA | 6\" | 90 LR elbow",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -29,7 +29,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "45 degree elbow, butt welded, schedule 40, ASTM A234 WPB, 6 inch",
+          "description": "45 degree elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 6,
           "raw": "6 | EA | 6\" | 45 elbow",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -39,7 +39,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "90 long radius elbow, butt welded, schedule 40, ASTM A234 WPB, 8 inch",
+          "description": "90 long radius elbow, 8 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 4,
           "raw": "4 | EA | 8\" | 90 LR elbow",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -49,7 +49,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "Straight tee, butt welded, schedule 40, ASTM A234 WPB, 6 inch",
+          "description": "straight tee, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 4,
           "raw": "4 | EA | 6\" | Tee, straight",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -59,7 +59,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "Concentric reducer, butt welded, schedule 40, ASTM A234 WPB, 8 inch by 6 inch",
+          "description": "concentric reducer, 8 inch by 6 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 3,
           "raw": "3 | EA | 8\" x 6\" | Reducer, concentric",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -69,7 +69,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "Concentric reducer, butt welded, schedule 80, ASTM A234 WPB, 6 inch by 4 inch",
+          "description": "concentric reducer, 6 inch by 4 inch, butt weld, schedule 80, ASTM A234 WPB",
           "qty": 2,
           "raw": "2 | EA | 6\" x 4\" | Reducer, concentric, SCH 80",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -79,7 +79,7 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "Cap, butt welded, schedule 40, ASTM A234 WPB, 8 inch",
+          "description": "cap, 8 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 2,
           "raw": "2 | EA | 8\" | Cap",
           "source": "Tank14_Piping_RevB.xlsx",
@@ -89,22 +89,22 @@
           "applies_context": [
             "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
           ],
-          "description": "Cap, butt welded, schedule 40, ASTM A234 WPB, 6 inch",
+          "description": "cap, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
           "qty": 2,
           "raw": "2 | EA | 6\" | Cap",
           "source": "Tank14_Piping_RevB.xlsx",
           "uom": "EA"
         }
       ],
-      "note": "Customer requests quote for piping fittings per attached spreadsheet Rev B.",
+      "note": "Items are from attached spreadsheet Tank14_Piping_RevB.xlsx, sheet Rev B.",
       "revises_hint": null
     },
-    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 | EA | 6\\\" | 90 LR elbow\",\"description\":\"90 long radius elbow, butt welded, schedule 40, ASTM A234 WPB, 6 inch\",\"qty\":12,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"6 | EA | 6\\\" | 45 elbow\",\"description\":\"45 degree elbow, butt welded, schedule 40, ASTM A234 WPB, 6 inch\",\"qty\":6,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"4 | EA | 8\\\" | 90 LR elbow\",\"description\":\"90 long radius elbow, butt welded, schedule 40, ASTM A234 WPB, 8 inch\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"4 | EA | 6\\\" | Tee, straight\",\"description\":\"Straight tee, butt welded, schedule 40, ASTM A234 WPB, 6 inch\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"3 | EA | 8\\\" x 6\\\" | Reducer, concentric\",\"description\":\"Concentric reducer, butt welded, schedule 40, ASTM A234 WPB, 8 inch by 6 inch\",\"qty\":3,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | EA | 6\\\" x 4\\\" | Reducer, concentric, SCH 80\",\"description\":\"Concentric reducer, butt welded, schedule 80, ASTM A234 WPB, 6 inch by 4 inch\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | EA | 8\\\" | Cap\",\"description\":\"Cap, butt welded, schedule 40, ASTM A234 WPB, 8 inch\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | EA | 6\\\" | Cap\",\"description\":\"Cap, butt welded, schedule 40, ASTM A234 WPB, 6 inch\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]}],\"doubts\":[],\"note\":\"Customer requests quote for piping fittings per attached spreadsheet Rev B.\"}",
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 | EA | 6\\\" | 90 LR elbow\",\"description\":\"90 long radius elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":12,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"6 | EA | 6\\\" | 45 elbow\",\"description\":\"45 degree elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":6,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"4 | EA | 8\\\" | 90 LR elbow\",\"description\":\"90 long radius elbow, 8 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"4 | EA | 6\\\" | Tee, straight\",\"description\":\"straight tee, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"3 | EA | 8\\\" x 6\\\" | Reducer, concentric\",\"description\":\"concentric reducer, 8 inch by 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":3,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | EA | 6\\\" x 4\\\" | Reducer, concentric, SCH 80\",\"description\":\"concentric reducer, 6 inch by 4 inch, butt weld, schedule 80, ASTM A234 WPB\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | EA | 8\\\" | Cap\",\"description\":\"cap, 8 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | EA | 6\\\" | Cap\",\"description\":\"cap, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]}],\"doubts\":[],\"note\":\"Items are from attached spreadsheet Tank14_Piping_RevB.xlsx, sheet Rev B.\"}",
     "refusal": null
   },
   "schema_version": "v2",
   "usage": {
-    "completion_tokens": 680,
+    "completion_tokens": 686,
     "prompt_tokens": 3566
   }
 }

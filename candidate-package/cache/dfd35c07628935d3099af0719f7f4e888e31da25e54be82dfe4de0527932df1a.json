@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-11-15T06:46:57+00:00",
+  "created_at": "2026-11-15T12:46:19+00:00",
   "email_id": "E003",
   "generation": {
     "max_output_tokens": 8192,
     "temperature": 0
   },
   "key": "dfd35c07628935d3099af0719f7f4e888e31da25e54be82dfe4de0527932df1a",
-  "latency_s": 3.853,
+  "latency_s": 4.544,
   "model": "gpt-4.1-mini",
   "prompt_version": "v5",
   "response": {
@@ -47,7 +47,7 @@
         },
         {
           "applies_context": [
-            "fittings are 150# malleable iron, black"
+            "FITTINGS - fittings are 150# malleable iron, black"
           ],
           "description": "90 degree elbow fitting, 2 inch, 150# malleable iron, black",
           "qty": 12,
@@ -57,7 +57,7 @@
         },
         {
           "applies_context": [
-            "fittings are 150# malleable iron, black"
+            "FITTINGS - fittings are 150# malleable iron, black"
           ],
           "description": "tee fitting, 2 inch, 150# malleable iron, black",
           "qty": 8,
@@ -67,7 +67,7 @@
         },
         {
           "applies_context": [
-            "fittings are 150# malleable iron, black"
+            "FITTINGS - fittings are 150# malleable iron, black"
           ],
           "description": "union fitting, 2 inch, 150# malleable iron, black",
           "qty": 6,
@@ -79,7 +79,7 @@
           "applies_context": [
             "VALVES"
           ],
-          "description": "gate valve, 2 inch, bronze, 125#",
+          "description": "gate valve, 2 inch, bronze, 125# rating",
           "qty": 4,
           "raw": "4 ea - 2\" gate, bronze, 125#",
           "source": "body",
@@ -89,22 +89,22 @@
           "applies_context": [
             "VALVES"
           ],
-          "description": "check valve, swing type, 2 inch, bronze, 125#",
+          "description": "check valve, swing type, 2 inch, bronze, 125# rating",
           "qty": 2,
           "raw": "2 ea - 2\" check, swing, bronze, 125#",
           "source": "body",
           "uom": "EA"
         }
       ],
-      "note": "Customer requests pricing for pipe, fittings, and valves with specified materials and sizes.",
+      "note": "Customer requests pricing for pipe, fittings, and valves with specified materials and ratings for Bayou Chemical tie-in project.",
       "revises_hint": null
     },
-    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"20 jts - 2\\\"\",\"description\":\"pipe, 2 inch, schedule 40, A53B ERW, threaded and coupled\",\"qty\":20,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"All pipe SCH 40 A53B ERW, T&C\"]},{\"raw\":\"10 jts - 3\\\"\",\"description\":\"pipe, 3 inch, schedule 40, A53B ERW, threaded and coupled\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"All pipe SCH 40 A53B ERW, T&C\"]},{\"raw\":\"6 jts - 4\\\"\",\"description\":\"pipe, 4 inch, schedule 40, A53B ERW, threaded and coupled\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"All pipe SCH 40 A53B ERW, T&C\"]},{\"raw\":\"12 ea - 2\\\" 90 ell\",\"description\":\"90 degree elbow fitting, 2 inch, 150# malleable iron, black\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"fittings are 150# malleable iron, black\"]},{\"raw\":\"8 ea - 2\\\" tee\",\"description\":\"tee fitting, 2 inch, 150# malleable iron, black\",\"qty\":8,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"fittings are 150# malleable iron, black\"]},{\"raw\":\"6 ea - 2\\\" union\",\"description\":\"union fitting, 2 inch, 150# malleable iron, black\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"fittings are 150# malleable iron, black\"]},{\"raw\":\"4 ea - 2\\\" gate, bronze, 125#\",\"description\":\"gate valve, 2 inch, bronze, 125#\",\"qty\":4,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"VALVES\"]},{\"raw\":\"2 ea - 2\\\" check, swing, bronze, 125#\",\"description\":\"check valve, swing type, 2 inch, bronze, 125#\",\"qty\":2,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"VALVES\"]}],\"doubts\":[],\"note\":\"Customer requests pricing for pipe, fittings, and valves with specified materials and sizes.\"}",
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"20 jts - 2\\\"\",\"description\":\"pipe, 2 inch, schedule 40, A53B ERW, threaded and coupled\",\"qty\":20,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"All pipe SCH 40 A53B ERW, T&C\"]},{\"raw\":\"10 jts - 3\\\"\",\"description\":\"pipe, 3 inch, schedule 40, A53B ERW, threaded and coupled\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"All pipe SCH 40 A53B ERW, T&C\"]},{\"raw\":\"6 jts - 4\\\"\",\"description\":\"pipe, 4 inch, schedule 40, A53B ERW, threaded and coupled\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"All pipe SCH 40 A53B ERW, T&C\"]},{\"raw\":\"12 ea - 2\\\" 90 ell\",\"description\":\"90 degree elbow fitting, 2 inch, 150# malleable iron, black\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"FITTINGS - fittings are 150# malleable iron, black\"]},{\"raw\":\"8 ea - 2\\\" tee\",\"description\":\"tee fitting, 2 inch, 150# malleable iron, black\",\"qty\":8,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"FITTINGS - fittings are 150# malleable iron, black\"]},{\"raw\":\"6 ea - 2\\\" union\",\"description\":\"union fitting, 2 inch, 150# malleable iron, black\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"FITTINGS - fittings are 150# malleable iron, black\"]},{\"raw\":\"4 ea - 2\\\" gate, bronze, 125#\",\"description\":\"gate valve, 2 inch, bronze, 125# rating\",\"qty\":4,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"VALVES\"]},{\"raw\":\"2 ea - 2\\\" check, swing, bronze, 125#\",\"description\":\"check valve, swing type, 2 inch, bronze, 125# rating\",\"qty\":2,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"VALVES\"]}],\"doubts\":[],\"note\":\"Customer requests pricing for pipe, fittings, and valves with specified materials and ratings for Bayou Chemical tie-in project.\"}",
     "refusal": null
   },
   "schema_version": "v2",
   "usage": {
-    "completion_tokens": 526,
+    "completion_tokens": 544,
     "prompt_tokens": 3098
   }
 }

@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-11-15T06:46:50+00:00",
+  "created_at": "2026-11-15T12:46:12+00:00",
   "email_id": "E001",
   "generation": {
     "max_output_tokens": 8192,
     "temperature": 0
   },
   "key": "d61b3f425c9775e4cc6215c5408fd20d24b89d8b40925379b0307f3d264a3807",
-  "latency_s": 3.716,
+  "latency_s": 4.382,
   "model": "gpt-4.1-mini",
   "prompt_version": "v5",
   "response": {
@@ -27,8 +27,7 @@
         },
         {
           "applies_context": [
-            "2\" 3000# forged threaded",
-            "A105"
+            "2\" 3000# forged threaded 90 elbow, A105"
           ],
           "description": "2 inch 3000# forged threaded 90 degree elbow, A105",
           "qty": 30,
@@ -38,8 +37,7 @@
         },
         {
           "applies_context": [
-            "2\" 3000# forged threaded",
-            "A105"
+            "2\" 3000# forged threaded coupling, A105"
           ],
           "description": "2 inch 3000# forged threaded coupling, A105",
           "qty": 30,
@@ -68,15 +66,15 @@
           "uom": "EA"
         }
       ],
-      "note": "Customer requests quote with Ref# 7/16-2211, delivery to Mobile yard, pricing and lead time by Wednesday.",
+      "note": "Customer requests pricing and lead time by Wednesday, delivered to Mobile yard, Ref# 7/16-2211.",
       "revises_hint": null
     },
-    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 jts - 2\\\" SCH 40 A53B ERW black pipe, PE\",\"description\":\"2 inch Schedule 40 A53B ERW black pipe, PE\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"2\\\" SCH 40 A53B ERW black pipe, PE\"]},{\"raw\":\"(30) 2\\\" 3000# forged threaded 90 elbow, A105\",\"description\":\"2 inch 3000# forged threaded 90 degree elbow, A105\",\"qty\":30,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"2\\\" 3000# forged threaded\",\"A105\"]},{\"raw\":\"(30) 2\\\" 3000# forged threaded coupling, A105\",\"description\":\"2 inch 3000# forged threaded coupling, A105\",\"qty\":30,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"2\\\" 3000# forged threaded\",\"A105\"]},{\"raw\":\"200 ft - 3/4\\\" SCH 40 galvanized pipe, TBE\",\"description\":\"3/4 inch Schedule 40 galvanized pipe, TBE\",\"qty\":200,\"uom\":\"FT\",\"source\":\"body\",\"applies_context\":[\"3/4\\\" SCH 40 galvanized pipe, TBE\"]},{\"raw\":\"4\\\" 150# RF slip-on flange, A105 x 6\",\"description\":\"4 inch 150# RF slip-on flange, A105\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"4\\\" 150# RF slip-on flange, A105\"]}],\"doubts\":[],\"note\":\"Customer requests quote with Ref# 7/16-2211, delivery to Mobile yard, pricing and lead time by Wednesday.\"}",
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 jts - 2\\\" SCH 40 A53B ERW black pipe, PE\",\"description\":\"2 inch Schedule 40 A53B ERW black pipe, PE\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"2\\\" SCH 40 A53B ERW black pipe, PE\"]},{\"raw\":\"(30) 2\\\" 3000# forged threaded 90 elbow, A105\",\"description\":\"2 inch 3000# forged threaded 90 degree elbow, A105\",\"qty\":30,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"2\\\" 3000# forged threaded 90 elbow, A105\"]},{\"raw\":\"(30) 2\\\" 3000# forged threaded coupling, A105\",\"description\":\"2 inch 3000# forged threaded coupling, A105\",\"qty\":30,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"2\\\" 3000# forged threaded coupling, A105\"]},{\"raw\":\"200 ft - 3/4\\\" SCH 40 galvanized pipe, TBE\",\"description\":\"3/4 inch Schedule 40 galvanized pipe, TBE\",\"qty\":200,\"uom\":\"FT\",\"source\":\"body\",\"applies_context\":[\"3/4\\\" SCH 40 galvanized pipe, TBE\"]},{\"raw\":\"4\\\" 150# RF slip-on flange, A105 x 6\",\"description\":\"4 inch 150# RF slip-on flange, A105\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"4\\\" 150# RF slip-on flange, A105\"]}],\"doubts\":[],\"note\":\"Customer requests pricing and lead time by Wednesday, delivered to Mobile yard, Ref# 7/16-2211.\"}",
     "refusal": null
   },
   "schema_version": "v2",
   "usage": {
-    "completion_tokens": 385,
+    "completion_tokens": 387,
     "prompt_tokens": 3181
   }
 }

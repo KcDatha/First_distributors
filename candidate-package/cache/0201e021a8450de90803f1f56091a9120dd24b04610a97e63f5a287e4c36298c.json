@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-11-15T06:48:28+00:00",
+  "created_at": "2026-11-15T12:47:57+00:00",
   "email_id": "E021",
   "generation": {
     "max_output_tokens": 8192,
     "temperature": 0
   },
   "key": "0201e021a8450de90803f1f56091a9120dd24b04610a97e63f5a287e4c36298c",
-  "latency_s": 22.232,
+  "latency_s": 22.108,
   "model": "gpt-4.1-mini",
   "prompt_version": "v5",
   "response": {
@@ -17,10 +17,9 @@
       "lines": [
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1/2 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 1/2 inch, Schedule 80 seamless, ends PE",
           "qty": 420,
           "raw": "420 | FT | 1/2\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -28,10 +27,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 3/4 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 3/4 inch, Schedule 80 seamless, ends PE",
           "qty": 300,
           "raw": "300 | FT | 3/4\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -39,10 +37,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 1 inch, Schedule 80 seamless, ends PE",
           "qty": 600,
           "raw": "600 | FT | 1\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -50,10 +47,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1-1/4 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 1-1/4 inch, Schedule 80 seamless, ends PE",
           "qty": 240,
           "raw": "240 | FT | 1-1/4\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -61,10 +57,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1-1/2 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 1-1/2 inch, Schedule 80 seamless, ends PE",
           "qty": 360,
           "raw": "360 | FT | 1-1/2\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -72,10 +67,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 2 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 2 inch, Schedule 80 seamless, ends PE",
           "qty": 500,
           "raw": "500 | FT | 2\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -83,10 +77,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 2-1/2 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 2-1/2 inch, Schedule 80 seamless, ends PE",
           "qty": 180,
           "raw": "180 | FT | 2-1/2\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -94,10 +87,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 3 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 3 inch, Schedule 80 seamless, ends PE",
           "qty": 320,
           "raw": "320 | FT | 3\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -105,10 +97,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 4 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 4 inch, Schedule 80 seamless, ends PE",
           "qty": 140,
           "raw": "140 | FT | 4\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -116,10 +107,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "PE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 6 inch, Schedule 80 seamless, plain ends",
+          "description": "Pipe, 6 inch, Schedule 80 seamless, ends PE",
           "qty": 80,
           "raw": "80 | FT | 6\" | PE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -127,10 +117,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "TOE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1/2 inch, Schedule 80 seamless, TOE ends",
+          "description": "Pipe, 1/2 inch, Schedule 80 seamless, ends TOE",
           "qty": 120,
           "raw": "120 | FT | 1/2\" | TOE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -138,10 +127,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "TOE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 3/4 inch, Schedule 80 seamless, TOE ends",
+          "description": "Pipe, 3/4 inch, Schedule 80 seamless, ends TOE",
           "qty": 160,
           "raw": "160 | FT | 3/4\" | TOE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -149,10 +137,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "TOE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1 inch, Schedule 80 seamless, TOE ends",
+          "description": "Pipe, 1 inch, Schedule 80 seamless, ends TOE",
           "qty": 200,
           "raw": "200 | FT | 1\" | TOE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -160,10 +147,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "TOE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 1-1/2 inch, Schedule 80 seamless, TOE ends",
+          "description": "Pipe, 1-1/2 inch, Schedule 80 seamless, ends TOE",
           "qty": 100,
           "raw": "100 | FT | 1-1/2\" | TOE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -171,10 +157,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "TOE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 2 inch, Schedule 80 seamless, TOE ends",
+          "description": "Pipe, 2 inch, Schedule 80 seamless, ends TOE",
           "qty": 140,
           "raw": "140 | FT | 2\" | TOE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -182,10 +167,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "BE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 3 inch, Schedule 80 seamless, beveled ends",
+          "description": "Pipe, 3 inch, Schedule 80 seamless, ends BE",
           "qty": 60,
           "raw": "60 | FT | 3\" | BE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -193,10 +177,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "BE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 4 inch, Schedule 80 seamless, beveled ends",
+          "description": "Pipe, 4 inch, Schedule 80 seamless, ends BE",
           "qty": 40,
           "raw": "40 | FT | 4\" | BE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -204,10 +187,9 @@
         },
         {
           "applies_context": [
-            "SCH 80 SMLS",
-            "BE"
+            "SCH 80 SMLS"
           ],
-          "description": "Pipe, 6 inch, Schedule 80 seamless, beveled ends",
+          "description": "Pipe, 6 inch, Schedule 80 seamless, ends BE",
           "qty": 20,
           "raw": "20 | FT | 6\" | BE",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -217,7 +199,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "90 degree elbow fitting, 1/2 inch, socket weld, 3000# rating",
+          "description": "90 degree elbow fitting, 1/2 inch, SW 3000#",
           "qty": 9,
           "raw": "9 | EA | 1/2\" | 90 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -227,7 +209,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "90 degree elbow fitting, 3/4 inch, socket weld, 3000# rating",
+          "description": "90 degree elbow fitting, 3/4 inch, SW 3000#",
           "qty": 16,
           "raw": "16 | EA | 3/4\" | 90 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -237,7 +219,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "90 degree elbow fitting, 1 inch, socket weld, 3000# rating",
+          "description": "90 degree elbow fitting, 1 inch, SW 3000#",
           "qty": 23,
           "raw": "23 | EA | 1\" | 90 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -247,7 +229,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "90 degree elbow fitting, 1-1/4 inch, socket weld, 3000# rating",
+          "description": "90 degree elbow fitting, 1-1/4 inch, SW 3000#",
           "qty": 30,
           "raw": "30 | EA | 1-1/4\" | 90 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -257,7 +239,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "90 degree elbow fitting, 1-1/2 inch, socket weld, 3000# rating",
+          "description": "90 degree elbow fitting, 1-1/2 inch, SW 3000#",
           "qty": 6,
           "raw": "6 | EA | 1-1/2\" | 90 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -267,7 +249,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "90 degree elbow fitting, 2 inch, socket weld, 3000# rating",
+          "description": "90 degree elbow fitting, 2 inch, SW 3000#",
           "qty": 13,
           "raw": "13 | EA | 2\" | 90 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -277,7 +259,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "45 degree elbow fitting, 1/2 inch, socket weld, 3000# rating",
+          "description": "45 degree elbow fitting, 1/2 inch, SW 3000#",
           "qty": 20,
           "raw": "20 | EA | 1/2\" | 45 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -287,7 +269,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "45 degree elbow fitting, 3/4 inch, socket weld, 3000# rating",
+          "description": "45 degree elbow fitting, 3/4 inch, SW 3000#",
           "qty": 27,
           "raw": "27 | EA | 3/4\" | 45 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -297,7 +279,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "45 degree elbow fitting, 1 inch, socket weld, 3000# rating",
+          "description": "45 degree elbow fitting, 1 inch, SW 3000#",
           "qty": 34,
           "raw": "34 | EA | 1\" | 45 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -307,7 +289,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "45 degree elbow fitting, 1-1/4 inch, socket weld, 3000# rating",
+          "description": "45 degree elbow fitting, 1-1/4 inch, SW 3000#",
           "qty": 10,
           "raw": "10 | EA | 1-1/4\" | 45 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -317,7 +299,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "45 degree elbow fitting, 1-1/2 inch, socket weld, 3000# rating",
+          "description": "45 degree elbow fitting, 1-1/2 inch, SW 3000#",
           "qty": 17,
           "raw": "17 | EA | 1-1/2\" | 45 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -327,7 +309,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "45 degree elbow fitting, 2 inch, socket weld, 3000# rating",
+          "description": "45 degree elbow fitting, 2 inch, SW 3000#",
           "qty": 24,
           "raw": "24 | EA | 2\" | 45 Elbow",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -337,7 +319,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Tee fitting, 1/2 inch, socket weld, 3000# rating",
+          "description": "Tee fitting, 1/2 inch, SW 3000#",
           "qty": 31,
           "raw": "31 | EA | 1/2\" | Tee",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -347,7 +329,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Tee fitting, 3/4 inch, socket weld, 3000# rating",
+          "description": "Tee fitting, 3/4 inch, SW 3000#",
           "qty": 7,
           "raw": "7 | EA | 3/4\" | Tee",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -357,7 +339,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Tee fitting, 1 inch, socket weld, 3000# rating",
+          "description": "Tee fitting, 1 inch, SW 3000#",
           "qty": 14,
           "raw": "14 | EA | 1\" | Tee",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -367,7 +349,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Tee fitting, 1-1/4 inch, socket weld, 3000# rating",
+          "description": "Tee fitting, 1-1/4 inch, SW 3000#",
           "qty": 21,
           "raw": "21 | EA | 1-1/4\" | Tee",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -377,7 +359,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Tee fitting, 1-1/2 inch, socket weld, 3000# rating",
+          "description": "Tee fitting, 1-1/2 inch, SW 3000#",
           "qty": 28,
           "raw": "28 | EA | 1-1/2\" | Tee",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -387,7 +369,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Tee fitting, 2 inch, socket weld, 3000# rating",
+          "description": "Tee fitting, 2 inch, SW 3000#",
           "qty": 35,
           "raw": "35 | EA | 2\" | Tee",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -397,7 +379,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Coupling fitting, 1/2 inch, socket weld, 3000# rating",
+          "description": "Coupling fitting, 1/2 inch, SW 3000#",
           "qty": 11,
           "raw": "11 | EA | 1/2\" | Coupling",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -407,7 +389,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Coupling fitting, 3/4 inch, socket weld, 3000# rating",
+          "description": "Coupling fitting, 3/4 inch, SW 3000#",
           "qty": 18,
           "raw": "18 | EA | 3/4\" | Coupling",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -417,7 +399,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Coupling fitting, 1 inch, socket weld, 3000# rating",
+          "description": "Coupling fitting, 1 inch, SW 3000#",
           "qty": 25,
           "raw": "25 | EA | 1\" | Coupling",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -427,7 +409,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Coupling fitting, 1-1/4 inch, socket weld, 3000# rating",
+          "description": "Coupling fitting, 1-1/4 inch, SW 3000#",
           "qty": 32,
           "raw": "32 | EA | 1-1/4\" | Coupling",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -437,7 +419,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Coupling fitting, 1-1/2 inch, socket weld, 3000# rating",
+          "description": "Coupling fitting, 1-1/2 inch, SW 3000#",
           "qty": 8,
           "raw": "8 | EA | 1-1/2\" | Coupling",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -447,7 +429,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Coupling fitting, 2 inch, socket weld, 3000# rating",
+          "description": "Coupling fitting, 2 inch, SW 3000#",
           "qty": 15,
           "raw": "15 | EA | 2\" | Coupling",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -457,7 +439,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Cap fitting, 1/2 inch, socket weld, 3000# rating",
+          "description": "Cap fitting, 1/2 inch, SW 3000#",
           "qty": 22,
           "raw": "22 | EA | 1/2\" | Cap",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -467,7 +449,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Cap fitting, 3/4 inch, socket weld, 3000# rating",
+          "description": "Cap fitting, 3/4 inch, SW 3000#",
           "qty": 29,
           "raw": "29 | EA | 3/4\" | Cap",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -477,7 +459,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Cap fitting, 1 inch, socket weld, 3000# rating",
+          "description": "Cap fitting, 1 inch, SW 3000#",
           "qty": 36,
           "raw": "36 | EA | 1\" | Cap",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -487,7 +469,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Cap fitting, 1-1/4 inch, socket weld, 3000# rating",
+          "description": "Cap fitting, 1-1/4 inch, SW 3000#",
           "qty": 12,
           "raw": "12 | EA | 1-1/4\" | Cap",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -497,7 +479,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Cap fitting, 1-1/2 inch, socket weld, 3000# rating",
+          "description": "Cap fitting, 1-1/2 inch, SW 3000#",
           "qty": 19,
           "raw": "19 | EA | 1-1/2\" | Cap",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -507,7 +489,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Cap fitting, 2 inch, socket weld, 3000# rating",
+          "description": "Cap fitting, 2 inch, SW 3000#",
           "qty": 26,
           "raw": "26 | EA | 2\" | Cap",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -517,7 +499,7 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Union fitting, 1/2 inch, socket weld, 3000# rating",
+          "description": "Union fitting, 1/2 inch, SW 3000#",
           "qty": 33,
           "raw": "33 | EA | 1/2\" | Union",
           "source": "SR-4-117_Unit4_BOM.xlsx",
@@ -527,22 +509,22 @@
           "applies_context": [
             "SW 3000#"
           ],
-          "description": "Union fitting, 3/4 inch, socket weld, 3000# rating",
+          "description": "Union fitting, 3/4 inch, SW 3000#",
           "qty": 9,
           "raw": "9 | EA | 3/4\" | Union",
           "source": "SR-4-117_Unit4_BOM.xlsx",
           "uom": "EA"
         }
       ],
-      "note": "Full BOM attached in spreadsheet with quantities firm.",
+      "note": "Customer requests quote for full BOM Unit 4 piping package, quantities firm.",
       "revises_hint": null
     },
-    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"420 | FT | 1/2\\\" | PE\",\"description\":\"Pipe, 1/2 inch, Schedule 80 seamless, plain ends\",\"qty\":420,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"300 | FT | 3/4\\\" | PE\",\"description\":\"Pipe, 3/4 inch, Schedule 80 seamless, plain ends\",\"qty\":300,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"600 | FT | 1\\\" | PE\",\"description\":\"Pipe, 1 inch, Schedule 80 seamless, plain ends\",\"qty\":600,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"240 | FT | 1-1/4\\\" | PE\",\"description\":\"Pipe, 1-1/4 inch, Schedule 80 seamless, plain ends\",\"qty\":240,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"360 | FT | 1-1/2\\\" | PE\",\"description\":\"Pipe, 1-1/2 inch, Schedule 80 seamless, plain ends\",\"qty\":360,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"500 | FT | 2\\\" | PE\",\"description\":\"Pipe, 2 inch, Schedule 80 seamless, plain ends\",\"qty\":500,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"180 | FT | 2-1/2\\\" | PE\",\"description\":\"Pipe, 2-1/2 inch, Schedule 80 seamless, plain ends\",\"qty\":180,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"320 | FT | 3\\\" | PE\",\"description\":\"Pipe, 3 inch, Schedule 80 seamless, plain ends\",\"qty\":320,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"140 | FT | 4\\\" | PE\",\"description\":\"Pipe, 4 inch, Schedule 80 seamless, plain ends\",\"qty\":140,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"80 | FT | 6\\\" | PE\",\"description\":\"Pipe, 6 inch, Schedule 80 seamless, plain ends\",\"qty\":80,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"PE\"]},{\"raw\":\"120 | FT | 1/2\\\" | TOE\",\"description\":\"Pipe, 1/2 inch, Schedule 80 seamless, TOE ends\",\"qty\":120,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"TOE\"]},{\"raw\":\"160 | FT | 3/4\\\" | TOE\",\"description\":\"Pipe, 3/4 inch, Schedule 80 seamless, TOE ends\",\"qty\":160,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"TOE\"]},{\"raw\":\"200 | FT | 1\\\" | TOE\",\"description\":\"Pipe, 1 inch, Schedule 80 seamless, TOE ends\",\"qty\":200,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"TOE\"]},{\"raw\":\"100 | FT | 1-1/2\\\" | TOE\",\"description\":\"Pipe, 1-1/2 inch, Schedule 80 seamless, TOE ends\",\"qty\":100,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"TOE\"]},{\"raw\":\"140 | FT | 2\\\" | TOE\",\"description\":\"Pipe, 2 inch, Schedule 80 seamless, TOE ends\",\"qty\":140,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"TOE\"]},{\"raw\":\"60 | FT | 3\\\" | BE\",\"description\":\"Pipe, 3 inch, Schedule 80 seamless, beveled ends\",\"qty\":60,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"BE\"]},{\"raw\":\"40 | FT | 4\\\" | BE\",\"description\":\"Pipe, 4 inch, Schedule 80 seamless, beveled ends\",\"qty\":40,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"BE\"]},{\"raw\":\"20 | FT | 6\\\" | BE\",\"description\":\"Pipe, 6 inch, Schedule 80 seamless, beveled ends\",\"qty\":20,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\",\"BE\"]},{\"raw\":\"9 | EA | 1/2\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1/2 inch, socket weld, 3000# rating\",\"qty\":9,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"16 | EA | 3/4\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 3/4 inch, socket weld, 3000# rating\",\"qty\":16,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"23 | EA | 1\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1 inch, socket weld, 3000# rating\",\"qty\":23,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"30 | EA | 1-1/4\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1-1/4 inch, socket weld, 3000# rating\",\"qty\":30,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"6 | EA | 1-1/2\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1-1/2 inch, socket weld, 3000# rating\",\"qty\":6,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"13 | EA | 2\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 2 inch, socket weld, 3000# rating\",\"qty\":13,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"20 | EA | 1/2\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1/2 inch, socket weld, 3000# rating\",\"qty\":20,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"27 | EA | 3/4\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 3/4 inch, socket weld, 3000# rating\",\"qty\":27,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"34 | EA | 1\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1 inch, socket weld, 3000# rating\",\"qty\":34,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"10 | EA | 1-1/4\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1-1/4 inch, socket weld, 3000# rating\",\"qty\":10,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"17 | EA | 1-1/2\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1-1/2 inch, socket weld, 3000# rating\",\"qty\":17,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"24 | EA | 2\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 2 inch, socket weld, 3000# rating\",\"qty\":24,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"31 | EA | 1/2\\\" | Tee\",\"description\":\"Tee fitting, 1/2 inch, socket weld, 3000# rating\",\"qty\":31,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"7 | EA | 3/4\\\" | Tee\",\"description\":\"Tee fitting, 3/4 inch, socket weld, 3000# rating\",\"qty\":7,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"14 | EA | 1\\\" | Tee\",\"description\":\"Tee fitting, 1 inch, socket weld, 3000# rating\",\"qty\":14,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"21 | EA | 1-1/4\\\" | Tee\",\"description\":\"Tee fitting, 1-1/4 inch, socket weld, 3000# rating\",\"qty\":21,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"28 | EA | 1-1/2\\\" | Tee\",\"description\":\"Tee fitting, 1-1/2 inch, socket weld, 3000# rating\",\"qty\":28,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"35 | EA | 2\\\" | Tee\",\"description\":\"Tee fitting, 2 inch, socket weld, 3000# rating\",\"qty\":35,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"11 | EA | 1/2\\\" | Coupling\",\"description\":\"Coupling fitting, 1/2 inch, socket weld, 3000# rating\",\"qty\":11,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"18 | EA | 3/4\\\" | Coupling\",\"description\":\"Coupling fitting, 3/4 inch, socket weld, 3000# rating\",\"qty\":18,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"25 | EA | 1\\\" | Coupling\",\"description\":\"Coupling fitting, 1 inch, socket weld, 3000# rating\",\"qty\":25,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"32 | EA | 1-1/4\\\" | Coupling\",\"description\":\"Coupling fitting, 1-1/4 inch, socket weld, 3000# rating\",\"qty\":32,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"8 | EA | 1-1/2\\\" | Coupling\",\"description\":\"Coupling fitting, 1-1/2 inch, socket weld, 3000# rating\",\"qty\":8,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"15 | EA | 2\\\" | Coupling\",\"description\":\"Coupling fitting, 2 inch, socket weld, 3000# rating\",\"qty\":15,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"22 | EA | 1/2\\\" | Cap\",\"description\":\"Cap fitting, 1/2 inch, socket weld, 3000# rating\",\"qty\":22,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"29 | EA | 3/4\\\" | Cap\",\"description\":\"Cap fitting, 3/4 inch, socket weld, 3000# rating\",\"qty\":29,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"36 | EA | 1\\\" | Cap\",\"description\":\"Cap fitting, 1 inch, socket weld, 3000# rating\",\"qty\":36,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"12 | EA | 1-1/4\\\" | Cap\",\"description\":\"Cap fitting, 1-1/4 inch, socket weld, 3000# rating\",\"qty\":12,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"19 | EA | 1-1/2\\\" | Cap\",\"description\":\"Cap fitting, 1-1/2 inch, socket weld, 3000# rating\",\"qty\":19,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"26 | EA | 2\\\" | Cap\",\"description\":\"Cap fitting, 2 inch, socket weld, 3000# rating\",\"qty\":26,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"33 | EA | 1/2\\\" | Union\",\"description\":\"Union fitting, 1/2 inch, socket weld, 3000# rating\",\"qty\":33,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"9 | EA | 3/4\\\" | Union\",\"description\":\"Union fitting, 3/4 inch, socket weld, 3000# rating\",\"qty\":9,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]}],\"doubts\":[],\"note\":\"Full BOM attached in spreadsheet with quantities firm.\"}",
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"420 | FT | 1/2\\\" | PE\",\"description\":\"Pipe, 1/2 inch, Schedule 80 seamless, ends PE\",\"qty\":420,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"300 | FT | 3/4\\\" | PE\",\"description\":\"Pipe, 3/4 inch, Schedule 80 seamless, ends PE\",\"qty\":300,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"600 | FT | 1\\\" | PE\",\"description\":\"Pipe, 1 inch, Schedule 80 seamless, ends PE\",\"qty\":600,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"240 | FT | 1-1/4\\\" | PE\",\"description\":\"Pipe, 1-1/4 inch, Schedule 80 seamless, ends PE\",\"qty\":240,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"360 | FT | 1-1/2\\\" | PE\",\"description\":\"Pipe, 1-1/2 inch, Schedule 80 seamless, ends PE\",\"qty\":360,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"500 | FT | 2\\\" | PE\",\"description\":\"Pipe, 2 inch, Schedule 80 seamless, ends PE\",\"qty\":500,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"180 | FT | 2-1/2\\\" | PE\",\"description\":\"Pipe, 2-1/2 inch, Schedule 80 seamless, ends PE\",\"qty\":180,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"320 | FT | 3\\\" | PE\",\"description\":\"Pipe, 3 inch, Schedule 80 seamless, ends PE\",\"qty\":320,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"140 | FT | 4\\\" | PE\",\"description\":\"Pipe, 4 inch, Schedule 80 seamless, ends PE\",\"qty\":140,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"80 | FT | 6\\\" | PE\",\"description\":\"Pipe, 6 inch, Schedule 80 seamless, ends PE\",\"qty\":80,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"120 | FT | 1/2\\\" | TOE\",\"description\":\"Pipe, 1/2 inch, Schedule 80 seamless, ends TOE\",\"qty\":120,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"160 | FT | 3/4\\\" | TOE\",\"description\":\"Pipe, 3/4 inch, Schedule 80 seamless, ends TOE\",\"qty\":160,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"200 | FT | 1\\\" | TOE\",\"description\":\"Pipe, 1 inch, Schedule 80 seamless, ends TOE\",\"qty\":200,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"100 | FT | 1-1/2\\\" | TOE\",\"description\":\"Pipe, 1-1/2 inch, Schedule 80 seamless, ends TOE\",\"qty\":100,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"140 | FT | 2\\\" | TOE\",\"description\":\"Pipe, 2 inch, Schedule 80 seamless, ends TOE\",\"qty\":140,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"60 | FT | 3\\\" | BE\",\"description\":\"Pipe, 3 inch, Schedule 80 seamless, ends BE\",\"qty\":60,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"40 | FT | 4\\\" | BE\",\"description\":\"Pipe, 4 inch, Schedule 80 seamless, ends BE\",\"qty\":40,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"20 | FT | 6\\\" | BE\",\"description\":\"Pipe, 6 inch, Schedule 80 seamless, ends BE\",\"qty\":20,\"uom\":\"FT\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SCH 80 SMLS\"]},{\"raw\":\"9 | EA | 1/2\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1/2 inch, SW 3000#\",\"qty\":9,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"16 | EA | 3/4\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 3/4 inch, SW 3000#\",\"qty\":16,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"23 | EA | 1\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1 inch, SW 3000#\",\"qty\":23,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"30 | EA | 1-1/4\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1-1/4 inch, SW 3000#\",\"qty\":30,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"6 | EA | 1-1/2\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 1-1/2 inch, SW 3000#\",\"qty\":6,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"13 | EA | 2\\\" | 90 Elbow\",\"description\":\"90 degree elbow fitting, 2 inch, SW 3000#\",\"qty\":13,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"20 | EA | 1/2\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1/2 inch, SW 3000#\",\"qty\":20,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"27 | EA | 3/4\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 3/4 inch, SW 3000#\",\"qty\":27,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"34 | EA | 1\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1 inch, SW 3000#\",\"qty\":34,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"10 | EA | 1-1/4\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1-1/4 inch, SW 3000#\",\"qty\":10,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"17 | EA | 1-1/2\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 1-1/2 inch, SW 3000#\",\"qty\":17,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"24 | EA | 2\\\" | 45 Elbow\",\"description\":\"45 degree elbow fitting, 2 inch, SW 3000#\",\"qty\":24,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"31 | EA | 1/2\\\" | Tee\",\"description\":\"Tee fitting, 1/2 inch, SW 3000#\",\"qty\":31,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"7 | EA | 3/4\\\" | Tee\",\"description\":\"Tee fitting, 3/4 inch, SW 3000#\",\"qty\":7,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"14 | EA | 1\\\" | Tee\",\"description\":\"Tee fitting, 1 inch, SW 3000#\",\"qty\":14,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"21 | EA | 1-1/4\\\" | Tee\",\"description\":\"Tee fitting, 1-1/4 inch, SW 3000#\",\"qty\":21,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"28 | EA | 1-1/2\\\" | Tee\",\"description\":\"Tee fitting, 1-1/2 inch, SW 3000#\",\"qty\":28,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"35 | EA | 2\\\" | Tee\",\"description\":\"Tee fitting, 2 inch, SW 3000#\",\"qty\":35,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"11 | EA | 1/2\\\" | Coupling\",\"description\":\"Coupling fitting, 1/2 inch, SW 3000#\",\"qty\":11,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"18 | EA | 3/4\\\" | Coupling\",\"description\":\"Coupling fitting, 3/4 inch, SW 3000#\",\"qty\":18,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"25 | EA | 1\\\" | Coupling\",\"description\":\"Coupling fitting, 1 inch, SW 3000#\",\"qty\":25,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"32 | EA | 1-1/4\\\" | Coupling\",\"description\":\"Coupling fitting, 1-1/4 inch, SW 3000#\",\"qty\":32,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"8 | EA | 1-1/2\\\" | Coupling\",\"description\":\"Coupling fitting, 1-1/2 inch, SW 3000#\",\"qty\":8,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"15 | EA | 2\\\" | Coupling\",\"description\":\"Coupling fitting, 2 inch, SW 3000#\",\"qty\":15,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"22 | EA | 1/2\\\" | Cap\",\"description\":\"Cap fitting, 1/2 inch, SW 3000#\",\"qty\":22,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"29 | EA | 3/4\\\" | Cap\",\"description\":\"Cap fitting, 3/4 inch, SW 3000#\",\"qty\":29,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"36 | EA | 1\\\" | Cap\",\"description\":\"Cap fitting, 1 inch, SW 3000#\",\"qty\":36,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"12 | EA | 1-1/4\\\" | Cap\",\"description\":\"Cap fitting, 1-1/4 inch, SW 3000#\",\"qty\":12,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"19 | EA | 1-1/2\\\" | Cap\",\"description\":\"Cap fitting, 1-1/2 inch, SW 3000#\",\"qty\":19,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"26 | EA | 2\\\" | Cap\",\"description\":\"Cap fitting, 2 inch, SW 3000#\",\"qty\":26,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"33 | EA | 1/2\\\" | Union\",\"description\":\"Union fitting, 1/2 inch, SW 3000#\",\"qty\":33,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]},{\"raw\":\"9 | EA | 3/4\\\" | Union\",\"description\":\"Union fitting, 3/4 inch, SW 3000#\",\"qty\":9,\"uom\":\"EA\",\"source\":\"SR-4-117_Unit4_BOM.xlsx\",\"applies_context\":[\"SW 3000#\"]}],\"doubts\":[],\"note\":\"Customer requests quote for full BOM Unit 4 piping package, quantities firm.\"}",
     "refusal": null
   },
   "schema_version": "v2",
   "usage": {
-    "completion_tokens": 3496,
+    "completion_tokens": 3362,
     "prompt_tokens": 4162
   }
 }

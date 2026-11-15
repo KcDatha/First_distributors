@@ -1,12 +1,12 @@
 {
-  "created_at": "2026-11-15T06:47:55+00:00",
+  "created_at": "2026-11-15T12:47:23+00:00",
   "email_id": "E017",
   "generation": {
     "max_output_tokens": 8192,
     "temperature": 0
   },
   "key": "5db7fbcad8f558fb387383a4f3376b0364f9c522be4f2e665a22d5ada5df49aa",
-  "latency_s": 1.56,
+  "latency_s": 1.283,
   "model": "gpt-4.1",
   "prompt_version": "v5",
   "response": {
@@ -15,20 +15,20 @@
       "classification": "rfq",
       "doubts": [
         {
-          "detail": "The message refers to a BOM attachment, but no BOM is present—only a logo image is attached.",
+          "detail": "The message refers to a BOM attachment, but no BOM file is present—only a logo image is attached.",
           "reason": "attachment_missing_or_unreadable"
         }
       ],
       "lines": [],
-      "note": "No BOM or item list was attached; only a logo image is present, so no items can be extracted.",
+      "note": "No BOM was attached, only a logo image. No items to quote.",
       "revises_hint": null
     },
-    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[],\"doubts\":[{\"reason\":\"attachment_missing_or_unreadable\",\"detail\":\"The message refers to a BOM attachment, but no BOM is present—only a logo image is attached.\"}],\"note\":\"No BOM or item list was attached; only a logo image is present, so no items can be extracted.\"}",
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[],\"doubts\":[{\"reason\":\"attachment_missing_or_unreadable\",\"detail\":\"The message refers to a BOM attachment, but no BOM file is present—only a logo image is attached.\"}],\"note\":\"No BOM was attached, only a logo image. No items to quote.\"}",
     "refusal": null
   },
   "schema_version": "v2",
   "usage": {
-    "completion_tokens": 80,
+    "completion_tokens": 74,
     "prompt_tokens": 3284
   }
 }

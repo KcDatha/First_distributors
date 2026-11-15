@@ -1,5 +1,7 @@
 """Deployment constants. Kept out of the code that uses them."""
 
+import os
+
 # Mail from exactly this domain is one of our own reps (README: "World facts").
 RIDGELINE_DOMAIN = "ridgeline-supply.example"
 
@@ -17,7 +19,7 @@ IMAGE_MAX_PIXELS = 100_000_000  # refuse to decode anything with more pixels tha
 
 # LLM cache and cost (rfqparse/llm/)
 CACHE_DIR = None                  # None = cache/ at the repo root (found relative to the package, never the cwd)
-LEDGER_PATH = None                # None = cost_ledger.jsonl at the repo root
+LEDGER_PATH = os.environ.get("RFQPARSE_LEDGER") or None   # None = cost_ledger.jsonl at the repo root (the env var is for check scripts)
 
 # USD per 1,000,000 tokens, keyed by model name. A model missing here gets usd = null in the ledger and
 # the client refuses to call it (the spend guard could not count it).
