@@ -33,9 +33,17 @@ def safe_entry(reason: str) -> dict:
             "review_reason": reason, "line_items": []}
 
 
+def list_emls(emails_dir: Path) -> list[Path]:
+    """Every .eml file in the folder (extension in any case), sorted. Never raises."""
+    try:
+        return sorted(p for p in Path(emails_dir).iterdir() if p.suffix.lower() == ".eml" and p.is_file())
+    except Exception:
+        return []
+
+
 def _ingest_all(emails_dir: Path) -> list[Email]:
     mails = []
-    for p in sorted(emails_dir.glob("*.eml")):
+    for p in list_emls(emails_dir):
         try:
             mails.append(ingest_eml(p))
         except Exception:
@@ -376,6 +384,10 @@ def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, st
     for a in pkg.attachments:                 # guard 1: an attachment we could not read, on a request
         if a.status == "unreadable":
             reasons.append(f"attachment '{a.source}' could not be read: {a.reason}")
+    for a in pkg.attachments:                 # guard 1b: an attachment we read only in part
+        part = a.unread_parts
+        if part:
+            reasons.append(f"attachment '{a.source}' was only partly read ({'; '.join(part)}); lines may be missing")
     if not entry["line_items"] and not reasons:   # guard 2: a request with nothing in it and no flag
         reasons.append("request with no readable line items")
     if reasons:
@@ -467,7 +479,7 @@ def run_parse(emails_dir: Path, client, only: list[str] | None = None, cache=Non
         dupes = find_duplicates(mails)
     except Exception:
         dupes = {}                       # detection must never take the run down; without it every email is just processed
-    paths = {p.stem: p for p in sorted(emails_dir.glob("*.eml"))}
+    paths = {p.stem: p for p in list_emls(emails_dir)}
     wanted = [i for i in paths if only is None or i in only]
     need = {i for i in wanted if i not in dupes} | {dupes[i].original for i in wanted if i in dupes}
     entries: dict[str, dict] = {}

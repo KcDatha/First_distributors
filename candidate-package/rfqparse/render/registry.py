@@ -73,6 +73,22 @@ class AttachmentResult:
     def ok(self) -> bool:
         return self.status == "ok"
 
+    @property
+    def unread_parts(self) -> list[str]:
+        """What of this attachment was NOT read (empty when it was read in full). Only for attachments that opened."""
+        if self.status != "ok":
+            return []
+        out: list[str] = []
+        if self.pdf is not None and self.pdf.truncation_reason:
+            out.append(self.pdf.truncation_reason)
+        elif self.truncated:
+            out.append("the file was cut to fit the size limits")
+        for w in self.warnings:
+            if w.startswith("[") or w.startswith("decoded as") or w in out or (self.pdf and w == self.pdf.truncation_reason):
+                continue          # benign notes: embedded-picture message, text encoding
+            out.append(w)
+        return out
+
 
 @dataclass
 class EmailPackage:

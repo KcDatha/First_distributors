@@ -8,7 +8,12 @@ from pathlib import Path
 
 
 def parse_cmd(emails: Path, out: Path, only: list[str] | None) -> int:
-    """The real pipeline. Missing key: cache only (uncached emails get a flagged safe entry)."""
+    """The real pipeline. Missing key: cache only (uncached emails get a flagged safe entry).
+    Exit 2 only for a bad command line (the emails folder is missing or is not a folder); nothing inside the folder
+    can change the exit code."""
+    if not emails.exists() or not emails.is_dir():
+        print(f"error: --emails folder not found or not a folder: {emails}", file=sys.stderr)
+        return 2
     from . import pipeline
     from .llm.call import CallStats
     from .llm.cache import Cache
@@ -24,11 +29,21 @@ def parse_cmd(emails: Path, out: Path, only: list[str] | None) -> int:
               "needs_review.", file=sys.stderr)
     stats = CallStats()
     notes: dict = {}
-    result = pipeline.run_parse(emails, client, only=only, cache=Cache(), ledger=Ledger(), stats=stats, notes=notes)
+    try:
+        result = pipeline.run_parse(emails, client, only=only, cache=Cache(), ledger=Ledger(), stats=stats, notes=notes)
+    except Exception as exc:                   # last resort: still write an entry for every file
+        print(f"warning: the run failed part way ({type(exc).__name__}); unprocessed emails are flagged", file=sys.stderr)
+        result = {}
+    for path in pipeline.list_emls(emails):    # a file the run did not return (it should not happen) is never silently absent
+        if (only is None or path.stem in only) and path.stem not in result:
+            result[path.stem] = pipeline.safe_entry("email was not processed (internal error)")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(pipeline.dumps(result), encoding="utf-8")
     notes_path = out.with_name(out.stem + ".notes.json")   # what the code guards changed, for review (not part of parsed.json)
-    notes_path.write_text(json.dumps(notes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    try:
+        notes_path.write_text(json.dumps(notes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    except Exception as exc:
+        print(f"warning: could not write the notes file: {type(exc).__name__}", file=sys.stderr)
     spent = f"${client.guard.spent:.4f}" if client is not None else "n/a"
     dup_n = sum(1 for v in result.values() if v.get("duplicate_of"))
     print(f"{len(result)} emails written to {out} ({dup_n} duplicates, no model call). model calls: {stats.real_calls} real, {stats.cache_hits} from cache, "
