@@ -1,0 +1,80 @@
+{
+  "created_at": "2026-11-15T03:15:04+00:00",
+  "email_id": "E002",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "eef911c62d41089f42a8104ab871ff5fdf276e48dbe60f331d15a143194b793f",
+  "latency_s": 2.368,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v3",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "1/2 inch 90 degree threaded elbow fitting",
+          "qty": 10,
+          "raw": "10 of the 1/2 90s",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "1/2 inch threaded tee fitting",
+          "qty": 6,
+          "raw": "6 tees same size",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "1/2 inch threaded cap fitting",
+          "qty": 2,
+          "raw": "a couple caps",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "3/4 inch threaded coupling fitting",
+          "qty": 12,
+          "raw": "12 of the 3/4 couplings",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "316 SS threaded fittings"
+          ],
+          "description": "3/4 inch threaded close nipple fitting",
+          "qty": 20,
+          "raw": "20 of the 3/4 close nipples",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "Quantity for caps interpreted as 2 from 'a couple'.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"10 of the 1/2 90s\",\"description\":\"1/2 inch 90 degree threaded elbow fitting\",\"qty\":10,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"6 tees same size\",\"description\":\"1/2 inch threaded tee fitting\",\"qty\":6,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"a couple caps\",\"description\":\"1/2 inch threaded cap fitting\",\"qty\":2,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"12 of the 3/4 couplings\",\"description\":\"3/4 inch threaded coupling fitting\",\"qty\":12,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]},{\"raw\":\"20 of the 3/4 close nipples\",\"description\":\"3/4 inch threaded close nipple fitting\",\"qty\":20,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"316 SS threaded fittings\"]}],\"doubts\":[],\"note\":\"Quantity for caps interpreted as 2 from 'a couple'.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 257,
+    "prompt_tokens": 2530
+  }
+}

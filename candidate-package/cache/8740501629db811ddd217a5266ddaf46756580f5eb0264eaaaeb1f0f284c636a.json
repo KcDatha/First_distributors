@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-11-15T03:16:20+00:00",
+  "email_id": "E011",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "8740501629db811ddd217a5266ddaf46756580f5eb0264eaaaeb1f0f284c636a",
+  "latency_s": 0.733,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v3",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "vendor_quote",
+      "doubts": [],
+      "lines": [],
+      "note": "",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"vendor_quote\",\"revises_hint\":null,\"lines\":[],\"doubts\":[],\"note\":\"\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 25,
+    "prompt_tokens": 2859
+  }
+}

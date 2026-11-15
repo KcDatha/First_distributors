@@ -1,0 +1,60 @@
+{
+  "created_at": "2026-11-15T03:16:45+00:00",
+  "email_id": "E020",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "dcef9655b07636d76f625c6ebbf1ecc903c434a9a1fcf2facf1021bbfeea8c44",
+  "latency_s": 1.7,
+  "model": "gpt-4.1",
+  "prompt_version": "v3",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "purchase_order",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "Quote Q-26-04418 for the lift pump skid"
+          ],
+          "description": "3\" 150# RF weld neck flange, A105, STD bore",
+          "qty": 8,
+          "raw": "1. 8 EA - 3\" 150# RF weld neck flange, A105, STD bore",
+          "source": "body",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Quote Q-26-04418 for the lift pump skid"
+          ],
+          "description": "3\" SCH 40 A53B ERW pipe, PE",
+          "qty": 120,
+          "raw": "2. 120 FT - 3\" SCH 40 A53B ERW pipe, PE",
+          "source": "body",
+          "uom": "FT"
+        },
+        {
+          "applies_context": [
+            "Quote Q-26-04418 for the lift pump skid"
+          ],
+          "description": "3\" 90 deg LR elbow, BW, SCH 40, A234 WPB",
+          "qty": 16,
+          "raw": "4. 16 EA - 3\" 90 deg LR elbow, BW, SCH 40, A234 WPB",
+          "source": "body",
+          "uom": "EA"
+        }
+      ],
+      "note": "Customer is ordering only items 1, 2, and 4 from our quote Q-26-04418; PO number to follow.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"purchase_order\",\"revises_hint\":null,\"lines\":[{\"raw\":\"1. 8 EA - 3\\\" 150# RF weld neck flange, A105, STD bore\",\"description\":\"3\\\" 150# RF weld neck flange, A105, STD bore\",\"qty\":8,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"Quote Q-26-04418 for the lift pump skid\"]},{\"raw\":\"2. 120 FT - 3\\\" SCH 40 A53B ERW pipe, PE\",\"description\":\"3\\\" SCH 40 A53B ERW pipe, PE\",\"qty\":120,\"uom\":\"FT\",\"source\":\"body\",\"applies_context\":[\"Quote Q-26-04418 for the lift pump skid\"]},{\"raw\":\"4. 16 EA - 3\\\" 90 deg LR elbow, BW, SCH 40, A234 WPB\",\"description\":\"3\\\" 90 deg LR elbow, BW, SCH 40, A234 WPB\",\"qty\":16,\"uom\":\"EA\",\"source\":\"body\",\"applies_context\":[\"Quote Q-26-04418 for the lift pump skid\"]}],\"doubts\":[],\"note\":\"Customer is ordering only items 1, 2, and 4 from our quote Q-26-04418; PO number to follow.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 278,
+    "prompt_tokens": 2864
+  }
+}

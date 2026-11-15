@@ -138,12 +138,13 @@ class PromptAndSchemaTests(unittest.TestCase):
         low = PR.system_prompt().lower()
         for phrase in ("applies_context", "copied word for word", "applies to every line in that list", "same size",
                        "overrides a blanket spec", "another section", "never paraphrase", "guessed number",
-                       "a few", "enough for the job", "visible only inside a picture"):
+                       "a few", "enough for the job", "visible only inside a picture",
+                       "do not restate the quantity", "labels, not specs"):
             self.assertIn(phrase, low, phrase)
 
     def test_prompt_is_deterministic_and_versioned(self):
         self.assertEqual(PR.system_prompt(), PR.system_prompt())
-        self.assertEqual((config.PROMPT_VERSION, config.SCHEMA_VERSION), ("v2", "v2"))
+        self.assertEqual((config.PROMPT_VERSION, config.SCHEMA_VERSION), ("v3", "v2"))
 
     def test_schema_is_strict_and_matches_the_official_lists(self):
         check_strict(SC.EXTRACTION_SCHEMA)
@@ -367,9 +368,22 @@ class QuantityGuardTests(GuardBase):
         notes = []
         self.assertIsNone(self.qty_for("a couple caps", 2, notes))
         self.assertTrue(any("set to null" in n for n in notes))
-        for raw in ("a few tees", "several elbows", "enough for the job", "some nipples", "an elbow", "somebody's tees"):
+        for raw in ("a few tees", "several elbows", "enough for the job", "some nipples", "somebody's tees",
+                    "a couple caps", "A COUPLE caps", "a   couple of unions", "an handful of caps", "a bunch of tees",
+                    "a lot of nipples", "a few"):
             with self.subTest(raw):
                 self.assertIsNone(self.qty_for(raw, 3))
+
+    def test_a_standalone_a_or_an_means_one_unless_it_precedes_a_vague_word(self):
+        for raw in ("a gate valve", "an elbow", "A gate valve", "need an 8in elbow", "one tee and a union"):
+            with self.subTest(raw):
+                self.assertEqual(self.qty_for(raw, 1), 1)
+        # "a"/"an" stuck to something else is not an article
+        self.assertFalse(PL.has_quantity_evidence("pipe ASTMA"))        # (a digit anywhere, even in a grade, still counts: the guard is a floor)
+        self.assertFalse(PL.has_quantity_evidence("grade A-ish"))
+        self.assertTrue(PL.has_quantity_evidence("an elbow"))
+        self.assertFalse(PL.has_quantity_evidence("a couple of caps"))
+        self.assertTrue(PL.has_quantity_evidence("a couple of caps, and a tee"))      # the second "a" is a real one
 
     def test_a_spelled_out_number_stays(self):
         for raw, q in (("ten elbows", 10), ("TEN elbows", 10), ("a dozen elbows", 12), ("twenty-five tees", 25),
@@ -392,6 +406,93 @@ class QuantityGuardTests(GuardBase):
         client = FakeClient(lambda p: answer(lines=[line("a couple caps", "caps", 2)]))
         e = PL.process_email(self.emails / "Q1.eml", client=client, cache=self.cache, ledger=self.ledger, stats=self.stats)
         self.assertIsNone(e["line_items"][0]["qty"])
+
+
+class ConflictGuardTests(GuardBase):
+    BLANKET = "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+
+    def guard(self, raw, desc, ctx=None, body=None):
+        pkg = self.pkg_for(make_mail(body=body or f"{self.BLANKET}\n{raw}\nfittings are 150# malleable iron, black"))
+        notes = []
+        out = PL.apply_line_guards([line(raw, desc, 2, ctx=ctx or [self.BLANKET])], pkg, notes)
+        return out[0]["description"], notes
+
+    def test_a_row_with_its_own_schedule_does_not_get_the_blanket_schedule(self):
+        desc, notes = self.guard('2 | EA | 6" x 4" | Reducer, concentric, SCH 80', "Concentric reducer, 6 inch by 4 inch, schedule 80")
+        self.assertEqual(desc, "Concentric reducer, 6 inch by 4 inch, schedule 80")
+        self.assertNotIn("SCH 40", desc)
+        self.assertTrue(any("skipped context phrase" in n and "schedule 'SCH 40'" in n for n in notes))
+
+    def test_a_row_with_a_different_rating_does_not_get_the_blanket_rating(self):
+        blanket = "fittings are 150# malleable iron, black"
+        desc, notes = self.guard("4 ea - 2in 300# union", "2in 300# union", ctx=[blanket])
+        self.assertEqual(desc, "2in 300# union")
+        self.assertTrue(any("pressure rating '150#'" in n for n in notes))
+
+    def test_a_row_with_no_conflict_still_gets_the_phrase(self):
+        desc, notes = self.guard('4 | EA | 6" | Cap', "6 inch cap")
+        self.assertEqual(desc, "6 inch cap, " + self.BLANKET)
+        self.assertFalse(any("skipped" in n for n in notes))
+
+    def test_the_same_value_is_not_a_conflict_in_any_spelling(self):
+        for raw in ("2 ea 6in SCH 40 elbow", "2 ea 6in Schedule 40 elbow", "2 ea 6in sch40 elbow"):
+            with self.subTest(raw):
+                desc, _ = self.guard(raw, "6in elbow")
+                self.assertTrue(desc.endswith(self.BLANKET))
+        blanket = "all flanges 150# RF"
+        for raw in ("2 ea 150 lb flange", "2 ea Class 150 flange", "2 ea 150# flange"):
+            with self.subTest(raw):
+                desc, _ = self.guard(raw, "flange", ctx=[blanket], body=blanket + "\n" + raw)
+                self.assertTrue(desc.endswith(blanket))
+        desc, _ = self.guard("2 ea Class 300 flange", "flange", ctx=[blanket], body=blanket + "\nx")
+        self.assertEqual(desc, "flange")                                         # a different class spelled differently
+
+    def test_the_line_states_it_in_its_description_only(self):
+        desc, notes = self.guard('4 | EA | 6" | Reducer', "6 inch reducer, schedule 80")
+        self.assertEqual(desc, "6 inch reducer, schedule 80")
+        self.assertTrue(any("skipped" in n for n in notes))
+
+    def test_the_raw_wins_over_a_description_that_picked_up_the_wrong_value(self):
+        # the row says SCH 80 itself; a wrongly carried SCH 40 in the description must not make the blanket look consistent
+        desc, notes = self.guard("2 | EA | reducer SCH 80", "reducer SCH 40 SCH 80")
+        self.assertTrue(any("skipped" in n for n in notes))
+        self.assertNotIn("BW", desc)
+
+    def test_a_phrase_that_names_no_attribute_family_is_always_added(self):
+        desc, _ = self.guard("2 | EA | reducer SCH 80", "reducer", ctx=["Bid 26-0412 Tank 14"], body="Bid 26-0412 Tank 14\nreducer SCH 80")
+        self.assertEqual(desc, "reducer, Bid 26-0412 Tank 14")
+
+    def test_a_phrase_with_several_values_is_fine_when_one_matches(self):
+        phrase = "pipe SCH 40 or SCH 80"
+        desc, _ = self.guard("20 ft pipe SCH 80", "pipe", ctx=[phrase], body=phrase + "\n20 ft pipe SCH 80")
+        self.assertTrue(desc.endswith(phrase))
+
+    def test_trim_mode_keeps_the_other_specs_of_the_blanket_note(self):
+        with mock.patch.object(config, "CONTEXT_CONFLICT_ACTION", "trim"):
+            desc, notes = self.guard('2 | EA | 6" x 4" | Reducer, concentric, SCH 80', "Concentric reducer, schedule 80")
+        self.assertIn("BW", desc)
+        self.assertIn("A234 WPB", desc)
+        self.assertNotIn("SCH 40", desc)
+        self.assertTrue(any("trimmed to" in n for n in notes))
+
+    def test_trim_mode_adds_nothing_when_nothing_is_left(self):
+        with mock.patch.object(config, "CONTEXT_CONFLICT_ACTION", "trim"):
+            desc, _ = self.guard("2 | EA | reducer SCH 80", "reducer SCH 80", ctx=["SCH 40"], body="SCH 40\nreducer SCH 80")
+        self.assertEqual(desc, "reducer SCH 80")
+
+    def test_the_families_live_in_config_and_a_new_one_is_picked_up(self):
+        self.assertEqual([f["name"] for f in config.CONTEXT_CONFLICT_FAMILIES], ["schedule", "pressure rating"])
+        fams = config.CONTEXT_CONFLICT_FAMILIES + [{"name": "material grade", "patterns": [r"\b(a105|a350)\b"]}]
+        with mock.patch.object(config, "CONTEXT_CONFLICT_FAMILIES", fams):
+            desc, notes = self.guard("2 ea flange A350", "flange A350", ctx=["flanges A105 RF"], body="flanges A105 RF\n2 ea flange A350")
+        self.assertEqual(desc, "flange A350")
+        self.assertTrue(any("material grade" in n for n in notes))
+
+    def test_conflicting_values_function_directly(self):
+        self.assertEqual(PL.conflicting_values("BW SCH 40", "x SCH 80", ""), [("schedule", "SCH 40")])
+        self.assertEqual(PL.conflicting_values("BW SCH 40", "x", ""), [])
+        self.assertEqual(PL.conflicting_values("150# RF", "2 ea Class 300", ""), [("pressure rating", "150#")])
+        self.assertEqual(PL.conflicting_values("150# RF", "10 lb bag", ""), [])      # too few digits to be a rating
 
 
 # ------------------------------------------------------------------ validation, routing, safety

@@ -80,9 +80,43 @@ _NUMBER_WORDS = ("zero one two three four five six seven eight nine ten eleven t
 _NUMBER_WORD_RE = re.compile(r"\b(" + "|".join(_NUMBER_WORDS) + r")\b", re.I)
 
 
+# "a" / "an" before an ordinary word means one ("a gate valve"), but not before a vague word ("a couple of caps").
+_ARTICLE_ONE_RE = re.compile(r"\b(?:a|an)\s+(?!(?:couple|few|several|bunch|handful|lot)\b)[a-z]", re.I)
+
+
 def has_quantity_evidence(raw: str) -> bool:
-    """True when the line's text has a digit or a number word, i.e. the customer wrote some number."""
-    return bool(re.search(r"\d", raw or "") or _NUMBER_WORD_RE.search(raw or ""))
+    """True when the line's text has a digit, a number word, or a standalone "a"/"an" meaning one."""
+    return bool(re.search(r"\d", raw or "") or _NUMBER_WORD_RE.search(raw or "") or _ARTICLE_ONE_RE.search(raw or ""))
+
+
+def _family_matches(text: str, family: dict) -> list[tuple[str, str]]:
+    """[(matched text, normalized value)] for one attribute family."""
+    out = []
+    for pat in family["patterns"]:
+        for m in re.finditer(pat, text or "", re.I):
+            out.append((m.group(0), m.group(1).lower()))
+    return out
+
+
+def conflicting_values(phrase: str, raw: str, description: str) -> list[tuple[str, str]]:
+    """[(family name, matched text in the phrase)] where the phrase states a value that differs from the value the
+    line states itself (its raw text first, else its description). A family the line does not state never conflicts."""
+    found = []
+    for fam in config.CONTEXT_CONFLICT_FAMILIES:
+        in_phrase = _family_matches(phrase, fam)
+        if not in_phrase:
+            continue
+        own = {v for _, v in _family_matches(raw, fam)} or {v for _, v in _family_matches(description, fam)}
+        if own and not ({v for _, v in in_phrase} & own):
+            found += [(fam["name"], text) for text, v in in_phrase if v not in own]
+    return found
+
+
+def trim_conflicts(phrase: str, conflicts: list[tuple[str, str]]) -> str:
+    """The phrase with the conflicting values cut out (for CONTEXT_CONFLICT_ACTION = "trim")."""
+    for _, text in conflicts:
+        phrase = phrase.replace(text, " ")
+    return re.sub(r"\s{2,}", " ", re.sub(r"\s*[,;]\s*(?=[,;]|$)", "", phrase)).strip(" ,;-")
 
 
 def _norm(text: str) -> str:
@@ -93,6 +127,10 @@ def _norm(text: str) -> str:
 def phrase_in_text(phrase: str, norm_corpus: str) -> bool:
     n = _norm(phrase)
     return n.strip() != "" and n in norm_corpus
+
+
+def phrase_in_text_tokens(phrase: str) -> bool:
+    return bool(re.search(r"[a-z0-9]", phrase or "", re.I))
 
 
 def email_corpus(pkg: EmailPackage) -> str:
@@ -123,8 +161,19 @@ def apply_line_guards(parsed_lines: list[dict], pkg: EmailPackage, notes: list[s
                 notes.append(f"{tag}: dropped context phrase {ph!r} (not found in the email text or attachment text)")
             elif ln.get("source") not in text_sources:
                 notes.append(f"{tag}: context phrase {ph!r} not added (the line comes from a picture, so it cannot be checked)")
-            elif _norm(ph).strip() not in desc_norm:
-                add.append(ph)
+            else:
+                bad = conflicting_values(ph, ln.get("raw", ""), ln["description"])
+                if bad:
+                    what = ", ".join(f"{name} {text!r}" for name, text in bad)
+                    if config.CONTEXT_CONFLICT_ACTION == "trim":
+                        kept = trim_conflicts(ph, bad)
+                        notes.append(f"{tag}: context phrase {ph!r} states a different {what} than the line; trimmed to {kept!r}")
+                        ph = kept
+                    else:
+                        notes.append(f"{tag}: skipped context phrase {ph!r} (it states a different {what} than the line itself)")
+                        continue
+                if ph and phrase_in_text_tokens(ph) and _norm(ph).strip() not in desc_norm:
+                    add.append(ph)
         if add:
             ln["description"] = ln["description"].rstrip() + ", " + ", ".join(add)
             notes.append(f"{tag}: appended context {add}")

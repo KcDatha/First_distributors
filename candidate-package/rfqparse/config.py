@@ -52,5 +52,18 @@ MODEL_SETTINGS = {
 }
 
 # Extraction (rfqparse/llm/prompts.py, schema.py, pipeline.py)
-PROMPT_VERSION = "v2"             # bump when the prompt text changes: it is part of every cache key
+PROMPT_VERSION = "v3"             # bump when the prompt text changes: it is part of every cache key
 SCHEMA_VERSION = "v2"             # bump when the extraction schema changes
+
+# Attributes whose value, when stated on a line itself, overrides a blanket phrase. A blanket phrase that states a
+# DIFFERENT value for one of these is not added to that line. One entry per attribute; every pattern has exactly one
+# capture group holding the value. Add a family here and the check picks it up.
+CONTEXT_CONFLICT_FAMILIES = [
+    {"name": "schedule",
+     "patterns": [r"\b(?:sch|schedule)\.?\s*(\d+s?|std|xs|xxs|xh|xxh)\b"]},
+    {"name": "pressure rating",
+     "patterns": [r"\b(\d{3,4})\s*(?:#|lbs?\b|psi\b)", r"\bclass\s*(\d{3,4})\b"]},
+]
+# "skip": leave the whole conflicting phrase off the line.  "trim": remove only the conflicting value from the
+# phrase and add what is left (so the other specs in a blanket note still reach the line).
+CONTEXT_CONFLICT_ACTION = "skip"

@@ -1,0 +1,34 @@
+{
+  "created_at": "2026-11-15T03:17:30+00:00",
+  "email_id": "E022",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "149e770394015ee65913a82a99f4234c409b5e50eb97308af250a1e2007ea51f",
+  "latency_s": 1.045,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v3",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [
+        {
+          "detail": "PDF attachment is password protected and unreadable",
+          "reason": "attachment_missing_or_unreadable"
+        }
+      ],
+      "lines": [],
+      "note": "RFQ attachment is password protected; items cannot be extracted.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[],\"doubts\":[{\"reason\":\"attachment_missing_or_unreadable\",\"detail\":\"PDF attachment is password protected and unreadable\"}],\"note\":\"RFQ attachment is password protected; items cannot be extracted.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 57,
+    "prompt_tokens": 2573
+  }
+}

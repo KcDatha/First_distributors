@@ -1,0 +1,41 @@
+{
+  "created_at": "2026-11-15T03:17:31+00:00",
+  "email_id": "E023",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "3a34b60d547b63a2d99fd62d4cd26db4d5128236abff547fd72d2f615bc1c484",
+  "latency_s": 1.476,
+  "model": "gpt-4.1",
+  "prompt_version": "v3",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "same as the one in the pic",
+            "need the same trim"
+          ],
+          "description": "Halvorsen Valve Co. forged steel gate valve, model HV-800-FGS, size 2 IN, class 800 LB, NPT ends, body A105, trim 13CR",
+          "qty": 3,
+          "raw": "3 of these, same as the one in the pic. It's the one that failed on the dryer line, need the same trim.",
+          "source": "body",
+          "uom": null
+        }
+      ],
+      "note": "All required specs were visible in the attached image.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"3 of these, same as the one in the pic. It's the one that failed on the dryer line, need the same trim.\",\"description\":\"Halvorsen Valve Co. forged steel gate valve, model HV-800-FGS, size 2 IN, class 800 LB, NPT ends, body A105, trim 13CR\",\"qty\":3,\"uom\":null,\"source\":\"body\",\"applies_context\":[\"same as the one in the pic\",\"need the same trim\"]}],\"doubts\":[],\"note\":\"All required specs were visible in the attached image.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 138,
+    "prompt_tokens": 3328
+  }
+}

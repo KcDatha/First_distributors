@@ -1,0 +1,34 @@
+{
+  "created_at": "2026-11-15T03:16:32+00:00",
+  "email_id": "E017",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "df1dd25e9114f7c4aebc8ee075cf76b653b58fb1d8197b4bc799bb21d3c93450",
+  "latency_s": 1.318,
+  "model": "gpt-4.1",
+  "prompt_version": "v3",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [
+        {
+          "detail": "The BOM referenced in the email is not attached or present in the provided content.",
+          "reason": "attachment_missing_or_unreadable"
+        }
+      ],
+      "lines": [],
+      "note": "No BOM attachment was included; nothing to quote.",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[],\"doubts\":[{\"reason\":\"attachment_missing_or_unreadable\",\"detail\":\"The BOM referenced in the email is not attached or present in the provided content.\"}],\"note\":\"No BOM attachment was included; nothing to quote.\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 63,
+    "prompt_tokens": 2818
+  }
+}
