@@ -19,6 +19,7 @@ from .llm.ledger import Ledger
 from .llm.prompts import build_user_parts, system_prompt
 from .llm.routing import call_routed
 from .llm.schema import EXTRACTION_SCHEMA, REQUEST_CLASSES, SCHEMA_NAME, UOMS
+from .postprocess import completeness as CP
 from .postprocess.dupes import find_duplicates
 from .render.registry import EmailPackage, render_email
 
@@ -204,7 +205,7 @@ def _num(q):
 
 
 def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, str],
-               notes: list[str] | None = None) -> dict:
+               notes: list[str] | None = None, extra_reasons: list[str] | None = None) -> dict:
     """The model's answer plus the code guards, in the parsed.json shape."""
     cls = parsed["classification"]
     entry = {"classification": cls, "revises": None, "duplicate_of": None, "needs_review": False,
@@ -217,6 +218,7 @@ def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, st
     if cls == "rfq_revision":
         entry["revises"] = resolve_revises(mail, index)
     reasons = [f"{d['reason']}: {d['detail'].strip()}" if d["detail"].strip() else d["reason"] for d in parsed["doubts"]]
+    reasons += list(extra_reasons or [])
     for a in pkg.attachments:                 # guard 1: an attachment we could not read, on a request
         if a.status == "unreadable":
             reasons.append(f"attachment '{a.source}' could not be read: {a.reason}")
@@ -226,6 +228,45 @@ def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, st
         entry["needs_review"] = True
         entry["review_reason"] = "; ".join(dict.fromkeys(reasons))   # de-duplicated, order kept
     return entry
+
+
+def second_pass(parsed: dict, pkg: EmailPackage, user: list[dict], sources: set[str], *, client, mail: Email,
+                cache, ledger, stats, notes: list[str]) -> tuple[dict, list[str]]:
+    """Completeness check on a first-pass answer. If table rows have no returned line, ask once more for just those rows,
+    keep only lines that account for them, and merge. Returns (parsed with any new lines, extra review reasons)."""
+    rows = CP.candidate_rows(pkg)
+    missing = CP.unaccounted(rows, [ln["raw"] for ln in parsed["lines"]])
+    if not missing:
+        return parsed, []
+    asked = missing[:config.COMPLETENESS_MAX_ROWS_ASKED]
+    notes.append(f"completeness: {len(missing)} of {len(rows)} table rows had no returned line; second pass asked about {len(asked)}")
+    extra: list[str] = []
+    merged = dict(parsed)
+    try:
+        res = call_routed(system=CP_system(), user=list(user) + [{"type": "text", "text": CP.second_pass_text(asked, parsed["classification"])}],
+                          schema=EXTRACTION_SCHEMA, schema_name=SCHEMA_NAME + "_second_pass", client=client, email_id=mail.id,
+                          prompt_version=config.COMPLETENESS_PROMPT_VERSION, schema_version=config.SCHEMA_VERSION,
+                          validate=make_validator(sources), cache=cache, ledger=ledger, stats=stats)
+        kept, dropped = CP.accept_second_pass(asked, res.parsed["lines"])
+        merged["lines"] = list(parsed["lines"]) + kept
+        merged["doubts"] = list(parsed["doubts"]) + list(res.parsed["doubts"])
+        for ln, why in dropped:
+            notes.append(f"completeness: dropped second-pass line {ln.get('raw', '')[:50]!r}: {why}")
+        notes.append(f"completeness: second pass ({res.model}) added {len(kept)} line(s)")
+    except (llm_cache.CacheMiss, LLMCallError) as exc:
+        extra.append(f"{len(missing)} table row(s) have no line and the second pass could not run: {type(exc).__name__}")
+        notes.append(f"completeness: second pass failed: {type(exc).__name__}: {exc}")
+        return merged, extra
+    still = CP.unaccounted(rows, [ln["raw"] for ln in merged["lines"]])
+    if still:                                  # includes any rows beyond the ask limit, which were never re-asked
+        eg = "; ".join(r.text[:60] for r in still[:3])
+        extra.append(f"{len(still)} of {len(rows)} table rows could not be accounted for after a second pass (e.g. {eg})")
+        notes.append(f"completeness: still unaccounted: {[r.label for r in still]}")
+    return merged, extra
+
+
+def CP_system() -> str:
+    return system_prompt() + CP.SECOND_PASS_ADDENDUM
 
 
 def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallStats | None = None,
@@ -243,7 +284,12 @@ def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallSta
                              client=client, email_id=mail.id, prompt_version=config.PROMPT_VERSION,
                              schema_version=config.SCHEMA_VERSION, validate=make_validator(sources),
                              cache=cache, ledger=ledger, stats=stats)
-        return map_answer(result.parsed, pkg, mail, index or {}, notes)
+        parsed, extra = result.parsed, []
+        notes = notes if notes is not None else []
+        if parsed["classification"] in REQUEST_CLASSES:
+            parsed, extra = second_pass(parsed, pkg, user, sources, client=client, mail=mail, cache=cache, ledger=ledger,
+                                        stats=stats, notes=notes)
+        return map_answer(parsed, pkg, mail, index or {}, notes, extra)
     except BudgetExceeded as exc:
         return safe_entry(f"spend limit reached, email not processed: {exc}")
     except llm_cache.CacheMiss:

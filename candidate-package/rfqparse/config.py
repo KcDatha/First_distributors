@@ -71,3 +71,11 @@ CONTEXT_CONFLICT_ACTION = "skip"
 # Duplicate detection (rfqparse/postprocess/dupes.py)
 DUP_SUBJECT_PREFIXES = ["re", "fw", "fwd", "resend", "re-send", "resent"]   # leading "X:" tags ignored when comparing subjects
 DUP_MIN_BODY_CHARS = 40       # a body shorter than this (after normalizing) is too thin to call two emails the same
+
+# Completeness check and second pass (rfqparse/postprocess/completeness.py, pipeline.py)
+COMPLETENESS_PROMPT_VERSION = "completeness-v1"   # its own version: changing it never touches the first-pass cache keys
+COMPLETENESS_MATCH_THRESHOLD = 0.5      # token overlap (Jaccard) for a returned line to account for a table row
+COMPLETENESS_MIN_CELLS = 2              # a table row needs at least this many non-empty cells to be a candidate item row
+COMPLETENESS_MAX_ROWS_ASKED = 150       # rows listed in the second-pass request (more are flagged for review instead)
+# A row containing any of these whole words is a total / footer row, not an item.
+COMPLETENESS_TOTAL_WORDS = ["total", "subtotal", "sub-total", "grand total", "sum", "tax", "freight", "shipping", "balance"]
