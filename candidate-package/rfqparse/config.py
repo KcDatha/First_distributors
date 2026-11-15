@@ -14,3 +14,14 @@ IMAGE_MAX_EDGE = 2000     # longest side after downscaling, in pixels
 IMAGE_MIN_EDGE = 16       # an image with a side shorter than this is skipped (tracking pixel, spacer)
 IMAGE_JPEG_QUALITY = 90
 IMAGE_MAX_PIXELS = 100_000_000  # refuse to decode anything with more pixels than this
+
+# LLM cache and cost (rfqparse/llm/)
+CACHE_DIR = None                  # None = cache/ at the repo root (found relative to the package, never the cwd)
+LEDGER_PATH = None                # None = cost_ledger.jsonl at the repo root
+
+# USD per 1,000,000 tokens, keyed by model name. PLACEHOLDER NUMBERS, NOT REAL PRICES: fill this in
+# when the model is chosen. A model that is missing here gets usd = null and the cost report says so.
+PRICES_ARE_PLACEHOLDER = True
+MODEL_PRICES = {
+    "placeholder-model": {"input_per_1m": 1.00, "output_per_1m": 2.00},
+}
