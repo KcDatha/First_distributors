@@ -89,3 +89,7 @@ UNIT_WORDS = {
     "DZ": ["dz", "doz", "dozen"], "RL": ["rl", "roll", "rolls"], "LB": ["lb", "lbs", "pound", "pounds"],
     "SET": ["set", "sets"], "GAL": ["gal", "gallon", "gallons"], "BAG": ["bag", "bags"], "CS": ["cs", "case", "cases"],
 }
+
+# Matching a context phrase (applies_context) back to the email's own text (rfqparse/pipeline.py).
+CONTEXT_FUZZY_THRESHOLD = 0.75   # share of the phrase's words that must be found together in the source to accept it
+CONTEXT_FUZZY_EXTRA_WORDS = 2    # how many stray words a copied phrase may have gained or lost versus the source span

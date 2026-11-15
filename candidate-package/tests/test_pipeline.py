@@ -455,6 +455,146 @@ class RestatedQuantityTests(GuardBase):
         self.assertEqual(sorted(config.UNIT_WORDS), sorted(SC.UOMS))
 
 
+class FuzzyContextTests(GuardBase):
+    HEADING = "Carbon Steel Pipe \u2013 SCH 80 SMLS A106B"            # with a real en dash, as in a document heading
+    GARBLED = "Carbon Steel Pipe \t6 SCH 80 SMLS A106B"               # a tab and a stray 6 where the dash was
+
+    def pkg(self):
+        from openpyxl import Workbook
+        wb = Workbook(); ws = wb.active
+        ws.append([self.HEADING]); ws.append(["Qty", "Size", "Ends"]); ws.append([10, '2"', "PE"]); ws.append(["Socket Weld Fittings \u2013 3000# A105"])
+        b = io.BytesIO(); wb.save(b)
+        return self.pkg_for(make_mail([(b.getvalue(), "application", "octet-stream", "list.xlsx", {})], body="please quote the list"))
+
+    def guard(self, ctx, desc="Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 2 inch", raw='10 | 2" | PE', source="list.xlsx", **kw):
+        notes = []
+        out = PL.apply_line_guards([line(raw, desc, 10, ctx=ctx, source=source)], kw.get("pkg") or self.pkg(), notes)
+        return out[0]["description"], notes
+
+    def test_a_copy_with_a_stray_token_and_a_swapped_dash_is_mapped_to_the_real_span(self):
+        desc, notes = self.guard([self.GARBLED])
+        self.assertTrue(desc.endswith(", " + self.HEADING), desc)                  # the source's own text, en dash and all
+        self.assertIn("SMLS A106B", desc)
+        self.assertNotIn("\t", desc)
+        self.assertNotIn(" 6 ", desc)                                                # the stray token never gets in
+        self.assertTrue(any("not in the email word for word" in n and "matched the email's own text" in n for n in notes))
+
+    def test_a_phrase_with_no_real_counterpart_is_dropped_and_noted(self):
+        desc, notes = self.guard(["ASTM A312 TP316L stainless pipe"])
+        self.assertEqual(desc, "Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 2 inch")
+        self.assertTrue(any("dropped context phrase" in n for n in notes))
+
+    def test_the_threshold_decides_three_of_four_words_in_two_of_four_out(self):
+        desc, _ = self.guard(["Carbon Steel Pipe nonsense"], desc="item")             # 3 of 4 words = 0.75: accepted
+        self.assertEqual(desc, "item, Carbon Steel Pipe")
+        self.assertNotIn("nonsense", desc)
+        desc, notes = self.guard(["Carbon nonsense words here"], desc="item")        # 1 of 4: dropped
+        self.assertEqual(desc, "item")
+        self.assertTrue(any("dropped" in n for n in notes))
+        desc, notes = self.guard(["Carbon Steel nonsense words"], desc="item")       # 2 of 4 = 0.5: dropped
+        self.assertEqual(desc, "item")
+        self.assertTrue(any("dropped" in n for n in notes))
+
+    def test_the_threshold_is_in_config(self):
+        with mock.patch.object(config, "CONTEXT_FUZZY_THRESHOLD", 1.0):
+            desc, notes = self.guard([self.GARBLED])
+        self.assertTrue(any("dropped" in n for n in notes))                            # a stray token now fails the match
+        with mock.patch.object(config, "CONTEXT_FUZZY_THRESHOLD", 0.5):
+            desc, _ = self.guard(["Carbon Steel nonsense words"], desc="item")
+        self.assertEqual(desc, "item, Carbon Steel")
+        self.assertEqual(config.CONTEXT_FUZZY_THRESHOLD, 0.75)
+
+    def test_a_verbatim_phrase_works_as_before_and_is_not_called_fuzzy(self):
+        desc, notes = self.guard([self.HEADING])
+        self.assertTrue(desc.endswith(", " + self.HEADING))
+        self.assertFalse(any("word for word" in n for n in notes))
+        desc, notes = self.guard(["SMLS A106B"])                                        # a short exact fragment
+        self.assertTrue(desc.endswith(", SMLS A106B"))
+
+    def test_control_characters_are_stripped_and_dashes_normalised(self):
+        for phrase in ("Carbon\nSteel\tPipe \u2013 SCH 80 SMLS A106B", "Carbon Steel Pipe \u2014 SCH\x00 80\u200b SMLS A106B",
+                       "Carbon Steel Pipe - SCH 80 SMLS A106B", "  Carbon   Steel Pipe \u2212 SCH 80 SMLS A106B  "):
+            with self.subTest(repr(phrase)):
+                desc, notes = self.guard([phrase])
+                self.assertTrue(desc.endswith(", " + self.HEADING), desc)
+                self.assertFalse(any("word for word" in n for n in notes))                 # clean-up alone made it verbatim
+        self.assertEqual(PL.clean_phrase("a\x00b\tc\u200bd \u2013 e"), "a b c d - e")
+
+    def test_the_appended_text_always_comes_from_the_source(self):
+        source_words = set(re.findall(r"[a-z0-9]+", (self.HEADING + " Qty Size Ends 10 2 PE Socket Weld Fittings 3000# A105 please quote the list").lower()))
+        for phrase in (self.GARBLED, "Carbon Steel Pipe zzz SCH 80 SMLS A106B", "Carbon Steel Pipe SCH 80 SMLS A106B extra",
+                       "Steel Pipe \u2013 SCH 80 SMLS A106B qqq", "Socket Weld Fittings 6 3000# A105"):
+            with self.subTest(phrase):
+                desc, _ = self.guard([phrase], desc="item")
+                appended = desc[len("item, "):] if desc.startswith("item, ") else ""
+                for w in re.findall(r"[a-z0-9]+", appended.lower()):
+                    self.assertIn(w, source_words, f"{w!r} came from the model, not the email")
+                self.assertNotIn("zzz", appended)
+                self.assertNotIn("qqq", appended)
+
+    def test_marks_stuck_to_the_last_word_are_kept(self):
+        pkg = self.pkg_for(make_mail(body='fittings are 3000# A105, sizes 6" x 4" and 150# RF only'))
+        idx = PL.SourceIndex(pkg)
+        for phrase, want in (("3000#", "3000#"), ("A105", "A105"), ('6" x 4"', '6" x 4"'), ("150#", "150#"), ("150# RF", "150# RF"),
+                             ("fittings are 3000#", "fittings are 3000#")):
+            with self.subTest(phrase):
+                self.assertEqual(idx.find(phrase).text, want)
+        self.assertEqual(idx.find("A105,").text, "A105")                            # a comma after a word is not part of it
+
+    def test_among_equally_good_spans_the_one_that_reads_like_the_copy_wins(self):
+        msg = "Add one more under the valves:\n\nOn Mon, Nov 2, 2026 at 9:00 AM Sam <s@x.test> wrote:\n> VALVES\n> 4 ea gate"
+        idx = PL.SourceIndex(self.pkg_for(make_mail(body=msg)))
+        self.assertEqual(idx.find("VALVES").text, "VALVES")                         # not the lower-case word in the sentence
+        self.assertEqual(idx.find("valves").text, "valves")
+        self.assertEqual(idx.find("Valves").text, "valves")                         # no exact reading: the earliest in the email
+
+    def test_the_other_sections_phrase_maps_to_its_own_span(self):
+        desc, _ = self.guard(["Socket Weld Fittings \t6 3000# A105"], desc="1 inch 90 elbow", raw="24 | 1\" | 90 elbow")
+        self.assertTrue(desc.endswith(", Socket Weld Fittings \u2013 3000# A105"))
+        self.assertNotIn("Carbon", desc)
+
+    def test_a_window_never_runs_across_lines(self):
+        desc, _ = self.guard(["A106B Qty Size Ends"], desc="item")                      # words from the end of one line and the next
+        self.assertNotIn("\n", desc)
+
+    def test_the_conflict_check_still_applies_to_the_text_that_would_be_appended(self):
+        desc, notes = self.guard([self.GARBLED], desc="Reducer, schedule 160", raw="2 | EA | 6x4 | Reducer, SCH 160")
+        self.assertEqual(desc, "Reducer, schedule 160")
+        self.assertTrue(any("skipped context phrase" in n and "schedule" in n for n in notes))
+
+    def test_a_picture_sourced_line_still_gets_nothing_added(self):
+        pkg = self.pkg_for(make_mail([(png(300, 120, "blue"), "image", "png", "pic.png", {})], body="Carbon Steel Pipe SCH 80 SMLS A106B please"))
+        desc, notes = self.guard([self.GARBLED], desc="item", source="pic.png", pkg=pkg)
+        self.assertEqual(desc, "item")
+        self.assertTrue(any("comes from a picture" in n for n in notes))
+
+    def test_source_index_unit(self):
+        idx = PL.SourceIndex(self.pkg())
+        m = idx.find(self.GARBLED)
+        self.assertEqual((m.text, m.exact, round(m.score, 2)), (self.HEADING, False, 0.88))
+        self.assertTrue(idx.find(self.HEADING).exact)
+        self.assertIsNone(idx.find("completely invented words only"))
+        self.assertIsNone(idx.find(""))
+        self.assertIsNone(idx.find("\x00\t"))
+
+    def test_end_to_end_a_garbled_copy_still_gets_a106b_into_the_description_and_replays_with_no_key(self):
+        from openpyxl import Workbook
+        wb = Workbook(); ws = wb.active
+        ws.append([self.HEADING]); ws.append(["Qty", "Size", "Ends"]); ws.append([10, '2"', "PE"])
+        b = io.BytesIO(); wb.save(b)
+        self.cache = C.Cache(self.root / "cache-e2e")
+        self.write("F1", make_mail([(b.getvalue(), "application", "octet-stream", "list.xlsx", {})], body="please quote the list"))
+        row = line('10 | 2" | PE', "Carbon Steel Pipe, Schedule 80, Seamless, ASTM A106 Grade B, 2 inch", 10, "EA", "list.xlsx",
+                   ctx=[self.GARBLED])
+        client = FakeClient(lambda p: answer(lines=[row]))
+        first = PL.process_email(self.emails / "F1.eml", client=client, cache=self.cache, ledger=self.ledger, stats=self.stats)
+        self.assertIn("SMLS A106B", first["line_items"][0]["description"])
+        calls = len(client.models)
+        replay = PL.process_email(self.emails / "F1.eml", client=None, cache=self.cache, ledger=self.ledger, stats=self.stats)
+        self.assertEqual(replay, first)
+        self.assertEqual(len(client.models), calls)                                         # zero new calls
+
+
 class SourceRepairTests(GuardBase):
     QUOTED = 'Go ahead with item 1.\n\nOn Mon, Nov 2, 2026 at 9:00 AM Sam <s@x.test> wrote:\n> 1. 8 EA - 3" 150# RF flange, A105 - $38.60 ea\n> 2. 4 EA - 3" butterfly valve, CF8M'
     ROW = '1. 8 EA - 3" 150# RF flange, A105'

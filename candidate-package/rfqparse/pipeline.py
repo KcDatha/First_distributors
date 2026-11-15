@@ -8,6 +8,9 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
+from collections import Counter
+from dataclasses import dataclass
 from pathlib import Path
 
 from . import config
@@ -181,12 +184,86 @@ def email_corpus(pkg: EmailPackage) -> str:
     return _norm("\n".join(parts))
 
 
+_DASHES = {ord(c): "-" for c in "\u2010\u2011\u2012\u2013\u2014\u2015\u2212"}
+_WORD = re.compile(r"[A-Za-z0-9]+")
+
+
+def clean_phrase(text: str) -> str:
+    """A copied phrase with control and invisible characters replaced by spaces, and unicode dashes made plain."""
+    text = (text or "").translate(_DASHES)
+    text = "".join(" " if unicodedata.category(ch) in ("Cc", "Cf") else ch for ch in text)
+    return " ".join(text.split())
+
+
+@dataclass
+class SpanMatch:
+    text: str          # the SOURCE's own text for the matched span, never the model's wording
+    score: float       # share of the phrase's words found in the span (1.0 = every word)
+    where: str         # which part of the email it came from
+    exact: bool        # the span is the phrase word for word
+
+
+class SourceIndex:
+    """The email's own texts (subject, message, quoted text, text attachments), tokenised with character spans so a
+    matched window can be returned as the source's original text."""
+
+    def __init__(self, pkg: EmailPackage):
+        parts = [("the subject", pkg.subject or ""), ("the message text", pkg.current_text),
+                 ("the quoted text", pkg.quoted_text)]
+        parts += [(f"attachment '{a.source}'", a.text) for a in pkg.attachments if a.text and a.detected != "image"]
+        self.parts = []
+        for where, text in parts:
+            spans = [(m.group(0).lower(), m.start(), m.end()) for m in _WORD.finditer(text)]
+            self.parts.append((where, text, spans))
+        self._cache: dict[str, SpanMatch | None] = {}
+
+    def find(self, phrase: str) -> SpanMatch | None:
+        """The best window of the email's text for this phrase, if enough of its words are there together. A stray extra
+        word, a swapped dash or different punctuation in the copy do not stop it; a phrase with no real counterpart does."""
+        phrase = clean_phrase(phrase)
+        if phrase in self._cache:
+            return self._cache[phrase]
+        want = [m.group(0).lower() for m in _WORD.finditer(phrase)]
+        best, best_key = None, None
+        if want:
+            need, wset = Counter(want), set(want)
+            lo, hi = max(1, len(want) - config.CONTEXT_FUZZY_EXTRA_WORDS), len(want) + config.CONTEXT_FUZZY_EXTRA_WORDS
+            for order, (where, text, spans) in enumerate(self.parts):
+                toks = [t for t, _, _ in spans]
+                for i, tok in enumerate(toks):
+                    if tok not in wset:
+                        continue
+                    for length in range(lo, hi + 1):
+                        j = i + length
+                        if j > len(toks):
+                            break
+                        if toks[j - 1] not in wset:
+                            continue
+                        end = spans[j - 1][2]
+                        while end < len(text) and not text[end].isalnum() and not text[end].isspace() and text[end] not in ",;:.!?":
+                            end += 1                      # keep marks stuck to the last word: 3000#, 4", 150#
+                        raw_text = text[spans[i][1]:end]
+                        if "\n" in raw_text:
+                            continue                      # a window never runs across lines
+                        score = sum((need & Counter(toks[i:j])).values()) / len(want)
+                        shown = " ".join(raw_text.split())
+                        # best score first; then a window that reads exactly like the copy (same case and marks); then the
+                        # tightest; then the earliest in the email
+                        key = (-score, shown != phrase, length, order, i)
+                        if best_key is None or key < best_key:
+                            best_key = key
+                            best = SpanMatch(shown, score, where, toks[i:j] == want)
+        result = best if best is not None and best.score >= config.CONTEXT_FUZZY_THRESHOLD else None
+        self._cache[phrase] = result
+        return result
+
+
 def apply_line_guards(parsed_lines: list[dict], pkg: EmailPackage, notes: list[str] | None = None) -> list[dict]:
     """Per line: force an unevidenced qty to null; append applies_context phrases missing from the description;
     drop (and note) phrases that are not in the email, so an invented spec cannot get in. Phrases for a line that
     comes from a picture cannot be checked against any text, so they are not added (and that is noted)."""
     notes = notes if notes is not None else []
-    corpus = email_corpus(pkg)
+    index = SourceIndex(pkg)
     # an image attachment's "text" is only a size note, so a line read from a picture is not a text source
     text_sources = {"body"} | {a.source for a in pkg.attachments if a.text and a.detected != "image"}
     out = []
@@ -202,24 +279,30 @@ def apply_line_guards(parsed_lines: list[dict], pkg: EmailPackage, notes: list[s
             ln["description"] = stripped
         desc_norm = _norm(ln["description"])
         add = []
-        for ph in dict.fromkeys(p.strip() for p in ln.get("applies_context", []) if p.strip()):
-            if not phrase_in_text(ph, corpus):
-                notes.append(f"{tag}: dropped context phrase {ph!r} (not found in the email text or attachment text)")
-            elif ln.get("source") not in text_sources:
-                notes.append(f"{tag}: context phrase {ph!r} not added (the line comes from a picture, so it cannot be checked)")
-            else:
-                bad = conflicting_values(ph, ln.get("raw", ""), ln["description"])
-                if bad:
-                    what = ", ".join(f"{name} {text!r}" for name, text in bad)
-                    if config.CONTEXT_CONFLICT_ACTION == "trim":
-                        kept = trim_conflicts(ph, bad)
-                        notes.append(f"{tag}: context phrase {ph!r} states a different {what} than the line; trimmed to {kept!r}")
-                        ph = kept
-                    else:
-                        notes.append(f"{tag}: skipped context phrase {ph!r} (it states a different {what} than the line itself)")
-                        continue
-                if ph and phrase_in_text_tokens(ph) and _norm(ph).strip() not in desc_norm:
-                    add.append(ph)
+        for given in dict.fromkeys(p.strip() for p in ln.get("applies_context", []) if p.strip()):
+            m = index.find(given)
+            if m is None:
+                notes.append(f"{tag}: dropped context phrase {given!r} (not found in the email text or attachment text)")
+                continue
+            if ln.get("source") not in text_sources:
+                notes.append(f"{tag}: context phrase {given!r} not added (the line comes from a picture, so it cannot be checked)")
+                continue
+            ph = m.text                                   # always the source's own words, never the model's
+            if not m.exact:
+                notes.append(f"{tag}: context phrase {given!r} was not in the email word for word; matched the email's own text "
+                             f"{ph!r} in {m.where} (word match {m.score:.2f}) and used that")
+            bad = conflicting_values(ph, ln.get("raw", ""), ln["description"])
+            if bad:
+                what = ", ".join(f"{name} {text!r}" for name, text in bad)
+                if config.CONTEXT_CONFLICT_ACTION == "trim":
+                    kept = trim_conflicts(ph, bad)
+                    notes.append(f"{tag}: context phrase {ph!r} states a different {what} than the line; trimmed to {kept!r}")
+                    ph = kept
+                else:
+                    notes.append(f"{tag}: skipped context phrase {ph!r} (it states a different {what} than the line itself)")
+                    continue
+            if ph and phrase_in_text_tokens(ph) and _norm(ph).strip() not in desc_norm and ph not in add:
+                add.append(ph)
         if add:
             ln["description"] = ln["description"].rstrip() + ", " + ", ".join(add)
             notes.append(f"{tag}: appended context {add}")
