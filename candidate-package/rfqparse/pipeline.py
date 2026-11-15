@@ -7,6 +7,7 @@ Nothing here raises for a bad email, a missing key or a failing provider: every 
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from . import config
@@ -71,19 +72,81 @@ def make_validator(valid_sources: set[str]):
     return validate
 
 
+# ---- code guards that run after the call
+
+_NUMBER_WORDS = ("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen "
+                 "seventeen eighteen nineteen twenty thirty forty fifty sixty seventy eighty ninety hundred hundreds "
+                 "thousand dozen dozens gross pair pairs single half").split()
+_NUMBER_WORD_RE = re.compile(r"\b(" + "|".join(_NUMBER_WORDS) + r")\b", re.I)
+
+
+def has_quantity_evidence(raw: str) -> bool:
+    """True when the line's text has a digit or a number word, i.e. the customer wrote some number."""
+    return bool(re.search(r"\d", raw or "") or _NUMBER_WORD_RE.search(raw or ""))
+
+
+def _norm(text: str) -> str:
+    """Lowercase, punctuation to single spaces, padded so a phrase must match whole words."""
+    return " " + " ".join(re.findall(r"[a-z0-9]+", (text or "").lower())) + " "
+
+
+def phrase_in_text(phrase: str, norm_corpus: str) -> bool:
+    n = _norm(phrase)
+    return n.strip() != "" and n in norm_corpus
+
+
+def email_corpus(pkg: EmailPackage) -> str:
+    """Everything written in the email that a context phrase may legitimately be copied from."""
+    parts = [pkg.subject or "", pkg.current_text, pkg.quoted_text] + [a.text for a in pkg.attachments if a.text and a.detected != "image"]
+    return _norm("\n".join(parts))
+
+
+def apply_line_guards(parsed_lines: list[dict], pkg: EmailPackage, notes: list[str] | None = None) -> list[dict]:
+    """Per line: force an unevidenced qty to null; append applies_context phrases missing from the description;
+    drop (and note) phrases that are not in the email, so an invented spec cannot get in. Phrases for a line that
+    comes from a picture cannot be checked against any text, so they are not added (and that is noted)."""
+    notes = notes if notes is not None else []
+    corpus = email_corpus(pkg)
+    # an image attachment's "text" is only a size note, so a line read from a picture is not a text source
+    text_sources = {"body"} | {a.source for a in pkg.attachments if a.text and a.detected != "image"}
+    out = []
+    for i, ln in enumerate(parsed_lines):
+        ln = dict(ln)
+        tag = f"line {i + 1} ({ln.get('raw', '')[:40]!r})"
+        if ln.get("qty") is not None and not has_quantity_evidence(ln.get("raw", "")):
+            notes.append(f"{tag}: qty {ln['qty']} set to null (the line has no digit or number word)")
+            ln["qty"] = None
+        desc_norm = _norm(ln["description"])
+        add = []
+        for ph in dict.fromkeys(p.strip() for p in ln.get("applies_context", []) if p.strip()):
+            if not phrase_in_text(ph, corpus):
+                notes.append(f"{tag}: dropped context phrase {ph!r} (not found in the email text or attachment text)")
+            elif ln.get("source") not in text_sources:
+                notes.append(f"{tag}: context phrase {ph!r} not added (the line comes from a picture, so it cannot be checked)")
+            elif _norm(ph).strip() not in desc_norm:
+                add.append(ph)
+        if add:
+            ln["description"] = ln["description"].rstrip() + ", " + ", ".join(add)
+            notes.append(f"{tag}: appended context {add}")
+        out.append(ln)
+    return out
+
+
 def _num(q):
     return int(q) if isinstance(q, float) and q.is_integer() else q
 
 
-def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, str]) -> dict:
+def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, str],
+               notes: list[str] | None = None) -> dict:
     """The model's answer plus the code guards, in the parsed.json shape."""
     cls = parsed["classification"]
     entry = {"classification": cls, "revises": None, "duplicate_of": None, "needs_review": False,
              "review_reason": None, "line_items": []}
     if cls not in REQUEST_CLASSES:
         return entry                          # guard: non-request classes carry no lines and no review flag
+    guarded = apply_line_guards(parsed["lines"], pkg, notes)
     entry["line_items"] = [{"raw": ln["raw"].strip(), "description": ln["description"].strip(), "qty": _num(ln["qty"]),
-                            "uom": ln["uom"], "source": ln["source"]} for ln in parsed["lines"]]
+                            "uom": ln["uom"], "source": ln["source"]} for ln in guarded]
     if cls == "rfq_revision":
         entry["revises"] = resolve_revises(mail, index)
     reasons = [f"{d['reason']}: {d['detail'].strip()}" if d["detail"].strip() else d["reason"] for d in parsed["doubts"]]
@@ -99,8 +162,8 @@ def map_answer(parsed: dict, pkg: EmailPackage, mail: Email, index: dict[str, st
 
 
 def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallStats | None = None,
-                  index: dict[str, str] | None = None) -> dict:
-    """One .eml to one entry. Never raises."""
+                  index: dict[str, str] | None = None, notes: list[str] | None = None) -> dict:
+    """One .eml to one entry. Never raises. `notes` (if given) collects what the code guards changed."""
     try:
         mail = ingest_eml(path)
         pkg = render_email(mail)
@@ -113,7 +176,7 @@ def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallSta
                              client=client, email_id=mail.id, prompt_version=config.PROMPT_VERSION,
                              schema_version=config.SCHEMA_VERSION, validate=make_validator(sources),
                              cache=cache, ledger=ledger, stats=stats)
-        return map_answer(result.parsed, pkg, mail, index or {})
+        return map_answer(result.parsed, pkg, mail, index or {}, notes)
     except BudgetExceeded as exc:
         return safe_entry(f"spend limit reached, email not processed: {exc}")
     except llm_cache.CacheMiss:
@@ -125,15 +188,19 @@ def process_email(path: Path, *, client, cache=None, ledger=None, stats: CallSta
 
 
 def run_parse(emails_dir: Path, client, only: list[str] | None = None, cache=None, ledger=None,
-              stats: CallStats | None = None) -> dict:
-    """Every .eml in the folder (or just `only`) to {id: entry}. Never raises for one bad email."""
+              stats: CallStats | None = None, notes: dict[str, list[str]] | None = None) -> dict:
+    """Every .eml in the folder (or just `only`) to {id: entry}. Never raises for one bad email.
+    `notes` (if given) is filled with {id: [what the code guards changed]}."""
     stats = stats if stats is not None else CallStats()
     index = message_id_index(emails_dir)
     out = {}
     for p in sorted(emails_dir.glob("*.eml")):
         if only is not None and p.stem not in only:
             continue
-        out[p.stem] = process_email(p, client=client, cache=cache, ledger=ledger, stats=stats, index=index)
+        n: list[str] = []
+        out[p.stem] = process_email(p, client=client, cache=cache, ledger=ledger, stats=stats, index=index, notes=n)
+        if notes is not None and n:
+            notes[p.stem] = n
     return out
 
 

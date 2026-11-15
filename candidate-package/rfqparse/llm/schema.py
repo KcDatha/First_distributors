@@ -19,13 +19,14 @@ EXTRACTION_SCHEMA = {
             "items": {
                 "type": "object",
                 "additionalProperties": False,
-                "required": ["raw", "description", "qty", "uom", "source"],
+                "required": ["raw", "description", "qty", "uom", "source", "applies_context"],
                 "properties": {
                     "raw": {"type": "string"},
                     "description": {"type": "string"},
                     "qty": {"type": ["number", "null"]},
                     "uom": {"type": ["string", "null"], "enum": UOMS + [None]},
                     "source": {"type": "string"},
+                    "applies_context": {"type": "array", "items": {"type": "string"}},
                 },
             },
         },

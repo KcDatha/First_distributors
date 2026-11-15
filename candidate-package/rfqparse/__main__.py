@@ -23,12 +23,15 @@ def parse_cmd(emails: Path, out: Path, only: list[str] | None) -> int:
         print("OPENAI_API_KEY is not set: answering from the cache only; emails without a cached answer are flagged "
               "needs_review.", file=sys.stderr)
     stats = CallStats()
-    result = pipeline.run_parse(emails, client, only=only, cache=Cache(), ledger=Ledger(), stats=stats)
+    notes: dict = {}
+    result = pipeline.run_parse(emails, client, only=only, cache=Cache(), ledger=Ledger(), stats=stats, notes=notes)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(pipeline.dumps(result), encoding="utf-8")
+    notes_path = out.with_name(out.stem + ".notes.json")   # what the code guards changed, for review (not part of parsed.json)
+    notes_path.write_text(json.dumps(notes, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     spent = f"${client.guard.spent:.4f}" if client is not None else "n/a"
     print(f"{len(result)} emails written to {out}. model calls: {stats.real_calls} real, {stats.cache_hits} from cache, "
-          f"{stats.failed_attempts} failed attempts; spent this run {spent}")
+          f"{stats.failed_attempts} failed attempts; spent this run {spent}. guard notes: {notes_path}")
     return 0
 
 

@@ -39,8 +39,8 @@ from test_registry import make_mail, png, xlsx_bytes  # noqa: E402
 MINI, FULL = "gpt-4.1-mini", "gpt-4.1"
 
 
-def line(raw="2 ea 2in elbow", desc="2in elbow", qty=2, uom="EA", source="body"):
-    return {"raw": raw, "description": desc, "qty": qty, "uom": uom, "source": source}
+def line(raw="2 ea 2in elbow", desc="2in elbow", qty=2, uom="EA", source="body", ctx=None):
+    return {"raw": raw, "description": desc, "qty": qty, "uom": uom, "source": source, "applies_context": ctx or []}
 
 
 def answer(cls="rfq", lines=None, doubts=None, hint=None, note=""):
@@ -134,9 +134,16 @@ class PromptAndSchemaTests(unittest.TestCase):
                        "not converted", "forwarding", "exact source name"):
             self.assertIn(phrase, low, phrase)
 
+    def test_prompt_states_the_context_and_quantity_rules(self):
+        low = PR.system_prompt().lower()
+        for phrase in ("applies_context", "copied word for word", "applies to every line in that list", "same size",
+                       "overrides a blanket spec", "another section", "never paraphrase", "guessed number",
+                       "a few", "enough for the job", "visible only inside a picture"):
+            self.assertIn(phrase, low, phrase)
+
     def test_prompt_is_deterministic_and_versioned(self):
         self.assertEqual(PR.system_prompt(), PR.system_prompt())
-        self.assertEqual(config.PROMPT_VERSION, "v1")
+        self.assertEqual((config.PROMPT_VERSION, config.SCHEMA_VERSION), ("v2", "v2"))
 
     def test_schema_is_strict_and_matches_the_official_lists(self):
         check_strict(SC.EXTRACTION_SCHEMA)
@@ -151,6 +158,10 @@ class PromptAndSchemaTests(unittest.TestCase):
         self.assertEqual(validate(answer(), SC.EXTRACTION_SCHEMA), [])
         self.assertEqual(validate(answer(lines=[line(qty=None, uom=None)]), SC.EXTRACTION_SCHEMA), [])
         self.assertTrue(validate(answer(lines=[line(uom="JOINTS")]), SC.EXTRACTION_SCHEMA))
+        no_ctx = answer(); del no_ctx["lines"][0]["applies_context"]
+        self.assertTrue(validate(no_ctx, SC.EXTRACTION_SCHEMA))                    # applies_context is required
+        self.assertTrue(validate(answer(lines=[line(ctx=[1])]), SC.EXTRACTION_SCHEMA))
+        self.assertEqual(validate(answer(lines=[line(ctx=["a phrase"])]), SC.EXTRACTION_SCHEMA), [])
         self.assertTrue(validate(answer(lines=[line(qty="12")]), SC.EXTRACTION_SCHEMA))
         self.assertTrue(validate(answer(doubts=[{"reason": "made_up", "detail": "x"}]), SC.EXTRACTION_SCHEMA))
         self.assertTrue(validate(answer(cls="invoice"), SC.EXTRACTION_SCHEMA))
@@ -268,6 +279,119 @@ class ReviseTests(Base):
         self.assertEqual(res["A2"]["revises"], "A1")
         self.assertIsNone(res["A3"]["revises"])                                 # parent not in the inbox
         self.assertIsNone(res["A1"]["revises"] if res["A1"]["classification"] == "rfq_revision" and False else None)
+
+
+# ------------------------------------------------------------------ the code guards after the call
+
+
+class GuardBase(Base):
+    def pkg_for(self, msg, eid="G1"):
+        from rfqparse.ingest import ingest_eml
+        from rfqparse.render.registry import render_email
+        self.write(eid, msg)
+        return render_email(ingest_eml(self.emails / f"{eid}.eml"))
+
+
+class ContextGuardTests(GuardBase):
+    SUBJECT = "316 SS threaded fittings"
+
+    def mail(self, attachments=(), body="need 10 of the 1/2 90s and 6 tees same size, SCH 40 pipe"):
+        m = make_mail(list(attachments), body=body)
+        del m["Subject"]
+        m["Subject"] = self.SUBJECT
+        return m
+
+    def test_a_listed_phrase_missing_from_the_description_is_appended(self):
+        pkg = self.pkg_for(self.mail())
+        notes = []
+        out = PL.apply_line_guards([line("10 of the 1/2 90s", "1/2 inch 90 elbow", 10, ctx=[self.SUBJECT])], pkg, notes)
+        self.assertEqual(out[0]["description"], "1/2 inch 90 elbow, 316 SS threaded fittings")
+        self.assertTrue(any("appended context" in n for n in notes))
+
+    def test_a_phrase_already_in_the_description_is_not_added_twice_whatever_the_case_or_punctuation(self):
+        pkg = self.pkg_for(self.mail())
+        for desc in ("316 SS threaded fittings, 1/2 inch elbow", "1/2 inch elbow - 316 ss, THREADED fittings"):
+            out = PL.apply_line_guards([line("x 90s", desc, 10, ctx=[self.SUBJECT])], pkg)
+            self.assertEqual(out[0]["description"], desc)
+
+    def test_an_invented_phrase_is_dropped_and_noted(self):
+        pkg = self.pkg_for(self.mail())
+        notes = []
+        out = PL.apply_line_guards([line("10 of the 1/2 90s", "1/2 inch elbow", 10, ctx=["ASTM A312 TP316L", self.SUBJECT])], pkg, notes)
+        self.assertNotIn("A312", out[0]["description"])
+        self.assertIn("316 SS threaded fittings", out[0]["description"])
+        self.assertTrue(any("dropped context phrase 'ASTM A312 TP316L'" in n for n in notes))
+
+    def test_phrase_matching_is_by_whole_words(self):
+        pkg = self.pkg_for(self.mail())
+        notes = []
+        out = PL.apply_line_guards([line("x", "pipe", 1, ctx=["SCH 4"])], pkg, notes)    # the email says SCH 40
+        self.assertEqual(out[0]["description"], "pipe")
+        self.assertTrue(any("dropped" in n for n in notes))
+
+    def test_phrases_from_attachment_text_and_quoted_text_are_accepted(self):
+        pkg = self.pkg_for(self.mail([(xlsx_bytes("ALL FITTINGS BW UNLESS NOTED"), "application", "octet-stream", "list.xlsx", {})],
+                                     body="Add one.\n\nOn Mon, Nov 2, 2026 at 9:00 AM Sam <s@x.test> wrote:\n> All pipe is A53B ERW"))
+        out = PL.apply_line_guards([line("1 | tee", "tee", 1, source="list.xlsx", ctx=["ALL FITTINGS BW UNLESS NOTED", "All pipe is A53B ERW"])], pkg)
+        self.assertIn("ALL FITTINGS BW UNLESS NOTED", out[0]["description"])
+        self.assertIn("All pipe is A53B ERW", out[0]["description"])
+
+    def test_a_line_read_from_a_picture_cannot_be_checked_so_nothing_is_added(self):
+        pkg = self.pkg_for(self.mail([(png(300, 120, "blue"), "image", "png", "pic.png", {})]))
+        notes = []
+        out = PL.apply_line_guards([line("6 tees", "tee", 6, source="pic.png", ctx=[self.SUBJECT])], pkg, notes)
+        self.assertEqual(out[0]["description"], "tee")
+        self.assertTrue(any("comes from a picture" in n for n in notes))
+
+    def test_repeated_and_blank_phrases_are_ignored(self):
+        pkg = self.pkg_for(self.mail())
+        out = PL.apply_line_guards([line("x", "tee", 1, ctx=[self.SUBJECT, self.SUBJECT, "  ", ""])], pkg)
+        self.assertEqual(out[0]["description"].count("316 SS"), 1)
+
+    def test_end_to_end_the_entry_carries_the_context_and_has_no_applies_context_key(self):
+        self.write("G2", self.mail())
+        client = FakeClient(lambda p: answer(lines=[line("10 of the 1/2 90s", "1/2 inch 90 elbow", 10, ctx=[self.SUBJECT, "made up spec"])]))
+        notes = []
+        e = PL.process_email(self.emails / "G2.eml", client=client, cache=self.cache, ledger=self.ledger, stats=self.stats, notes=notes)
+        self.assertEqual(e["line_items"][0]["description"], "1/2 inch 90 elbow, 316 SS threaded fittings")
+        self.assertEqual(sorted(e["line_items"][0]), ["description", "qty", "raw", "source", "uom"])
+        self.assertTrue(any("made up spec" in n for n in notes))
+
+
+class QuantityGuardTests(GuardBase):
+    def qty_for(self, raw, qty, notes=None):
+        pkg = self.pkg_for(make_mail(body=raw))
+        return PL.apply_line_guards([line(raw, "item", qty)], pkg, notes)[0]["qty"]
+
+    def test_a_vague_amount_becomes_null_and_is_noted(self):
+        notes = []
+        self.assertIsNone(self.qty_for("a couple caps", 2, notes))
+        self.assertTrue(any("set to null" in n for n in notes))
+        for raw in ("a few tees", "several elbows", "enough for the job", "some nipples", "an elbow", "somebody's tees"):
+            with self.subTest(raw):
+                self.assertIsNone(self.qty_for(raw, 3))
+
+    def test_a_spelled_out_number_stays(self):
+        for raw, q in (("ten elbows", 10), ("TEN elbows", 10), ("a dozen elbows", 12), ("twenty-five tees", 25),
+                       ("two hundred couplings", 200), ("one gate valve", 1), ("a pair of unions", 2), ("six caps", 6)):
+            with self.subTest(raw):
+                self.assertEqual(self.qty_for(raw, q), q)
+
+    def test_digits_stay_even_when_embedded_in_a_spec(self):
+        self.assertEqual(self.qty_for("12 ea 2in elbow", 12), 12)
+        self.assertEqual(self.qty_for("elbows x 8", 8), 8)
+
+    def test_null_stays_null_and_the_evidence_function_is_whole_word(self):
+        self.assertIsNone(self.qty_for("a couple caps", None))
+        self.assertFalse(PL.has_quantity_evidence("someone's tonne"))      # 'one' / 'ten' inside other words do not count
+        self.assertTrue(PL.has_quantity_evidence("three of the valves"))
+        self.assertTrue(PL.has_quantity_evidence("qty: 4"))
+
+    def test_the_guard_runs_on_the_final_entry(self):
+        self.write("Q1", make_mail(body="need a couple caps"))
+        client = FakeClient(lambda p: answer(lines=[line("a couple caps", "caps", 2)]))
+        e = PL.process_email(self.emails / "Q1.eml", client=client, cache=self.cache, ledger=self.ledger, stats=self.stats)
+        self.assertIsNone(e["line_items"][0]["qty"])
 
 
 # ------------------------------------------------------------------ validation, routing, safety

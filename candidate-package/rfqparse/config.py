@@ -52,5 +52,5 @@ MODEL_SETTINGS = {
 }
 
 # Extraction (rfqparse/llm/prompts.py, schema.py, pipeline.py)
-PROMPT_VERSION = "v1"             # bump when the prompt text changes: it is part of every cache key
-SCHEMA_VERSION = "v1"             # bump when the extraction schema changes
+PROMPT_VERSION = "v2"             # bump when the prompt text changes: it is part of every cache key
+SCHEMA_VERSION = "v2"             # bump when the extraction schema changes

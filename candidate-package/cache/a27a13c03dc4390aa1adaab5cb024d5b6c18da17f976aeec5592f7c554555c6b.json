@@ -1,0 +1,118 @@
+{
+  "created_at": "2026-11-15T02:31:45+00:00",
+  "email_id": "E005",
+  "generation": {
+    "max_output_tokens": 8192,
+    "temperature": 0
+  },
+  "key": "a27a13c03dc4390aa1adaab5cb024d5b6c18da17f976aeec5592f7c554555c6b",
+  "latency_s": 5.514,
+  "model": "gpt-4.1-mini",
+  "prompt_version": "v2",
+  "response": {
+    "finish_reason": "stop",
+    "parsed": {
+      "classification": "rfq",
+      "doubts": [],
+      "lines": [
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "90 degree long radius elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 12,
+          "raw": "12 | 6\" | 90 LR elbow",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "45 degree elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 6,
+          "raw": "6 | 6\" | 45 elbow",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "90 degree long radius elbow, 8 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 4,
+          "raw": "4 | 8\" | 90 LR elbow",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "Straight tee, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 4,
+          "raw": "4 | 6\" | Tee, straight",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "Concentric reducer, 8 inch by 6 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 3,
+          "raw": "3 | 8\" x 6\" | Reducer, concentric",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "Concentric reducer, 6 inch by 4 inch, butt weld, schedule 80, ASTM A234 WPB",
+          "qty": 2,
+          "raw": "2 | 6\" x 4\" | Reducer, concentric, SCH 80",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "Cap, 8 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 2,
+          "raw": "2 | 8\" | Cap",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        },
+        {
+          "applies_context": [
+            "Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412",
+            "ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED"
+          ],
+          "description": "Cap, 6 inch, butt weld, schedule 40, ASTM A234 WPB",
+          "qty": 2,
+          "raw": "2 | 6\" | Cap",
+          "source": "Tank14_Piping_RevB.xlsx",
+          "uom": "EA"
+        }
+      ],
+      "note": "Items extracted from attached spreadsheet Tank14_Piping_RevB.xlsx",
+      "revises_hint": null
+    },
+    "raw_text": "{\"classification\":\"rfq\",\"revises_hint\":null,\"lines\":[{\"raw\":\"12 | 6\\\" | 90 LR elbow\",\"description\":\"90 degree long radius elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":12,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"6 | 6\\\" | 45 elbow\",\"description\":\"45 degree elbow, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":6,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"4 | 8\\\" | 90 LR elbow\",\"description\":\"90 degree long radius elbow, 8 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"4 | 6\\\" | Tee, straight\",\"description\":\"Straight tee, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":4,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"3 | 8\\\" x 6\\\" | Reducer, concentric\",\"description\":\"Concentric reducer, 8 inch by 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":3,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | 6\\\" x 4\\\" | Reducer, concentric, SCH 80\",\"description\":\"Concentric reducer, 6 inch by 4 inch, butt weld, schedule 80, ASTM A234 WPB\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | 8\\\" | Cap\",\"description\":\"Cap, 8 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]},{\"raw\":\"2 | 6\\\" | Cap\",\"description\":\"Cap, 6 inch, butt weld, schedule 40, ASTM A234 WPB\",\"qty\":2,\"uom\":\"EA\",\"source\":\"Tank14_Piping_RevB.xlsx\",\"applies_context\":[\"Gulf Terminals - Tank 14 Piping Modifications - Bid 26-0412\",\"ALL FITTINGS BW SCH 40 A234 WPB UNLESS NOTED\"]}],\"doubts\":[],\"note\":\"Items extracted from attached spreadsheet Tank14_Piping_RevB.xlsx\"}",
+    "refusal": null
+  },
+  "schema_version": "v2",
+  "usage": {
+    "completion_tokens": 827,
+    "prompt_tokens": 3041
+  }
+}
