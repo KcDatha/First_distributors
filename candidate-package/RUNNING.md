@@ -1,5 +1,3 @@
-cd candidate-package
-
 # Running the RFQ parser
 
 All commands run from `candidate-package/` (the git repo root is one level up).
@@ -112,3 +110,6 @@ come from `python -m rfqparse cost` (read from the committed `cache/`, no key ne
 - `cost --ledger` shows the same $0.1121 as real spend. Each replay appends cache-hit lines ($0) to
   `cost_ledger.jsonl`, so `git status` may show it as modified after a run.
 - A run stops making real calls at $2.00 (`MAX_USD_PER_RUN`). Duplicates cost nothing.
+
+
+Recording (about 5:30): [recording/demo.mp4](recording/demo.mp4)

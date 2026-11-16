@@ -4,7 +4,7 @@ Time spent: about 10 hours. Roughly 7 to get the dev set working, the rest on re
 
 ## 1. Something in the data that surprised me
 
-The model can stop in the middle of a table and say nothing. E006 is a 42-row spreadsheet. The first call came back with 33 rows and `finish_reason=stop`. No error, no truncation flag, no refusal. If I had trusted it, 9 requested items would have vanished and nobody would know, which is the failure that hurts most in grading.
+The model can stop in the middle of a table and say nothing. E006 is a 42-row table inside a PDF. The first call came back with 33 rows and `finish_reason=stop`. No error, no truncation flag, no refusal. If I had trusted it, 9 requested items would have vanished and nobody would know, which is the failure that hurts most in grading.
 
 So now the renderers print table rows as `R12: a | b` and code counts them against the lines the model returned. If some are missing it makes one targeted second pass, and if it is still short the email gets `needs_review`. E006 now returns all 44 lines.
 
